@@ -1,0 +1,105 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'com.github.hierynomus.license' version '0.11.0'
+    id 'java'
+    id 'maven-publish'
+}
+
+defaultTasks 'clean', 'licenseFormat', 'check', 'build'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'sponge-repo'
+        url = 'http://repo.spongepowered.org/maven'
+    }
+}
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:2.1-SNAPSHOT'
+}
+
+sourceSets {
+    templates
+    main {
+        java.srcDir(sourceSets.templates.output.classesDir)
+    }
+}
+
+task sourceSetProperties << {
+    sourceSets {
+        templates {
+            println "output.classesDir = ${output.classesDir}"
+        }
+    }
+}
+
+processResources {
+    filter ReplaceTokens, tokens: [
+            VERSION : version + "-" + (System.getenv("BUILD_NUMBER") ?: "0"),
+            NAME    : System.getenv("JOB_NAME") ?: project.name,
+            ARTIFACT: project.name
+    ]
+}
+
+task processTemplates(type: Copy) {
+    from sourceSets.templates.java
+    into sourceSets.templates.output.classesDir
+    filter ReplaceTokens, tokens: [
+            VERSION : version + "+" + (System.getenv("BUILD_NUMBER") ?: "0"),
+            NAME    : System.getenv("JOB_NAME") ?: project.name,
+            ARTIFACT: project.name
+    ]
+}
+
+compileJava.dependsOn processTemplates
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+license {
+    header file('HEADER.md')
+    ignoreFailures false
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+    ext {
+        project = project.getName()
+    }
+}
+
+publishing {
+    publications {
+        java(MavenPublication) {
+            artifactId project.getName().toLowerCase()
+            from components.java
+
+            artifact sourcesJar {
+                classifier "sources"
+            }
+
+            artifact javadocJar {
+                classifier "javadoc"
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "http://maven.tealcube.com/content/repositories/${project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
+            name "TealCube"
+            credentials {
+                username System.getenv("nexusUsername") ?: nexusUsername
+                password System.getenv("nexusPassword") ?: nexusPassword
+            }
+        }
+    }
+}
