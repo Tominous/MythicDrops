@@ -2,6 +2,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
     id 'com.github.hierynomus.license' version '0.11.0'
+    id 'com.github.johnrengelman.shadow' version '1.2.2'
     id 'java'
     id 'maven-publish'
 }
@@ -18,20 +19,13 @@ repositories {
 
 dependencies {
     compile 'org.spongepowered:spongeapi:2.1-SNAPSHOT'
+    compile 'com.github.jknack:handlebars:2.2.2'
 }
 
 sourceSets {
     templates
     main {
         java.srcDir(sourceSets.templates.output.classesDir)
-    }
-}
-
-task sourceSetProperties << {
-    sourceSets {
-        templates {
-            println "output.classesDir = ${output.classesDir}"
-        }
     }
 }
 
@@ -77,6 +71,13 @@ license {
     }
 }
 
+shadowJar {
+    dependencies {
+        include(dependency('com.github.jknack:handlebars'))
+    }
+}
+build.dependsOn shadowJar
+
 publishing {
     publications {
         java(MavenPublication) {
@@ -90,6 +91,8 @@ publishing {
             artifact javadocJar {
                 classifier "javadoc"
             }
+
+            artifact shadowJar
         }
     }
     repositories {
