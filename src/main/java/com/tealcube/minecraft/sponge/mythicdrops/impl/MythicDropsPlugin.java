@@ -25,20 +25,24 @@ package com.tealcube.minecraft.sponge.mythicdrops.impl;
 
 import com.google.common.io.Files;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
 import com.tealcube.minecraft.sponge.mythicdrops.Version;
 import com.tealcube.minecraft.sponge.mythicdrops.api.MythicDrops;
-import com.tealcube.minecraft.sponge.mythicdrops.api.registries.Registry;
 
 import org.slf4j.Logger;
+import org.spongepowered.api.Game;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameStartedServerEvent;
+import org.spongepowered.api.event.game.state.GameInitializationEvent;
+import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.service.config.DefaultConfig;
+import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.service.config.ConfigDir;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URL;
 
 import javax.annotation.Nonnull;
@@ -50,62 +54,55 @@ import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
 /**
- * Represents the implementation of the Hoard plugin for Sponge.
- *
- * Hoard is the Sponge port of the Bukkit/Spigot plugin MythicDrops.
- *
- * @author Richard Harrah
- * @version 09162015
+ * {@inheritDoc}
  */
 @Plugin(id = Version.ARTIFACT, name = Version.NAME, version = Version.VERSION)
 public final class MythicDropsPlugin implements MythicDrops {
 
-    @Inject
-    private Logger logger;
+    @Inject private Game game;
+    @Inject private PluginContainer pluginContainer;
+    @Inject private Logger logger;
+    @Inject @ConfigDir(sharedRoot = false) private File configurationDirectory;
+    @Inject private Injector pluginInjector;
 
-    @Inject
-    @DefaultConfig(sharedRoot = true)
-    private File defaultConfigFile;
+    private File configConfFile;
+    private File localeConfFile;
+    private File tierConfFile;
 
-    private ConfigurationNode defaultConfigurationNode;
-    private ConfigurationNode tierConfigurationNode;
-    private Registry<Type, Registry<?, ?>> registry;
+    private ConfigurationNode configConfNode;
+    private ConfigurationNode localeConfNode;
+    private ConfigurationNode tierConfNode;
+
+    private Handlebars handlebars;
 
     @Listener
-    public void onServerStart(GameStartedServerEvent event) {
-        File tierConfigFile = new File(defaultConfigFile.getParentFile(), "tier.conf");
-
-        defaultConfigurationNode = getConfigurationNode(defaultConfigFile.getName());
-        tierConfigurationNode = getConfigurationNode(tierConfigFile.getName());
-
-        registry = new MythicDropsRegistry();
+    public void onPreInitialization(GamePreInitializationEvent event) {
+        handlebars = new Handlebars();
+        handlebars.handlebarsJsFile("/handlebars-v2.0.0.js");
+        // This is where I'd put my Guice modules...
+        // IF I HAD ANY
     }
 
-    @Override
-    public Logger getLogger() {
-        return logger;
-    }
+    @Listener
+    public void onInitialization(GameInitializationEvent event) {
+        configConfNode = getConfigurationNode("MythicDrops.conf");
+        localeConfNode = getConfigurationNode("locale.conf");
+        tierConfNode = getConfigurationNode("tier.conf");
 
-    @Override
-    public ConfigurationNode getDefaultConfigurationNode() {
-        return defaultConfigurationNode;
-    }
-
-    @Override
-    public ConfigurationNode getTierConfigurationNode() {
-        return tierConfigurationNode;
-    }
-
-    @Override
-    public Registry<Type, Registry<?, ?>> getRegistry() {
-        return registry;
+        try {
+            Template template = handlebars.compileInline(localeConfNode.getNode(configConfNode.getNode("locale")
+                    .getString(), "debug").getString());
+            logger.info(template.apply(new Version()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private ConfigurationNode getConfigurationNode(@Nonnull String fileName) {
-        File file = new File(defaultConfigFile.getParentFile(), fileName);
+        File file = new File(configurationDirectory, fileName);
 
         ConfigurationLoader<CommentedConfigurationNode> loader =
-                HoconConfigurationLoader.builder().setFile(defaultConfigFile).build();
+                HoconConfigurationLoader.builder().setFile(file).build();
         ConfigurationNode node = loader.createEmptyNode(ConfigurationOptions.defaults());
 
         try {
@@ -119,7 +116,7 @@ public final class MythicDropsPlugin implements MythicDrops {
                 node = loader.load();
             }
         } catch (IOException e) {
-            getLogger().error(String.format("Unable to load %s", fileName), e);
+            logger.error(String.format("Unable to load %s", fileName), e);
         }
 
         return node;
