@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':notifier-api')
+}
+
+shadowJar {
+    dependencies {
+        include(project(':notifier-api'))
+    }
+}
