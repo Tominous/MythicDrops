@@ -1,9 +1,9 @@
 dependencies {
-    compile project(':notifier-api')
+    compile project(':mythicdrops-api')
 }
 
 shadowJar {
     dependencies {
-        include(project(':notifier-api'))
+        include(project(':mythicdrops-api'))
     }
 }
