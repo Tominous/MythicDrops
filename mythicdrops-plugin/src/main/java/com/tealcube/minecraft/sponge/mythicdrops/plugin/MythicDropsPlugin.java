@@ -79,7 +79,8 @@ public final class MythicDropsPlugin implements MythicDrops {
                 locale + ".debug.plugin");
 
         logger.info(String.format(apiString, ApiVersion.ARTIFACT, ApiVersion.VERSION));
-        logger.info(String.format(pluginString, PluginVersion.ARTIFACT, PluginVersion.NAME, PluginVersion.VERSION));
+        logger.info(String.format(
+                pluginString, pluginContainer.getId(), pluginContainer.getName(), pluginContainer.getVersion()));
     }
 
     /**
