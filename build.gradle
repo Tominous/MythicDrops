@@ -89,7 +89,7 @@ subprojects {
         ext.url = rootProject.authorUrl
         ext.year = rootProject.inceptionYear
 
-        header new File(rootProject.projectDir, 'HEADER')
+        header new File(rootProject.projectDir, 'HEADER.md')
 
         sourceSets = project.sourceSets
 
