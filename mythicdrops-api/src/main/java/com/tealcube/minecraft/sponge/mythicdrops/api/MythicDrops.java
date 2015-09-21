@@ -39,20 +39,30 @@ public interface MythicDrops {
 
     /**
      * Fetches and returns the {@code Logger} used for displaying messages.
+     *
      * @return logger
      */
     Logger getLogger();
 
     /**
      * Fetches and returns the {@code PluginContainer} wrapped around the {@code @Plugin} annotation on this plugin.
+     *
      * @return plugin container
      */
     PluginContainer getPluginContainer();
 
     /**
      * Fetches and returns the {@code File} where all configuration for this plugin is stored.
+     *
      * @return configuration directory
      */
     File getConfigurationDirectory();
+
+    /**
+     * Fetches and returns a {@code String} that that represents which text strings will be used.
+     *
+     * @return locale type
+     */
+    String getLocale();
 
 }
