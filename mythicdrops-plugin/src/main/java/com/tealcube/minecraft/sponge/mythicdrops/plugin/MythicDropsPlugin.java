@@ -79,7 +79,7 @@ public final class MythicDropsPlugin implements MythicDrops {
                 locale + ".debug.plugin");
 
         logger.info(String.format(apiString, ApiVersion.ARTIFACT, ApiVersion.VERSION));
-        logger.info(String.format(pluginString, ApiVersion.ARTIFACT, ApiVersion.NAME, ApiVersion.VERSION));
+        logger.info(String.format(pluginString, PluginVersion.ARTIFACT, PluginVersion.NAME, PluginVersion.VERSION));
     }
 
     /**
@@ -124,7 +124,7 @@ public final class MythicDropsPlugin implements MythicDrops {
         try {
             Files.createParentDirs(file);
             if (!file.exists()) {
-                URL resource = MythicDropsPlugin.class.getResource(fileName);
+                URL resource = getClass().getResource("/" + fileName);
                 loader = HoconConfigurationLoader.builder().setURL(resource).build();
                 node = loader.load();
                 loader.save(node);
