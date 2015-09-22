@@ -78,9 +78,14 @@ task server << {
     def targetDir = new File(project.rootDir, 'server')
     def targetFileName = sprintf('forge-%s-universal.jar', [forgeVersion])
 
+    def memoryMin = project.properties['memory.min']
+    def memoryMax = project.properties['memory.max']
+
+    def memMin = sprintf('-Xms%s', [memoryMin])
+    def memMax = sprintf('-Xmx%s', [memoryMax])
     exec {
         workingDir targetDir
-        commandLine 'java', '-Xms1G', '-Xmx3G', '-jar', targetFileName.toString()
+        commandLine 'java', memMin, memMax, '-jar', targetFileName.toString()
         standardInput System.in
     }
 }
