@@ -65,4 +65,45 @@ public interface MythicDrops {
      */
     String getLocale();
 
+    /**
+     * Represents the configuration files.
+     */
+    enum ConfFile {
+        /**
+         * Contains plugin-wide settings.
+         */
+        DEFAULT("default.conf"),
+        /**
+         * Contains localized/customizable message strings.
+         */
+        LOCALE("locale.conf"),
+        /**
+         * Contains the tiers for this server.
+         */
+        TIER("tier.conf");
+
+        private final String path;
+
+        ConfFile(String path) {
+            this.path = path;
+        }
+
+        /**
+         * Returns the path of this ConfFile.
+         *
+         * @return path
+         */
+        public String path() {
+            return path;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String toString() {
+            return path();
+        }
+    }
+
 }
