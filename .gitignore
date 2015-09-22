@@ -131,3 +131,5 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
+# MythicDrops specific ignores
+server/

@@ -8,6 +8,8 @@ buildscript {
     }
 }
 
+apply from: 'server.gradle'
+
 apply plugin: 'license'
 
 ext.projectName = 'MythicDrops'
