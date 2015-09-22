@@ -61,11 +61,11 @@ public interface MythicDrops {
     File getConfigurationDirectory();
 
     /**
-     * Fetches and returns a {@code String} that that represents which text strings will be used.
+     * Fetches and returns the currently used instance of the configuration manager.
      *
-     * @return locale type
+     * @return configuration manager
      */
-    String getLocale();
+    Configs getConfigs();
 
     /**
      * Represents a "manager" of the configuration files for MythicDrops.
