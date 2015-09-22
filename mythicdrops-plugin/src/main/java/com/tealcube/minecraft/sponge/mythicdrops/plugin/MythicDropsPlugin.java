@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
+import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.service.config.ConfigDir;
@@ -65,6 +66,7 @@ public final class MythicDropsPlugin implements MythicDrops {
     @Listener
     public void onGamePreInitialization(GamePreInitializationEvent event) {
         configs = new ConfigsImpl();
+        configs.load();
     }
 
     @Listener
@@ -78,6 +80,11 @@ public final class MythicDropsPlugin implements MythicDrops {
         logger.info(String.format(apiString, ApiVersion.ARTIFACT, ApiVersion.VERSION));
         logger.info(String.format(
                 pluginString, pluginContainer.getId(), pluginContainer.getName(), pluginContainer.getVersion()));
+    }
+
+    @Listener
+    public void onGameStoppingServer(GameStoppingServerEvent event) {
+        configs.save();
     }
 
     /**
