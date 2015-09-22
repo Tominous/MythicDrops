@@ -29,6 +29,8 @@ import org.spongepowered.api.plugin.PluginContainer;
 
 import java.io.File;
 
+import javax.annotation.Nonnull;
+
 import ninja.leaping.configurate.ConfigurationNode;
 
 /**
@@ -88,7 +90,7 @@ public interface MythicDrops {
          * @param path path to node
          * @return node at path in configuration file
          */
-        ConfigurationNode getProperty(ConfFile conf, String path);
+        ConfigurationNode getProperty(@Nonnull ConfFile conf, @Nonnull String path);
 
         /**
          * Sets the value at the given path in the given {@link MythicDrops.ConfFile}.
@@ -98,7 +100,7 @@ public interface MythicDrops {
          * @param value value to set
          * @return if value was set successfully
          */
-        boolean setProperty(ConfFile conf, String path, Object value);
+        boolean setProperty(@Nonnull ConfFile conf, @Nonnull String path, @Nonnull Object value);
     }
 
     /**
