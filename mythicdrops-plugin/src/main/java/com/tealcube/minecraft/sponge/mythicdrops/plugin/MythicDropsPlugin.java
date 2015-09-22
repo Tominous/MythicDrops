@@ -24,7 +24,6 @@
  */
 package com.tealcube.minecraft.sponge.mythicdrops.plugin;
 
-import com.google.common.io.Files;
 import com.google.inject.Inject;
 
 import com.tealcube.minecraft.sponge.mythicdrops.api.ApiVersion;
@@ -40,10 +39,12 @@ import org.spongepowered.api.service.config.ConfigDir;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 
+import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
@@ -59,24 +60,20 @@ public final class MythicDropsPlugin implements MythicDrops {
     @Inject private PluginContainer pluginContainer;
     @Inject @ConfigDir(sharedRoot = false) private File configurationDirectory;
 
-    private CommentedConfigurationNode defaultConfigurationNode;
-    private CommentedConfigurationNode localeConfigurationNode;
-
-    private String locale;
+    private Configs configs;
 
     @Listener
     public void onGamePreInitialization(GamePreInitializationEvent event) {
-        defaultConfigurationNode = loadConfigurationNode("default.conf");
-        localeConfigurationNode = loadConfigurationNode("locale.conf");
-
-        locale = defaultConfigurationNode.getNode("locale").getString("en");
+        configs = new ConfigsImpl();
     }
 
     @Listener
     public void onGameInitialization(GameInitializationEvent event) {
-        String apiString = localeConfigurationNode.getNode(locale, "debug", "api").getString(locale + ".debug.api");
-        String pluginString = localeConfigurationNode.getNode(locale, "debug", "plugin").getString(
-                locale + ".debug.plugin");
+        String locale = getConfigs().getProperty(ConfFile.DEFAULT, "locale").getString("en");
+        String apiString = getConfigs().getProperty(ConfFile.LOCALE, locale + ".debug.api").getString(locale +
+                ".debug.api");
+        String pluginString = getConfigs().getProperty(ConfFile.LOCALE, locale + ".debug.plugin").getString(locale +
+                ".debug.plugin");
 
         logger.info(String.format(apiString, ApiVersion.ARTIFACT, ApiVersion.VERSION));
         logger.info(String.format(
@@ -111,32 +108,199 @@ public final class MythicDropsPlugin implements MythicDrops {
      * {@inheritDoc}
      */
     @Override
-    public String getLocale() {
-        return locale;
+    public Configs getConfigs() {
+        return configs;
     }
 
-    private CommentedConfigurationNode loadConfigurationNode(@Nonnull String fileName) {
-        File file = new File(configurationDirectory, fileName);
+    /**
+     * {@inheritDoc}
+     */
+    private class ConfigsImpl implements Configs {
+        private final Map<ConfFile, CommentedConfigurationNode> configMap = new HashMap<>();
 
-        ConfigurationLoader<CommentedConfigurationNode> loader =
-                HoconConfigurationLoader.builder().setFile(file).build();
-        CommentedConfigurationNode node = loader.createEmptyNode(ConfigurationOptions.defaults());
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void load() {
+            for (ConfFile confFile : ConfFile.values()) {
+                File file = new File(MythicDropsPlugin.this.getConfigurationDirectory(), confFile.path());
 
-        try {
-            Files.createParentDirs(file);
-            if (!file.exists()) {
-                URL resource = getClass().getResource("/" + fileName);
-                loader = HoconConfigurationLoader.builder().setURL(resource).build();
-                node = loader.load();
-                loader.save(node);
-            } else {
-                node = loader.load();
+                if (file.exists()) {
+                    CommentedConfigurationNode node = load(file);
+                    configMap.put(confFile, node);
+                } else {
+                    File parentFile = file.getParentFile();
+                    if (!parentFile.exists() && !parentFile.mkdirs()) {
+                        MythicDropsPlugin.this.getLogger().warn(String.format(
+                                "Unable to make configuration directory for %s", confFile.path()));
+                        continue;
+                    }
+                    try {
+                        if (!file.createNewFile()) {
+                            MythicDropsPlugin.this.getLogger().warn(String.format(
+                                    "Unable to create file for %s", confFile.path()));
+                            continue;
+                        }
+                    } catch (IOException e) {
+                        MythicDropsPlugin.this.getLogger().warn(String.format(
+                                "Unable to create file for %s", confFile.path()));
+                        continue;
+                    }
+                    CommentedConfigurationNode node = createConfigurationNode(confFile);
+                    configMap.put(confFile, node);
+                }
             }
-        } catch (IOException e) {
-            logger.error(String.format("Unable to load %s: %s", fileName, e.getMessage()));
+            MythicDropsPlugin.this.getLogger().info("Configuration loaded");
         }
 
-        return node;
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void save() {
+            for (ConfFile confFile : ConfFile.values()) {
+                File file = new File(MythicDropsPlugin.this.getConfigurationDirectory(), confFile.path());
+                save(confFile, file);
+            }
+            MythicDropsPlugin.this.getLogger().info("Configuration saved");
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public ConfigurationNode getProperty(@Nonnull ConfFile conf, @Nonnull String path) {
+            ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().build();
+            CommentedConfigurationNode node = loader.createEmptyNode(ConfigurationOptions.defaults());
+
+            if (!configMap.containsKey(conf)) {
+                MythicDropsPlugin.this.getLogger().warn(
+                        String.format("Attempting to get a property (%s) from a nonexistent configuration file (%s)",
+                                path, conf.path()));
+                return node;
+            }
+
+            if (configMap.get(conf) == null) {
+                MythicDropsPlugin.this.getLogger().warn(
+                        String.format("Attempting to get a property (%s) from an unloaded configuration file (%s)",
+                                path, conf.path()));
+                return node;
+            }
+
+            node = configMap.get(conf);
+
+            return node.getNode(path.split("\\."));
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean setProperty(@Nonnull ConfFile conf, @Nonnull String path, @Nonnull Object value) {
+            ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().build();
+            CommentedConfigurationNode node = loader.createEmptyNode(ConfigurationOptions.defaults());
+
+            if (!configMap.containsKey(conf)) {
+                MythicDropsPlugin.this.getLogger().warn(
+                        String.format("Attempting to set a property (%s) for a nonexistent configuration file (%s)",
+                                path, conf.path()));
+                return false;
+            }
+
+            if (configMap.get(conf) == null) {
+                MythicDropsPlugin.this.getLogger().warn(
+                        String.format("Attempting to set a property (%s) for an unloaded configuration file (%s)",
+                                path, conf.path()));
+                return false;
+            }
+
+            node = configMap.get(conf).getNode(path.split("\\."));
+            node.setValue(value);
+
+            return true;
+        }
+
+        private CommentedConfigurationNode createConfigurationNode(ConfFile confFile) {
+            ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().build();
+            CommentedConfigurationNode node = loader.createEmptyNode(ConfigurationOptions.defaults());
+
+            switch (confFile) {
+                case DEFAULT:
+                    node.getNode("locale").setValue("en");
+                    break;
+                case LOCALE:
+                    node.getNode("en", "debug", "api").setValue("API: %s v%s").setComment("API debug string");
+                    node.getNode("en", "debug", "plugin").setValue(
+                            "id = %s, name = %s, version = %s").setComment("Plugin debug string");
+                    break;
+                case TIER:
+                    // do nothing here for now
+                    break;
+                default:
+                    // do nothing here
+                    break;
+            }
+
+            return node;
+        }
+
+        private boolean save(ConfFile confFile, File file) {
+            if (!file.exists()) {
+                File parentFile = file.getParentFile();
+                if (!parentFile.exists() && !parentFile.mkdirs()) {
+                    MythicDropsPlugin.this.getLogger().warn(String.format(
+                            "Unable to make configuration directory for %s", confFile.path()));
+                    return false;
+                }
+                try {
+                    if (!file.createNewFile()) {
+                        MythicDropsPlugin.this.getLogger().warn(String.format(
+                                "Unable to create file for %s", confFile.path()));
+                        return false;
+                    }
+                } catch (IOException e) {
+                    MythicDropsPlugin.this.getLogger().warn(String.format(
+                            "Unable to create file for %s", confFile.path()));
+                    return false;
+                }
+            }
+            ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder()
+                    .setFile(file).build();
+            if (!configMap.containsKey(confFile)) {
+                MythicDropsPlugin.this.getLogger().warn(String.format(
+                        "Unable to save %s", confFile.path()));
+                return false;
+            }
+
+            CommentedConfigurationNode node = configMap.get(confFile);
+            if (node == null) {
+                node = createConfigurationNode(confFile);
+            }
+            try {
+                loader.save(node);
+            } catch (IOException e) {
+                MythicDropsPlugin.this.getLogger().warn(String.format(
+                        "Unable to save %s", confFile.path()));
+                return false;
+            }
+            return true;
+        }
+
+        private CommentedConfigurationNode load(File f) {
+            ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder()
+                    .setFile(f).build();
+            CommentedConfigurationNode node = loader.createEmptyNode(ConfigurationOptions.defaults());
+
+            try {
+                node = loader.load();
+            } catch (IOException ex) {
+                MythicDropsPlugin.this.getLogger().warn(
+                        String.format("Unable to load %s: %s", f.getName(), ex.getMessage()));
+            }
+
+            return node;
+        }
     }
 
 }
