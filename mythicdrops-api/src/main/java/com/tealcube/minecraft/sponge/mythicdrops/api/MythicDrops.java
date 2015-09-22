@@ -29,6 +29,8 @@ import org.spongepowered.api.plugin.PluginContainer;
 
 import java.io.File;
 
+import ninja.leaping.configurate.ConfigurationNode;
+
 /**
  * Represents the interface for MythicDrops on Sponge.
  *
@@ -64,6 +66,40 @@ public interface MythicDrops {
      * @return locale type
      */
     String getLocale();
+
+    /**
+     * Represents a "manager" of the configuration files for MythicDrops.
+     */
+    interface Configs {
+        /**
+         * Loads the configuration files enumerated in {@link MythicDrops.ConfFile}.
+         */
+        void load();
+
+        /**
+         * Saves the configuration files enumerated in {@link MythicDrops.ConfFile}.
+         */
+        void save();
+
+        /**
+         * Fetches and returns the ConfigurationNode in the given {@link MythicDrops.ConfFile} with the given address.
+         *
+         * @param conf configuration file
+         * @param path path to node
+         * @return node at path in configuration file
+         */
+        ConfigurationNode getProperty(ConfFile conf, String path);
+
+        /**
+         * Sets the value at the given path in the given {@link MythicDrops.ConfFile}.
+         *
+         * @param conf  configuration file
+         * @param path  path to node
+         * @param value value to set
+         * @return if value was set successfully
+         */
+        boolean setProperty(ConfFile conf, String path, Object value);
+    }
 
     /**
      * Represents the configuration files.
