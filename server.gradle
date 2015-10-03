@@ -83,7 +83,7 @@ task server << {
 
     def memMin = sprintf('-Xms%s', [memoryMin])
     def memMax = sprintf('-Xmx%s', [memoryMax])
-    exec {
+    javaexec {
         workingDir targetDir
         commandLine 'java', memMin, memMax, '-jar', targetFileName.toString()
         standardInput System.in
