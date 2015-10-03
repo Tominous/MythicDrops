@@ -25,16 +25,10 @@ subprojects {
     apply plugin: 'idea'
     apply plugin: 'maven-publish'
 
-    group = 'com.tealcube.minecraft.sponge'
-
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
 
     repositories {
-        maven {
-            name = 'sponge-repo'
-            url = 'http://repo.spongepowered.org/maven'
-        }
         maven {
             name = 'tealcube-repo'
             url = 'http://maven.tealcube.com/content/groups/public'
@@ -117,7 +111,8 @@ subprojects {
     }
 }
 
-project(':mythicdrops-api') {
+project(':mythicdrops-annotations') {
+    group = 'com.tealcube.minecraft.spigot'
     version = '0.0.1-SNAPSHOT'
 
     artifacts {
@@ -140,8 +135,62 @@ project(':mythicdrops-api') {
     }
 }
 
-project(':mythicdrops-plugin') {
+project(':mythicdrops-api') {
+    group = 'com.tealcube.minecraft.common'
+    version = '0.0.1-SNAPSHOT'
+
+    artifacts {
+        archives jar
+        archives sourcesJar
+        archives javadocJar
+    }
+
+    publishing {
+        publications {
+            java(MavenPublication) {
+                artifactId project.getName().toLowerCase()
+                from components.java
+
+                artifact sourcesJar
+
+                artifact javadocJar
+            }
+        }
+    }
+}
+
+project(':mythicdrops-sponge') {
     apply plugin: 'com.github.johnrengelman.shadow'
+    group = 'com.tealcube.minecraft.sponge'
+    version = '0.0.1-SNAPSHOT'
+
+    artifacts {
+        archives jar
+        archives sourcesJar
+        archives javadocJar
+        archives shadowJar
+    }
+    build.dependsOn(shadowJar)
+
+    publishing {
+        publications {
+            java(MavenPublication) {
+                artifactId project.getName().toLowerCase()
+                from components.java
+
+                artifact sourcesJar
+
+                artifact javadocJar
+
+                artifact shadowJar
+            }
+        }
+    }
+}
+
+project(':mythicdrops-spigot') {
+    apply plugin: 'com.github.johnrengelman.shadow'
+    group = 'com.tealcube.minecraft.spigot'
     version = '0.0.1-SNAPSHOT'
 
     artifacts {

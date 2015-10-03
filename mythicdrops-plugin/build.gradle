@@ -1,9 +1,0 @@
-dependencies {
-    compile project(':mythicdrops-api')
-}
-
-shadowJar {
-    dependencies {
-        include(project(':mythicdrops-api'))
-    }
-}

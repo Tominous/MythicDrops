@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.tealcube.minecraft.sponge.mythicdrops.plugin;
+package com.tealcube.minecraft.spigot.annotations;
 
 public final class PluginVersion {
 
