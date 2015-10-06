@@ -1,10 +1,16 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 buildscript {
-    repositories { jcenter() }
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
     dependencies {
         classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
         classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+        classpath 'net.ltgt.gradle:gradle-apt-plugin:0.4'
     }
 }
 
@@ -19,11 +25,11 @@ ext.authorUrl = 'https://github.com/Nunnery'
 ext.inceptionYear = '2015'
 
 subprojects {
-    apply plugin: 'license'
     apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'maven-publish'
+    apply plugin: 'net.ltgt.apt'
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
@@ -111,31 +117,9 @@ subprojects {
     }
 }
 
-project(':mythicdrops-annotations') {
-    group = 'com.tealcube.minecraft.spigot'
-    version = '0.0.1-SNAPSHOT'
-
-    artifacts {
-        archives jar
-        archives sourcesJar
-        archives javadocJar
-    }
-
-    publishing {
-        publications {
-            java(MavenPublication) {
-                artifactId project.getName().toLowerCase()
-                from components.java
-
-                artifact sourcesJar
-
-                artifact javadocJar
-            }
-        }
-    }
-}
-
 project(':mythicdrops-api') {
+    apply plugin: 'license'
+
     group = 'com.tealcube.minecraft.common'
     version = '0.0.1-SNAPSHOT'
 
@@ -160,7 +144,9 @@ project(':mythicdrops-api') {
 }
 
 project(':mythicdrops-sponge') {
+    apply plugin: 'license'
     apply plugin: 'com.github.johnrengelman.shadow'
+
     group = 'com.tealcube.minecraft.sponge'
     version = '0.0.1-SNAPSHOT'
 
@@ -189,7 +175,9 @@ project(':mythicdrops-sponge') {
 }
 
 project(':mythicdrops-spigot') {
+    apply plugin: 'license'
     apply plugin: 'com.github.johnrengelman.shadow'
+
     group = 'com.tealcube.minecraft.spigot'
     version = '0.0.1-SNAPSHOT'
 
