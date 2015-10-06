@@ -7,7 +7,7 @@ repositories {
 
 dependencies {
     apt 'org.bukkit:plugin-annotations:1.0.0-SNAPSHOT'
-    compile 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+    compile group: 'org.spigotmc', name: 'spigot-api', version: '1.8.8-R0.1-SNAPSHOT', changing: true
     compile project(':mythicdrops-api')
 }
 
