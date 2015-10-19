@@ -1,0 +1,93 @@
+task downloadForge  << {
+    println "Downloading Forge..."
+    def forgeDownload = project.properties['downloads.forge']
+    def forgeVersion = project.properties['versions.forge']
+    def forgeUrl = sprintf(forgeDownload, [forgeVersion, forgeVersion])
+
+    def targetDir = new File(project.rootDir, 'server')
+    if (!targetDir.exists()) {
+        targetDir.mkdirs()
+    }
+
+    def targetFileName = sprintf('forge-%s-installer.jar', [forgeVersion])
+    def targetFile = new File(targetDir, targetFileName)
+
+    if (targetFile.exists()) {
+        println "Forge is already downloaded!"
+        return
+    }
+
+    def targetFileStream = targetFile.newOutputStream()
+    targetFileStream << new URL(forgeUrl).openStream()
+    targetFileStream.close()
+    println "Forge downloaded!"
+}
+
+task installForge << {
+    def forgeVersion = project.properties['versions.forge']
+    def targetDir = new File(project.rootDir, 'server')
+    def targetFileName = sprintf('forge-%s-installer.jar', [forgeVersion])
+
+    def universalFileName = sprintf('forge-%s-universal.jar', [forgeVersion])
+    def universalFile = new File(targetDir, universalFileName)
+
+    if (universalFile.exists()) {
+        println "Forge is already installed!"
+        return
+    }
+
+    println "Installing Forge..."
+    exec {
+        workingDir targetDir
+        commandLine 'java', '-jar', targetFileName.toString(), '--installServer'
+        standardOutput = new ByteArrayOutputStream()
+    }
+    println "Forge installed!"
+}
+installForge.dependsOn downloadForge
+
+task downloadSponge  << {
+    println "Downloading Sponge..."
+    def spongeDownload = project.properties['downloads.sponge']
+    def spongeVersion = project.properties['versions.sponge']
+    def spongeUrl = sprintf(spongeDownload, [spongeVersion, spongeVersion])
+
+    def targetDir = new File(project.rootDir, 'server/mods')
+    if (!targetDir.exists()) {
+        targetDir.mkdirs()
+    }
+
+    def targetFileName = sprintf('sponge-%s.jar', [spongeVersion])
+    def targetFile = new File(targetDir, targetFileName)
+
+    if (targetFile.exists()) {
+        println "Sponge is already downloaded!"
+        return
+    }
+
+    def targetFileStream = targetFile.newOutputStream()
+    targetFileStream << new URL(spongeUrl).openStream()
+    targetFileStream.close()
+    println "Sponge downloaded!"
+}
+
+task server << {
+    println "Starting server..."
+
+    def forgeVersion = project.properties['versions.forge']
+    def targetDir = new File(project.rootDir, 'server')
+    def targetFileName = sprintf('forge-%s-universal.jar', [forgeVersion])
+
+    def memoryMin = project.properties['memory.min']
+    def memoryMax = project.properties['memory.max']
+
+    def memMin = sprintf('-Xms%s', [memoryMin])
+    def memMax = sprintf('-Xmx%s', [memoryMax])
+    javaexec {
+        workingDir targetDir
+        commandLine 'java', memMin, memMax, '-jar', targetFileName.toString()
+        standardInput System.in
+    }
+}
+server.dependsOn installForge
+server.dependsOn downloadSponge
