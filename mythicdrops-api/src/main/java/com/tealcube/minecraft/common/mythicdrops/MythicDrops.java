@@ -24,17 +24,17 @@
  */
 package com.tealcube.minecraft.common.mythicdrops;
 
+import org.slf4j.Logger;
+
 /**
- * Represents data taken from the POM of mythicdrops-api.
+ * Represents an implementation-neutral version of the MythicDrops API.
  */
-public final class ApiVersion {
+public interface MythicDrops {
 
-    public static final String NAME = "@NAME@";
-    public static final String ARTIFACT = "@ARTIFACT@";
-    public static final String VERSION = "@VERSION@";
-
-    private ApiVersion() {
-        // make it private so it can't be instantiated
-    }
+    /**
+     * Fetches the Logger implementation used by this MythicDrops.
+     * @return the Logger implementation
+     */
+    Logger logger();
 
 }
