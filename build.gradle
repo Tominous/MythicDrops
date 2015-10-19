@@ -141,6 +141,24 @@ project(':mythicdrops-api') {
             }
         }
     }
+
+    license {
+        ext.name = rootProject.projectName
+        ext.author = rootProject.author
+        ext.url = rootProject.authorUrl
+        ext.year = rootProject.inceptionYear
+
+        header new File(rootProject.projectDir, 'HEADER.md')
+
+        sourceSets = project.sourceSets
+
+        ignoreFailures false
+        strictCheck true
+
+        mapping {
+            java = 'SLASHSTAR_STYLE'
+        }
+    }
 }
 
 project(':mythicdrops-sponge') {
@@ -172,6 +190,24 @@ project(':mythicdrops-sponge') {
             }
         }
     }
+
+    license {
+        ext.name = rootProject.projectName
+        ext.author = rootProject.author
+        ext.url = rootProject.authorUrl
+        ext.year = rootProject.inceptionYear
+
+        header new File(rootProject.projectDir, 'HEADER.md')
+
+        sourceSets = project.sourceSets
+
+        ignoreFailures false
+        strictCheck true
+
+        mapping {
+            java = 'SLASHSTAR_STYLE'
+        }
+    }
 }
 
 project(':mythicdrops-spigot') {
@@ -201,6 +237,24 @@ project(':mythicdrops-spigot') {
 
                 artifact shadowJar
             }
+        }
+    }
+
+    license {
+        ext.name = rootProject.projectName
+        ext.author = rootProject.author
+        ext.url = rootProject.authorUrl
+        ext.year = rootProject.inceptionYear
+
+        header new File(rootProject.projectDir, 'HEADER.md')
+
+        sourceSets = project.sourceSets
+
+        ignoreFailures false
+        strictCheck true
+
+        mapping {
+            java = 'SLASHSTAR_STYLE'
         }
     }
 }
