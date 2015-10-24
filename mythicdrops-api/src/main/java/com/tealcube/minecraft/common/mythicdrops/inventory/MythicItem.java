@@ -125,12 +125,12 @@ public interface MythicItem {
     MythicItem setLore(@Nullable List<String> lore);
 
     /**
-     * Fetches and returns the enchantments on this item. Returns an empty {@code Map<String, Integer>} if there are no
-     * enchantments.
+     * Fetches and returns the enchantments on this item. Returns an empty {@code Map<MythicEnchantment, Integer>} if
+     * there are no enchantments.
      *
      * @return unmodifiable Map of item's enchantments
      */
-    Map<String, Integer> getEnchantments();
+    Map<MythicEnchantment, Integer> getEnchantments();
 
     /**
      * Sets the enchantments on this item. A null parameter removes the enchantments.
@@ -138,7 +138,7 @@ public interface MythicItem {
      * @param enchantments enchantments to set
      * @return this item
      */
-    MythicItem setEnchantments(@Nullable Map<String, Integer> enchantments);
+    MythicItem setEnchantments(@Nullable Map<MythicEnchantment, Integer> enchantments);
 
     /**
      * Gets the author of this item.
