@@ -140,4 +140,21 @@ public interface MythicItem {
      */
     MythicItem setEnchantments(@Nullable Map<String, Integer> enchantments);
 
+    /**
+     * Gets the author of this item.
+     *
+     * Returns an empty string if this item cannot have an author.
+     *
+     * @return author of this item
+     */
+    String getAuthor();
+
+    /**
+     * Sets the author of this item. A null parameter removes the author.
+     *
+     * @param author author to set
+     * @return this item
+     */
+    MythicItem setAuthor(@Nullable String author);
+
 }
