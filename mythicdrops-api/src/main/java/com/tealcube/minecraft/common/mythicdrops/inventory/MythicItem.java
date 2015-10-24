@@ -157,4 +157,21 @@ public interface MythicItem {
      */
     MythicItem setAuthor(@Nullable String author);
 
+    /**
+     * Gets the pages of this item.
+     *
+     * Returns an empty {@code String[]} if there are no pages.
+     *
+     * @return pages of this item
+     */
+    String[] getPages();
+
+    /**
+     * Sets the pages of this item. A null parameter removes the pages.
+     *
+     * @param pages pages to set
+     * @return this item
+     */
+    MythicItem setPages(@Nullable String[] pages);
+
 }
