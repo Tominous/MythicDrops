@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
  * Represents an implementation-neutral book used by MythicDrops.
  */
 public interface MythicBook extends MythicItem {
-    
+
     /**
      * Gets the author of this item.
      *
@@ -22,7 +22,7 @@ public interface MythicBook extends MythicItem {
      * @param author author to set
      * @return this item
      */
-    Book setAuthor(@Nullable String author);
+    MythicBook setAuthor(@Nullable String author);
 
     /**
      * Gets the pages of this item.
@@ -39,6 +39,6 @@ public interface MythicBook extends MythicItem {
      * @param pages pages to set
      * @return this item
      */
-    Book setPages(@Nullable String[] pages);
+    MythicBook setPages(@Nullable String[] pages);
 
 }
