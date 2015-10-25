@@ -26,6 +26,7 @@ package com.tealcube.minecraft.common.mythicdrops.inventory;
 
 import com.google.common.base.Optional;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
@@ -141,37 +142,122 @@ public interface MythicItem {
     MythicItem setEnchantments(@Nullable Map<MythicEnchantment, Integer> enchantments);
 
     /**
-     * Gets the author of this item.
-     *
-     * Returns an empty string if this item cannot have an author.
-     *
-     * @return author of this item
+     * Represents an implementation-neutral book used by MythicDrops.
      */
-    String getAuthor();
+    interface Book extends MythicItem {
+        /**
+         * Gets the author of this item.
+         *
+         * Returns an empty string if this item cannot have an author.
+         *
+         * @return author of this item
+         */
+        String getAuthor();
+
+        /**
+         * Sets the author of this item. A null parameter removes the author.
+         *
+         * @param author author to set
+         * @return this item
+         */
+        Book setAuthor(@Nullable String author);
+
+        /**
+         * Gets the pages of this item.
+         *
+         * Returns an empty {@code String[]} if there are no pages.
+         *
+         * @return pages of this item
+         */
+        String[] getPages();
+
+        /**
+         * Sets the pages of this item. A null parameter removes the pages.
+         *
+         * @param pages pages to set
+         * @return this item
+         */
+        Book setPages(@Nullable String[] pages);
+    }
 
     /**
-     * Sets the author of this item. A null parameter removes the author.
-     *
-     * @param author author to set
-     * @return this item
+     * Represents an implementation-neutral firework item used by MythicDrops.
      */
-    MythicItem setAuthor(@Nullable String author);
+    interface Firework extends MythicItem {
+        /**
+         * Shape of the firework.
+         */
+        enum Shape {
+            /**
+             * A small ball effect.
+             */
+            BALL,
+            /**
+             * A large ball effect.
+             */
+            BALL_LARGE,
+            /**
+             * A burst effect.
+             */
+            BURST,
+            /**
+             * A creeper face effect.
+             */
+            CREEPER,
+            /**
+             * A star-shaped effect.
+             */
+            STAR
+        }
 
-    /**
-     * Gets the pages of this item.
-     *
-     * Returns an empty {@code String[]} if there are no pages.
-     *
-     * @return pages of this item
-     */
-    String[] getPages();
+        /**
+         * Fetches the colors of this firework.
+         *
+         * Returns an empty {@code List<Color>} if there are no colors.
+         *
+         * @return colors of this item
+         */
+        List<Color> getColors();
 
-    /**
-     * Sets the pages of this item. A null parameter removes the pages.
-     *
-     * @param pages pages to set
-     * @return this item
-     */
-    MythicItem setPages(@Nullable String[] pages);
+        /**
+         * Sets the colors of this item. A null parameter removes the colors.
+         *
+         * @param colors colors to set
+         * @return this item
+         */
+        Firework setColors(@Nullable List<Color> colors);
+
+        /**
+         * Fetches the fade colors of this firework.
+         *
+         * Returns an empty {@code List<Color>} if there are no fade colors.
+         *
+         * @return fade colors of this item
+         */
+        List<Color> getFadeColors();
+
+        /**
+         * Sets the fade colors of this item. A null parameter removes the fade colors.
+         *
+         * @param fadeColors fade colors to set
+         * @return this item
+         */
+        Firework setFadeColors(@Nullable List<Color> fadeColors);
+
+        /**
+         * Fetches if the firework flickers.
+         *
+         * @return if the firework flickers
+         */
+        boolean hasFlicker();
+
+        /**
+         * Sets if the firework flickers.
+         *
+         * @param flicker to flicker or not to flicker
+         * @return this item
+         */
+        Firework setFlicker(boolean flicker);
+    }
 
 }
