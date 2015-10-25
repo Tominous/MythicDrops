@@ -27,6 +27,7 @@ package com.tealcube.minecraft.common.mythicdrops.inventory;
 import java.awt.*;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -97,32 +98,6 @@ public interface MythicFirework extends MythicItem {
     MythicFirework setPower(int power);
 
     /**
-     * Shape of the firework.
-     */
-    enum Shape {
-        /**
-         * A small ball effect.
-         */
-        BALL,
-        /**
-         * A large ball effect.
-         */
-        BALL_LARGE,
-        /**
-         * A burst effect.
-         */
-        BURST,
-        /**
-         * A creeper face effect.
-         */
-        CREEPER,
-        /**
-         * A star-shaped effect.
-         */
-        STAR
-    }
-
-    /**
      * Effect contained by the firework.
      */
     interface Effect {
@@ -131,7 +106,15 @@ public interface MythicFirework extends MythicItem {
          *
          * @return shape of this effect
          */
-        Shape getShape();
+        String getShape();
+
+        /**
+         * Sets the shape of this effect.
+         *
+         * @param shape shape to set
+         * @return this effect
+         */
+        Effect setShape(@Nonnull String shape);
 
         /**
          * Fetches the colors of this firework.
