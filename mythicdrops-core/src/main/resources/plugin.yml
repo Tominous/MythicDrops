@@ -1,0 +1,5 @@
+main: com.tealcubegames.minecraft.spigot.mythicdrops.core.MythicDropsPlugin
+name: ${project.build.name}
+version: ${project.build.version}
+authors: [ToppleTheNun, Faceguy]
+load: STARTUP
