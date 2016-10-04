@@ -2,7 +2,7 @@
 <configuration scan="true">
 
     <appender name="FILE" class="ch.qos.logback.mythicdrops.core.FileAppender">
-        <file>tealcube/debug.log</file>
+        <file>tealcube/mythicdrops.log</file>
         <append>true</append>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
