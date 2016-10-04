@@ -71,6 +71,8 @@
                                     <include>ch.qos.logback:*</include>
                                     <include>org.slf4j:*</include>
                                     <include>org.mcstats.bukkit:*</include>
+                                    <include>com.google.inject:*</include>
+                                    <include>com.google.guava:*</include>
                                 </includes>
                             </artifactSet>
                             <relocations>
@@ -86,7 +88,12 @@
                                     <pattern>org.mcstats</pattern>
                                     <shadedPattern>org.mcstats.mythicdrops</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>com.google</pattern>
+                                    <shadedPattern>com.google.mythicdrops</shadedPattern>
+                                </relocation>
                             </relocations>
+                            <minimizeJar>true</minimizeJar>
                         </configuration>
                     </execution>
                 </executions>
