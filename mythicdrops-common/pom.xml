@@ -38,4 +38,22 @@
     <name>MythicDrops Common</name>
     <description>Common classes used by MythicDrops.</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.tealcube.minecraft.bukkit</groupId>
+            <artifactId>fanciful</artifactId>
+            <version>2.0.10-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tealcube.minecraft.bukkit</groupId>
+            <artifactId>hilt</artifactId>
+            <version>2.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>ninja.leaping.configurate</groupId>
+            <artifactId>configurate-yaml</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+    </dependencies>
+
 </project>
