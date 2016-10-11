@@ -54,6 +54,16 @@
             <artifactId>configurate-yaml</artifactId>
             <version>3.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>ninja.leaping.configurate</groupId>
+            <artifactId>configurate-hocon</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>ninja.leaping.configurate</groupId>
+            <artifactId>configurate-gson</artifactId>
+            <version>3.1.1</version>
+        </dependency>
     </dependencies>
 
 </project>
