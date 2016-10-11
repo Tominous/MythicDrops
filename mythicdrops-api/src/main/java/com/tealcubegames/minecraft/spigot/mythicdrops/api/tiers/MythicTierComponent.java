@@ -11,11 +11,15 @@ import org.immutables.value.Value;
 @Value.Immutable
 public abstract class MythicTierComponent {
 
+    public abstract String id();
+
     public static Builder builder() {
         return ImmutableMythicTierComponent.builder();
     }
 
     public interface Builder {
+        Builder id(String id);
+
         MythicTierComponent build();
     }
 
