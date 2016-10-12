@@ -282,6 +282,13 @@
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
+            <dependency>
+                <groupId>com.rollbar</groupId>
+                <artifactId>rollbar</artifactId>
+                <version>0.5.3</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -318,6 +325,22 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.version>${project.version}-${git.commit.id.abbrev}</project.build.version>
         <project.build.name>${project.name}</project.build.name>
+        <project.build.environment>development</project.build.environment>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>jenkins</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>env.CI</name>
+                </property>
+            </activation>
+            <properties>
+                <project.build.environment>${git.branch}</project.build.environment>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
