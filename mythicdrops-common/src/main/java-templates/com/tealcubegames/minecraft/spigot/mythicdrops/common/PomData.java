@@ -1,5 +1,5 @@
 /**
- * This file is part of MythicDrops Common, licensed under the MIT License.
+ * This file is part of MythicDrops_Common, licensed under the MIT License.
  *
  * Copyright (C) 2013 Teal Cube Games
  *
