@@ -19,21 +19,42 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.tealcubegames.minecraft.spigot.mythicdrops.core;
+package com.tealcubegames.minecraft.spigot.mythicdrops.core.loaders;
+
+import com.tealcubegames.minecraft.spigot.mythicdrops.api.tiers.MythicTier;
+import com.tealcubegames.minecraft.spigot.mythicdrops.common.loaders.AbstractConfigurateMythicLoader;
+import ninja.leaping.configurate.ConfigurationNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
- * Class that contains data from the POM.
- * @author Richard Harrah
+ * Implementation of MythicLoader for loading MythicTiers.
  */
-public final class PomData {
+public final class MythicTierLoader extends AbstractConfigurateMythicLoader<MythicTier> {
 
-    public static final String ARTIFACT_ID = "${project.artifactId}";
-    public static final String GROUP_ID = "${project.groupId}";
-    public static final String VERSION = "${project.version}-${git.commit.id.abbrev}";
-    public static final String ENVIRONMENT = "${project.build.environment}";
+    private static final Logger LOGGER = LoggerFactory.getLogger(MythicTierLoader.class);
 
-    private PomData() {
-        // do nothing
+    public MythicTierLoader(File file) {
+        super(file);
+    }
+
+    @Override
+    public MythicTier load() {
+        MythicTier mythicTier = null;
+        try {
+            ConfigurationNode configurationNode = configurationLoader.load();
+        } catch (IOException e) {
+            LOGGER.error("Unable to load tier", e);
+        }
+        return mythicTier;
+    }
+
+    @Override
+    public void save(MythicTier mythicTier) {
+
     }
 
 }

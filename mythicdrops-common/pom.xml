@@ -35,7 +35,7 @@
 
     <artifactId>mythicdrops-common</artifactId>
 
-    <name>MythicDrops Common</name>
+    <name>MythicDrops_Common</name>
     <description>Common classes used by MythicDrops.</description>
 
     <dependencies>
