@@ -30,9 +30,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+
 public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MythicDropsPlugin.class);
+
+    private LoaderManager loaderManager;
 
     @Override
     public void onEnable() {
@@ -65,7 +69,12 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
 
     @Override
     public LoaderManager getLoaderManager() {
-        return null;
+        return loaderManager;
+    }
+
+    @Inject
+    public void setLoaderManager(LoaderManager loaderManager) {
+        this.loaderManager = loaderManager;
     }
 
 }

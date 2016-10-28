@@ -21,12 +21,15 @@
  */
 package com.tealcubegames.minecraft.spigot.mythicdrops.core.loaders;
 
+import com.google.inject.assistedinject.Assisted;
+import com.tealcubegames.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
 import com.tealcubegames.minecraft.spigot.mythicdrops.api.tiers.MythicTier;
 import com.tealcubegames.minecraft.spigot.mythicdrops.common.loaders.AbstractConfigurateMythicLoader;
 import ninja.leaping.configurate.ConfigurationNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 
@@ -36,20 +39,17 @@ import java.io.IOException;
 public final class MythicTierLoader extends AbstractConfigurateMythicLoader<MythicTier> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MythicTierLoader.class);
+    private LoaderManager loaderManager;
 
-    public MythicTierLoader(File file) {
+    @Inject
+    public MythicTierLoader(LoaderManager loaderManager, @Assisted File file) {
         super(file);
+        this.loaderManager = loaderManager;
     }
 
     @Override
     public MythicTier load() {
-        MythicTier mythicTier = null;
-        try {
-            ConfigurationNode configurationNode = configurationLoader.load();
-        } catch (IOException e) {
-            LOGGER.error("Unable to load tier", e);
-        }
-        return mythicTier;
+        return null;
     }
 
     @Override
