@@ -241,14 +241,14 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.1.7</version>
+            <version>${versions.logback}</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.1.7</version>
+            <version>${versions.logback}</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
@@ -272,13 +272,6 @@
                 <groupId>org.mcstats.bukkit</groupId>
                 <artifactId>metrics-lite</artifactId>
                 <version>R8-SNAPSHOT</version>
-                <type>jar</type>
-                <scope>compile</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.rollbar</groupId>
-                <artifactId>rollbar</artifactId>
-                <version>0.5.3</version>
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
@@ -315,6 +308,7 @@
     </distributionManagement>
 
     <properties>
+        <versions.logback>1.1.7</versions.logback>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.version>${project.version}-${git.commit.id.abbrev}</project.build.version>
         <project.build.name>${project.name}</project.build.name>
