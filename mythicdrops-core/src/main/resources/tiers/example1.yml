@@ -1,0 +1,85 @@
+## The display name and the display/identifier color should
+## be unique to each tier. No two tiers named 'Example1' and no
+## two tiers should have GOLD / DARK_RED, for example.
+##
+## Here's a full list of colors in case you don't know where to find them:
+## https://hub.spigotmc.org/javadocs/spigot/org/bukkit/ChatColor.html
+displayName: Example1
+displayColor: GOLD
+identifierColor: DARK_RED
+
+## What kind of item(s) should this tier be?
+## This setup makes it so that it is always a sword
+## that is not wood or stone.
+itemTypes:
+- GOLD_SWORD
+- IRON_SWORD
+- DIAMOND_SWORD
+
+## Should this tier announce that it was dropped when it drops?
+broadcastOnFind: true
+
+## True = unbreaking, false = not unbreaking ._.
+infiniteDurability: false
+
+## Items of this tier will drop with between 10% and 100% durability.
+minimumDurabilityPercent: 10
+maximumDurabilityPercent: 100
+
+## Base enchantments are always on items of this tier.
+## Bonus enchantments are randomly added.
+## Custom enchantments don't go in this section, they go in the lore section.
+##
+## Format:
+## - 'ENCHANTMENT_NAME:MINAMOUNT:MAXAMOUNT'
+## OR
+## - "ENCHANTMENT_NAME:MINAMOUNT:MAXAMOUNT"
+##
+## Here's a full list of enchantments in case you don't know where to find them:
+## https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/enchantments/Enchantment.html
+enchantments:
+  baseEnchantments:
+  - "ARROW_DAMAGE:1:1"
+  bonusEnchantments:
+  - "ARROW_DAMAGE:1:1"
+  - "ARROW_FIRE:2:2"
+  - "DURABILITY:3:3"
+  - "KNOCKBACK:4:4"
+  minimumBonusEnchantments: 1
+  maximumBonusEnchantments: 4
+
+## Lore works the same way as enchantments.
+## Base lore is always on items of this tier.
+## Bonus lore is randomly added.
+## Custom enchantments can be added here as lines of lore.
+##
+## Format:
+## - 'LOREGOESHERE'
+## OR
+## - "LOREGOESHERE"
+##
+## For colors, you can use the standard color codes OR you can
+## use HTML-like tags to color your text like so:
+## - "<gold>MythicDrops <red>is <blue>the <reset>greatest<lightpurple>!"
+lore:
+  baseLore:
+  - "&6Tier: Dank Example Tier"
+  - "&4If you're seeing this, &6MythicDrops &4hasn't been configured at all."
+  bonusLore:
+  - "&7D A N K M E M E S"
+  - "&7A"
+  - "&7N"
+  - "&7K"
+  - "&7M"
+  - "&7E"
+  - "&7M"
+  - "&7E"
+  - "&7S"
+  minimumBonusLore: 1
+  maximumBonusLore: 4
+
+## Chance that an item of this tier will spawn on a monster
+chanceToSpawnOnAMonster: 100
+
+## Chance that an item of this tier will actually drop if a monster holding it dies
+chanceToDropOnMonsterDeath: 100
