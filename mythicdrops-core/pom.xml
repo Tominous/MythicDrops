@@ -67,9 +67,12 @@
                             <artifactSet>
                                 <includes>
                                     <include>ch.qos.logback:*</include>
+                                    <include>com.google.inject:guice</include>
+                                    <include>com.google.inject.extensions:guice-assistedinject</include>
                                     <include>com.typesafe:config</include>
                                     <include>com.tealcubegames.minecraft.spigot:*</include>
                                     <include>com.tealcube.minecraft.bukkit:*</include>
+                                    <include>javax.inject:javax.inject</include>
                                     <include>ninja.leaping.configurate:*</include>
                                     <include>org.slf4j:*</include>
                                     <include>org.mcstats.bukkit:*</include>
