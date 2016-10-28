@@ -21,8 +21,11 @@
  */
 package com.tealcubegames.minecraft.spigot.mythicdrops.core;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.tealcubegames.minecraft.spigot.mythicdrops.api.MythicDrops;
 import com.tealcubegames.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
+import com.tealcubegames.minecraft.spigot.mythicdrops.core.inject.MythicDropsModule;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +37,8 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
     @Override
     public void onEnable() {
         LOGGER.debug("onEnable() - ENTER");
+
+        // Print the various versions and environments in use
         LOGGER.debug("Using MythicDrops Common version " +
                 com.tealcubegames.minecraft.spigot.mythicdrops.common.PomData.VERSION);
         LOGGER.debug("Using MythicDrops API version " +
@@ -42,9 +47,13 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
                 com.tealcubegames.minecraft.spigot.mythicdrops.core.PomData.VERSION);
         LOGGER.debug("Running in environment " +
                 com.tealcubegames.minecraft.spigot.mythicdrops.core.PomData.ENVIRONMENT);
-        getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
-            throw new NullPointerException("this is a test NPE");
-        }, 30 * 20L);
+
+        // Start Google Guice
+        LOGGER.debug("Starting Google Guice...");
+        Injector injector = Guice.createInjector(new MythicDropsModule(this));
+        injector.injectMembers(this);
+        LOGGER.debug("Google Guice started!");
+
         LOGGER.debug("onEnable() - EXIT");
     }
 
