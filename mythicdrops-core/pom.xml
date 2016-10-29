@@ -71,6 +71,7 @@
                         <configuration>
                             <artifactSet>
                                 <includes>
+                                    <include>aopalliance:aopalliance</include>
                                     <include>ch.qos.logback:*</include>
                                     <include>com.google.inject:guice</include>
                                     <include>com.google.inject.extensions:guice-assistedinject</include>
@@ -79,8 +80,9 @@
                                     <include>com.tealcube.minecraft.bukkit:*</include>
                                     <include>javax.inject:javax.inject</include>
                                     <include>ninja.leaping.configurate:*</include>
-                                    <include>org.slf4j:*</include>
                                     <include>org.mcstats.bukkit:*</include>
+                                    <include>org.reflections:reflections</include>
+                                    <include>org.slf4j:*</include>
                                 </includes>
                             </artifactSet>
                             <relocations>
@@ -97,8 +99,16 @@
                                     <shadedPattern>ninja.leaping.configurate.mythicdrops</shadedPattern>
                                 </relocation>
                                 <relocation>
+                                    <pattern>org.aopalliance</pattern>
+                                    <shadedPattern>org.aopalliance.mythicdrops</shadedPattern>
+                                </relocation>
+                                <relocation>
                                     <pattern>org.mcstats</pattern>
                                     <shadedPattern>org.mcstats.mythicdrops</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.reflections</pattern>
+                                    <shadedPattern>org.reflections.mythicdrops</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.slf4j</pattern>
