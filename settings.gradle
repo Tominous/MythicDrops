@@ -1,0 +1,8 @@
+rootProject.name = 'mythicdrops'
+include ':mythicdrops-common'
+include ':mythicdrops-api'
+include ':mythicdrops-core'
+
+project(':mythicdrops-common').projectDir = "$rootDir/mythicdrops-common" as File
+project(':mythicdrops-api').projectDir = "$rootDir/mythicdrops-api" as File
+project(':mythicdrops-core').projectDir = "$rootDir/mythicdrops-core" as File

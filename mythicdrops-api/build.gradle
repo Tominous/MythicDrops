@@ -1,0 +1,5 @@
+description = 'MythicDrops_API'
+dependencies {
+    compile project(':mythicdrops-common')
+    provided 'org.immutables:value:2.3.2'
+}

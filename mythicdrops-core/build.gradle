@@ -1,0 +1,12 @@
+apply plugin: 'com.github.johnrengelman.shadow'
+
+description = 'MythicDrops_Core'
+dependencies {
+    compile project(':mythicdrops-api')
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
+    compile group: 'org.mcstats.bukkit', name: 'metrics-lite', version: 'R8-SNAPSHOT'
+}
+
+shadow {
+
+}
