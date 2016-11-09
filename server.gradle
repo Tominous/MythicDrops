@@ -46,7 +46,7 @@ task installSpigot << {
 
     exec {
         workingDir targetDir
-        commandLine 'java', '-jar', targetFileName.toString()
+        commandLine './build.sh'
         standardOutput = new ByteArrayOutputStream()
     }
     copy {
