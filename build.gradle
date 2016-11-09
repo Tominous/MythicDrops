@@ -25,6 +25,7 @@ allprojects {
         header rootProject.file('HEADER')
         ext.owner = 'Richard Harrah <topplethenunnery@gmail.com>'
         ext.year = getYearString()
+        ext.name = project.name
     }
 }
 
