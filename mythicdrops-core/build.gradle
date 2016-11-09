@@ -7,6 +7,9 @@ dependencies {
     compile group: 'org.mcstats.bukkit', name: 'metrics-lite', version: 'R8-SNAPSHOT'
 }
 
-shadow {
-
+shadowJar {
+    dependencies {
+        exclude(dependency('org.spigotmc:spigot-api'))
+    }
 }
+build.dependsOn shadowJar
