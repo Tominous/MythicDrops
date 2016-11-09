@@ -21,27 +21,27 @@
  */
 package com.tealcubegames.minecraft.spigot.mythicdrops.api.tiers;
 
-import org.immutables.value.Value;
+import com.google.auto.value.AutoValue;
 
 /**
  * An interface that represents an additional component of a tier beyond the standard configuration.
  *
  * @author Richard Harrah
  */
-@Value.Style(visibility = Value.Style.ImplementationVisibility.PACKAGE)
-@Value.Immutable
+@AutoValue
 public abstract class MythicTierComponent {
 
     public static Builder builder() {
-        return ImmutableMythicTierComponent.builder();
+        return new AutoValue_MythicTierComponent.Builder();
     }
 
     public abstract String id();
 
-    public interface Builder {
-        Builder id(String id);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder id(String id);
 
-        MythicTierComponent build();
+        public abstract MythicTierComponent build();
     }
 
 }

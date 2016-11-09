@@ -21,8 +21,8 @@
  */
 package com.tealcubegames.minecraft.spigot.mythicdrops.api.items;
 
+import com.google.auto.value.AutoValue;
 import org.bukkit.Material;
-import org.immutables.value.Value;
 
 import java.util.Collection;
 
@@ -31,24 +31,24 @@ import java.util.Collection;
  *
  * @author Richard Harrah
  */
-@Value.Style(visibility = Value.Style.ImplementationVisibility.PACKAGE)
-@Value.Immutable
+@AutoValue
 public abstract class MythicItemType {
 
     public static Builder builder() {
-        return ImmutableMythicItemType.builder();
+        return new AutoValue_MythicItemType.Builder();
     }
 
     public abstract String name();
 
     public abstract Collection<Material> materials();
 
-    public interface Builder {
-        Builder name(String name);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder name(String name);
 
-        Builder materials(Collection<Material> materials);
+        public abstract Builder materials(Collection<Material> materials);
 
-        MythicItemType build();
+        public abstract MythicItemType build();
     }
 
 }

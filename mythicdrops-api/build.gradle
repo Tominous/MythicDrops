@@ -1,6 +1,6 @@
 description = 'MythicDrops_API'
 dependencies {
     compile project(':mythicdrops-common')
-    compileOnly 'org.immutables:value:2.3.8:annotations'
-    apt 'org.immutables:value:2.3.8'
+    compileOnly 'com.google.auto.value:auto-value:1.2'
+    apt 'com.google.auto.value:auto-value:1.2'
 }

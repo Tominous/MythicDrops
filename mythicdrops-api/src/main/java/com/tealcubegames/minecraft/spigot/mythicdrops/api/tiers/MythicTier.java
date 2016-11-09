@@ -21,10 +21,10 @@
  */
 package com.tealcubegames.minecraft.spigot.mythicdrops.api.tiers;
 
+import com.google.auto.value.AutoValue;
 import com.tealcubegames.minecraft.spigot.mythicdrops.api.items.MythicEnchantment;
 import com.tealcubegames.minecraft.spigot.mythicdrops.api.items.MythicItemType;
 import org.bukkit.ChatColor;
-import org.immutables.value.Value;
 
 import java.util.Collection;
 
@@ -33,12 +33,11 @@ import java.util.Collection;
  *
  * @author Richard Harrah
  */
-@Value.Style(visibility = Value.Style.ImplementationVisibility.PACKAGE)
-@Value.Immutable
+@AutoValue
 public abstract class MythicTier {
 
     public static Builder builder() {
-        return ImmutableMythicTier.builder();
+        return new AutoValue_MythicTier.Builder();
     }
 
     public abstract String displayName();
@@ -79,46 +78,47 @@ public abstract class MythicTier {
 
     public abstract Collection<MythicTierComponent> components();
 
-    public interface Builder {
-        Builder displayName(String displayName);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder displayName(String displayName);
 
-        Builder displayColor(ChatColor displayColor);
+        public abstract Builder displayColor(ChatColor displayColor);
 
-        Builder identifierColor(ChatColor identifierColor);
+        public abstract Builder identifierColor(ChatColor identifierColor);
 
-        Builder itemTypes(Collection<MythicItemType> itemTypes);
+        public abstract Builder itemTypes(Collection<MythicItemType> itemTypes);
 
-        Builder broadcastOnFind(boolean broadcastOnFind);
+        public abstract Builder broadcastOnFind(boolean broadcastOnFind);
 
-        Builder infiniteDurability(boolean infiniteDurability);
+        public abstract Builder infiniteDurability(boolean infiniteDurability);
 
-        Builder minimumDurabilityPercentage(double minimumDurabilityPercentage);
+        public abstract Builder minimumDurabilityPercentage(double minimumDurabilityPercentage);
 
-        Builder maximumDurabilityPercentage(double maximumDurabilityPercentage);
+        public abstract Builder maximumDurabilityPercentage(double maximumDurabilityPercentage);
 
-        Builder baseEnchantments(Collection<MythicEnchantment> baseEnchantments);
+        public abstract Builder baseEnchantments(Collection<MythicEnchantment> baseEnchantments);
 
-        Builder bonusEnchantments(Collection<MythicEnchantment> bonusEnchantments);
+        public abstract Builder bonusEnchantments(Collection<MythicEnchantment> bonusEnchantments);
 
-        Builder minimumBonusEnchantments(int minimumBonusEnchantments);
+        public abstract Builder minimumBonusEnchantments(int minimumBonusEnchantments);
 
-        Builder maximumBonusEnchantments(int maximumBonusEnchantments);
+        public abstract Builder maximumBonusEnchantments(int maximumBonusEnchantments);
 
-        Builder baseLore(Collection<String> baseLore);
+        public abstract Builder baseLore(Collection<String> baseLore);
 
-        Builder bonusLore(Collection<String> bonusLore);
+        public abstract Builder bonusLore(Collection<String> bonusLore);
 
-        Builder minimumBonusLore(int minimumBonusLore);
+        public abstract Builder minimumBonusLore(int minimumBonusLore);
 
-        Builder maximumBonusLore(int maximumBonusLore);
+        public abstract Builder maximumBonusLore(int maximumBonusLore);
 
-        Builder chanceToSpawnOnAMonster(double chanceToSpawnOnAMonster);
+        public abstract Builder chanceToSpawnOnAMonster(double chanceToSpawnOnAMonster);
 
-        Builder chanceToDropOnMonsterDeath(double chanceToDropOnMonsterDeath);
+        public abstract Builder chanceToDropOnMonsterDeath(double chanceToDropOnMonsterDeath);
 
-        Builder components(Collection<MythicTierComponent> components);
+        public abstract Builder components(Collection<MythicTierComponent> components);
 
-        MythicTier build();
+        public abstract MythicTier build();
     }
 
 }

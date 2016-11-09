@@ -21,18 +21,17 @@
  */
 package com.tealcubegames.minecraft.spigot.mythicdrops.api.items;
 
+import com.google.auto.value.AutoValue;
 import org.bukkit.enchantments.Enchantment;
-import org.immutables.value.Value;
 
 /**
  * An interface that represents an enchantment with a minimum and maximum level.
  */
-@Value.Style(visibility = Value.Style.ImplementationVisibility.PACKAGE)
-@Value.Immutable
+@AutoValue
 public abstract class MythicEnchantment {
 
     public static Builder builder() {
-        return ImmutableMythicEnchantment.builder();
+        return new AutoValue_MythicEnchantment.Builder();
     }
 
     public abstract Enchantment enchantment();
@@ -41,14 +40,15 @@ public abstract class MythicEnchantment {
 
     public abstract int maximumLevel();
 
-    public interface Builder {
-        Builder enchantment(Enchantment enchantment);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder enchantment(Enchantment enchantment);
 
-        Builder minimumLevel(int minimumLevel);
+        public abstract Builder minimumLevel(int minimumLevel);
 
-        Builder maximumLevel(int maximumLevel);
+        public abstract Builder maximumLevel(int maximumLevel);
 
-        MythicEnchantment build();
+        public abstract MythicEnchantment build();
     }
 
 }
