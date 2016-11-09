@@ -1,4 +1,5 @@
 import java.time.LocalDateTime
+import org.apache.tools.ant.filters.ReplaceTokens
 
 buildscript {
     repositories {
@@ -59,6 +60,37 @@ subprojects {
         testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.6.5'
         testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '1.6.5'
     }
+
+    sourceSets {
+        // Creates a templates SourceSet in order to allow templates to be filtered
+        templates {
+            output.classesDir = "$buildDir/templates"
+        }
+        main {
+            // Adds the output of the templates SourceSet to the Java sources of the main SourceSet
+            java.srcDir(sourceSets.templates.output.classesDir)
+        }
+    }
+
+    processResources {
+        filter ReplaceTokens, tokens: [
+                VERSION : version + "-" + (System.getenv("BUILD_NUMBER") ?: "0"),
+                NAME    : System.getenv("JOB_NAME") ?: project.name,
+                ARTIFACT: project.name.toLowerCase()
+        ]
+    }
+
+    // Processes the Java templates and outputs them for the compiler to pick up
+    task processTemplates(type: Copy) {
+        from sourceSets.templates.java
+        into sourceSets.templates.output.classesDir
+        filter ReplaceTokens, tokens: [
+                VERSION : version + "+" + (System.getenv("BUILD_NUMBER") ?: "0"),
+                NAME    : System.getenv("JOB_NAME") ?: project.name,
+                ARTIFACT: project.name.toLowerCase()
+        ]
+    }
+    compileJava.dependsOn processTemplates
 }
 
 static def getYearString() {

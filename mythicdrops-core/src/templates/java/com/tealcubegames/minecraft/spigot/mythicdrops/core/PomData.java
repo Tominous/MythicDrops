@@ -1,17 +1,17 @@
 /**
- * This file is part of MythicDrops_Core, licensed under the MIT License.
- * <p>
- * Copyright (C) 2013 Teal Cube Games
- * <p>
+ * This file is part of mythicdrops-core, licensed under the MIT License.
+ *
+ * Copyright (C) 2016 Richard Harrah <topplethenunnery@gmail.com>
+ *
  * Permission is hereby granted, free of charge,
  * to any person obtaining a copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation the rights to use,
  * copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
  * and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * <p>
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * <p>
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
@@ -27,13 +27,27 @@ package com.tealcubegames.minecraft.spigot.mythicdrops.core;
  */
 public final class PomData {
 
-    public static final String ARTIFACT_ID = "${project.artifactId}";
-    public static final String GROUP_ID = "${project.groupId}";
-    public static final String VERSION = "${project.version}-${git.commit.id.abbrev}";
-    public static final String ENVIRONMENT = "${project.build.environment}";
+    public static final String NAME = "@NAME@";
+    public static final String ARTIFACT = "@ARTIFACT@";
+    public static final String VERSION = "@VERSION@";
+    public static final String ENVIRONMENT = "@ENVIRONMENT@";
+
+    private static final PomData INSTANCE = new PomData();
+
+    /**
+     * Fetches and returns the instance of this class.
+     *
+     * This is really only useful for templating via Mustache/Handlebars/etc.
+     *
+     * @return instance of this class
+     */
+    public static PomData getInstance() {
+        return INSTANCE;
+    }
 
     private PomData() {
-        // do nothing
+        // do nothing, make it a singleton
+        // but really, who would want to instantiate this
     }
 
 }
