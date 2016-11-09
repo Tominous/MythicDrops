@@ -1,3 +1,5 @@
+import java.time.LocalDateTime
+
 buildscript {
     repositories {
         maven {
@@ -18,6 +20,12 @@ allprojects {
 
     group = 'com.tealcubegames.minecraft.spigot'
     version = '5.0.0-SNAPSHOT'
+
+    license {
+        header rootProject.file('HEADER')
+        ext.owner = 'Richard Harrah <topplethenunnery@gmail.com>'
+        ext.year = getYearString()
+    }
 }
 
 subprojects {
@@ -50,4 +58,10 @@ subprojects {
         testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.6.5'
         testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '1.6.5'
     }
+}
+
+static def getYearString() {
+    def inceptionYear = 2016
+    def curYear = LocalDateTime.now().getYear()
+    return curYear == inceptionYear ? "${curYear}" : "${inceptionYear} - ${curYear}"
 }
