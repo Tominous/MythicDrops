@@ -123,3 +123,4 @@ buildNumber.properties
 server/*
 !server/.gitkeep
 !server/build.sh
+!server/build.bat
