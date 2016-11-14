@@ -13,3 +13,11 @@ shadowJar {
     }
 }
 build.dependsOn shadowJar
+
+publishing {
+    publications {
+        shadow(MavenPublication) {
+            from components.shadow
+        }
+    }
+}
