@@ -102,16 +102,16 @@ subprojects {
         ]
     }
     compileJava.dependsOn processTemplates
-}
 
-publishing {
-    repositories {
-        maven {
-            url "http://maven.tealcubegames.com/content/repositories/${project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
-            name "TealCube"
-            credentials {
-                username System.getenv("nexusUsername") ?: nexusUsername
-                password System.getenv("nexusPassword") ?: nexusPassword
+    publishing {
+        repositories {
+            maven {
+                url "http://maven.tealcubegames.com/content/repositories/${project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
+                name "TealCube"
+                credentials {
+                    username System.getenv("nexusUsername") ?: nexusUsername
+                    password System.getenv("nexusPassword") ?: nexusPassword
+                }
             }
         }
     }
