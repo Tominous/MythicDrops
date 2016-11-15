@@ -6,4 +6,4 @@ install:
 - ./gradlew dependencies
 script:
 - chmod +x ./gradlew
-- ./gradlew clean build deploy
+- ./gradlew clean build publish
