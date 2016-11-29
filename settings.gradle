@@ -1,10 +1,10 @@
 rootProject.name = 'mythicdrops'
-include ':mythicdrops-blacksmith'
+include ':mythicdrops-hilt'
 include ':mythicdrops-common'
 include ':mythicdrops-api'
 include ':mythicdrops-core'
 
-project(':mythicdrops-blacksmith').projectDir = "$rootDir/mythicdrops-blacksmith" as File
+project(':mythicdrops-hilt').projectDir = "$rootDir/mythicdrops-hilt" as File
 project(':mythicdrops-common').projectDir = "$rootDir/mythicdrops-common" as File
 project(':mythicdrops-api').projectDir = "$rootDir/mythicdrops-api" as File
 project(':mythicdrops-core').projectDir = "$rootDir/mythicdrops-core" as File

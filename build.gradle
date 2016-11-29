@@ -28,7 +28,7 @@ allprojects {
 
 subprojects {
     dependencies {
-        compile group: 'org.spigotmc', name: 'spigot-api', version: '1.10.2-R0.1-SNAPSHOT'
+        compile group: 'org.spigotmc', name: 'spigot-api', version: '1.11-R0.1-SNAPSHOT'
         compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
         compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
         compile group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: '4.1.0'

@@ -43,8 +43,8 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
         LOGGER.debug("onEnable() - ENTER");
 
         // Print the various versions and environments in use
-        LOGGER.debug("Using MythicDrops Blacksmith version " +
-                io.pixeloutlaw.minecraft.spigot.mythicdrops.blacksmith.PomData.VERSION);
+        LOGGER.debug("Using MythicDrops Hilt version " +
+                io.pixeloutlaw.minecraft.spigot.mythicdrops.hilt.PomData.VERSION);
         LOGGER.debug("Using MythicDrops Common version " +
                 io.pixeloutlaw.minecraft.spigot.mythicdrops.common.PomData.VERSION);
         LOGGER.debug("Using MythicDrops API version " +
