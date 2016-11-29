@@ -19,10 +19,11 @@ allprojects {
         mavenLocal()
 
         maven { url 'https://hub.spigotmc.org/nexus/content/groups/public' }
-        maven { url 'http://maven.tealcube.com/content/groups/public' }
+        maven { url 'https://maven.pixeloutlaw.io/artifactory/public' }
         maven { url 'http://repo.mcstats.org/content/groups/public' }
         maven { url 'http://repo.maven.apache.org/maven2' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+        maven { url 'http://repo.stealthyone.com/content/groups/public' }
     }
 }
 

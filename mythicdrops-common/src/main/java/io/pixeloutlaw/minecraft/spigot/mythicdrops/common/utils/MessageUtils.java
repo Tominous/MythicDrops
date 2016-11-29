@@ -22,7 +22,6 @@
 package io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils;
 
 import com.google.common.base.Preconditions;
-import com.tealcube.minecraft.bukkit.TextUtils;
 import org.bukkit.command.CommandSender;
 
 import javax.inject.Inject;
@@ -69,7 +68,7 @@ public final class MessageUtils {
         Preconditions.checkNotNull(sender, "sender cannot be null");
         Preconditions.checkNotNull(message, "message cannot be null");
         Preconditions.checkNotNull(args, "args cannot be null");
-        sender.sendMessage(textManipulator.color(TextUtils.args(message, args)));
+        sender.sendMessage(textManipulator.color(textManipulator.args(message, args)));
     }
 
 }

@@ -1,7 +1,7 @@
 description = 'MythicDrops_Common'
 dependencies {
-    compile group: 'com.tealcube.minecraft.bukkit', name: 'fanciful', version: '2.0.10-SNAPSHOT'
     compile project(':mythicdrops-hilt')
+    compile group: 'mkremins', name: 'fanciful', version: '0.4.0-SNAPSHOT'
     compile group: 'ninja.leaping.configurate', name: 'configurate-yaml', version: '3.1.1'
     compile group: 'ninja.leaping.configurate', name: 'configurate-hocon', version: '3.1.1'
     compile group: 'ninja.leaping.configurate', name: 'configurate-gson', version: '3.1.1'
