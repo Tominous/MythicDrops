@@ -25,6 +25,9 @@ import com.google.common.base.Preconditions;
 import org.bukkit.command.CommandSender;
 
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * A utility class for sending non-fancy messages to players.
@@ -68,7 +71,16 @@ public final class MessageUtils {
         Preconditions.checkNotNull(sender, "sender cannot be null");
         Preconditions.checkNotNull(message, "message cannot be null");
         Preconditions.checkNotNull(args, "args cannot be null");
-        sender.sendMessage(textManipulator.color(textManipulator.args(message, args)));
+        sendMessage(sender, message, Arrays.stream(args)
+                .filter(strings -> strings.length >= 2)
+                .collect(Collectors.toMap(e -> e[0], e -> e[1])));
+    }
+
+    public void sendMessage(CommandSender sender, String message, Map<String, Object> args) {
+        Preconditions.checkNotNull(sender, "sender cannot be null");
+        Preconditions.checkNotNull(message, "message cannot be null");
+        Preconditions.checkNotNull(args, "args cannot be null");
+        sender.sendMessage(textManipulator.color(textManipulator.template(message, args)));
     }
 
 }
