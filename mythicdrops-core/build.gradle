@@ -1,8 +1,10 @@
-apply plugin: 'com.github.johnrengelman.shadow'
+apply from: 'https://pixeloutlaw.github.io/gradle-scripts/shadow.gradle'
 
 description = 'MythicDrops_Core'
 dependencies {
     compile project(':mythicdrops-api')
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.1.7'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
     compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
     compile group: 'org.mcstats.bukkit', name: 'metrics-lite', version: 'R8-SNAPSHOT'
 }

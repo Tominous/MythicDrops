@@ -1,46 +1,12 @@
-import java.time.LocalDateTime
 import org.apache.tools.ant.filters.ReplaceTokens
 
-buildscript {
-    repositories {
-        maven {
-            url 'https://plugins.gradle.org/m2/'
-        }
-    }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
-        classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:3.1.0'
-        classpath 'gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.13.1'
-        classpath 'net.ltgt.gradle:gradle-apt-plugin:0.9'
-        classpath 'com.netflix.nebula:nebula-project-plugin:3.3.0'
-        classpath 'com.netflix.nebula:nebula-release-plugin:4.1.0'
-        classpath 'com.netflix.nebula:nebula-publishing-plugin:4.9.1'
-        classpath 'com.netflix.nebula:gradle-info-plugin:3.+'
-    }
-}
-
 allprojects {
-    apply plugin: 'com.github.hierynomus.license'
-    apply plugin: 'nebula.provided-base'
-    apply plugin: 'nebula.nebula-release'
-    apply plugin: 'nebula.project'
-    apply plugin: 'nebula.maven-publish'
-    apply plugin: 'nebula.info'
+    apply from: 'https://pixeloutlaw.github.io/gradle-scripts/license.gradle'
+    apply from: 'https://pixeloutlaw.github.io/gradle-scripts/common-plugins.gradle'
+    apply from: 'https://pixeloutlaw.github.io/gradle-scripts/artifactory.gradle'
 
     group = 'com.tealcubegames.minecraft.spigot'
     version = '5.0.0-SNAPSHOT'
-
-    license {
-        header rootProject.file('HEADER')
-        ext.owner = 'Richard Harrah <topplethenunnery@gmail.com>'
-        ext.year = getYearString()
-        ext.name = project.name
-    }
-}
-
-subprojects {
-    apply plugin: 'java'
-    apply plugin: 'net.ltgt.apt'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -58,12 +24,12 @@ subprojects {
         maven { url 'http://repo.maven.apache.org/maven2' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     }
+}
 
+subprojects {
     dependencies {
         compile group: 'org.spigotmc', name: 'spigot-api', version: '1.10.2-R0.1-SNAPSHOT'
         compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
-        compile group: 'ch.qos.logback', name: 'logback-core', version: '1.1.7'
-        compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
         compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
         compile group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: '4.1.0'
         testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.0-M2'
@@ -103,23 +69,4 @@ subprojects {
         ]
     }
     compileJava.dependsOn processTemplates
-
-    publishing {
-        repositories {
-            maven {
-                url "http://maven.tealcubegames.com/content/repositories/${project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
-                name "TealCube"
-                credentials {
-                    username System.getenv("nexusUsername") ?: nexusUsername
-                    password System.getenv("nexusPassword") ?: nexusPassword
-                }
-            }
-        }
-    }
-}
-
-static def getYearString() {
-    def inceptionYear = 2016
-    def curYear = LocalDateTime.now().getYear()
-    return curYear == inceptionYear ? "${curYear}" : "${inceptionYear} - ${curYear}"
 }
