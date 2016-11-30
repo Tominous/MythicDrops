@@ -1,5 +1,5 @@
 /**
- * This file is part of mythicdrops-api, licensed under the MIT License.
+ * This file is part of mythicdrops-core, licensed under the MIT License.
  *
  * Copyright (C) 2016 Pixel Outlaw <topplethenun@pixeloutlaw.io>
  *
@@ -19,29 +19,33 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.pixeloutlaw.minecraft.spigot.mythicdrops.api;
+package io.pixeloutlaw.minecraft.spigot.mythicdrops.core;
 
-import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
+import com.google.inject.Inject;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.MessageUtils;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 
-/**
- * An interface for interacting with the MythicDrops system.
- */
-public interface MythicDrops {
+import java.util.HashMap;
+import java.util.Map;
 
-    /**
-     * Gets the current LoaderManager instance.
-     * @return current LoaderManager instance
-     */
-    LoaderManager getLoaderManager();
+public class TemporaryListener implements Listener {
 
-    /**
-     * Runs through the enable process.
-     */
-    void enable();
+    private final MessageUtils messageUtils;
 
-    /**
-     * Runs through the disable process.
-     */
-    void disable();
+    @Inject
+    public TemporaryListener(MessageUtils messageUtils) {
+        this.messageUtils = messageUtils;
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        Map<String, Object> context = new HashMap<>();
+        context.put("displayName", player.getDisplayName());
+        messageUtils.sendMessage(player, "<yellow>Hello there, <white><displayName><yellow>!", context);
+    }
 
 }

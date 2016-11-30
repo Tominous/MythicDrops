@@ -80,7 +80,7 @@ public final class MessageUtils {
         Preconditions.checkNotNull(sender, "sender cannot be null");
         Preconditions.checkNotNull(message, "message cannot be null");
         Preconditions.checkNotNull(args, "args cannot be null");
-        sender.sendMessage(textManipulator.color(textManipulator.template(message, args)));
+        sender.sendMessage(textManipulator.template(message, args));
     }
 
 }

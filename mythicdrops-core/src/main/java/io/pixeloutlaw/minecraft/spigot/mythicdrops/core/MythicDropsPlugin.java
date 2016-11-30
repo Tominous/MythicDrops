@@ -21,6 +21,7 @@
  */
 package io.pixeloutlaw.minecraft.spigot.mythicdrops.core;
 
+import ch.qos.logback.classic.Level;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.MythicDrops;
@@ -31,16 +32,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MythicDropsPlugin.class);
+    private static final List<String> ROOT_LOGGER_LIST = Collections.singletonList(Logger.ROOT_LOGGER_NAME);
 
     private LoaderManager loaderManager;
+    private TemporaryListener temporaryListener;
 
     @Override
     public void onEnable() {
-        LOGGER.debug("onEnable() - ENTER");
+        enable();
+    }
+
+    @Override
+    public void onDisable() {
+        disable();
+    }
+
+    @Override
+    public LoaderManager getLoaderManager() {
+        return loaderManager;
+    }
+
+    @Override
+    public void enable() {
+        LOGGER.debug("enable() - ENTER");
 
         // Print the various versions and environments in use
         LOGGER.debug("Using MythicDrops Hilt version " +
@@ -51,8 +72,6 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
                 io.pixeloutlaw.minecraft.spigot.mythicdrops.api.PomData.VERSION);
         LOGGER.debug("Starting MythicDrops Core version " +
                 io.pixeloutlaw.minecraft.spigot.mythicdrops.core.PomData.VERSION);
-        LOGGER.debug("Running in environment " +
-                io.pixeloutlaw.minecraft.spigot.mythicdrops.core.PomData.ENVIRONMENT);
 
         // Start Google Guice
         LOGGER.debug("Starting Google Guice...");
@@ -60,23 +79,31 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
         injector.injectMembers(this);
         LOGGER.debug("Google Guice started!");
 
-        LOGGER.debug("onEnable() - EXIT");
+        LOGGER.debug("Registering event listeners...");
+        getServer().getPluginManager().registerEvents(temporaryListener, this);
+        LOGGER.debug("Listeners registered!");
+
+        LOGGER.debug("enable() - EXIT");
     }
 
     @Override
-    public void onDisable() {
-        LOGGER.debug("onDisable() - ENTER");
-        LOGGER.debug("onDisable() - EXIT");
-    }
-
-    @Override
-    public LoaderManager getLoaderManager() {
-        return loaderManager;
+    public void disable() {
+        LOGGER.debug("disable() - ENTER");
+        LOGGER.debug("disable() - EXIT");
     }
 
     @Inject
     public void setLoaderManager(LoaderManager loaderManager) {
         this.loaderManager = loaderManager;
+    }
+
+    public TemporaryListener getTemporaryListener() {
+        return temporaryListener;
+    }
+
+    @Inject
+    public void setTemporaryListener(TemporaryListener temporaryListener) {
+        this.temporaryListener = temporaryListener;
     }
 
 }

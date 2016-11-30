@@ -29,6 +29,8 @@ import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.MythicDrops;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers.MythicTier;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.loaders.MythicLoader;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.MessageUtils;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.TextManipulator;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.MythicLoaderManager;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.MythicTierLoader;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.MythicTierLoaderFactory;
@@ -53,6 +55,8 @@ public final class MythicDropsModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(LoaderManager.class).to(MythicLoaderManager.class);
+        bind(TextManipulator.class);
+        bind(MessageUtils.class);
 
         TypeLiteral<MythicLoader<MythicTier>> mythicTierLoaderLiteral = new TypeLiteral<MythicLoader<MythicTier>>() {
         };

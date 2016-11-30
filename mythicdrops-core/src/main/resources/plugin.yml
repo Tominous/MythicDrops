@@ -21,7 +21,7 @@
 #
 
 main: io.pixeloutlaw.minecraft.spigot.mythicdrops.core.MythicDropsPlugin
-name: ${project.build.name}
-version: ${project.build.version}
+name: @NAME@
+version: @VERSION@
 authors: [ToppleTheNun, Faceguy]
 load: STARTUP

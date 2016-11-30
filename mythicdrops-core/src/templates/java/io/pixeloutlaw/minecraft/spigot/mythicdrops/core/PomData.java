@@ -30,7 +30,6 @@ public final class PomData {
     public static final String NAME = "@NAME@";
     public static final String ARTIFACT = "@ARTIFACT@";
     public static final String VERSION = "@VERSION@";
-    public static final String ENVIRONMENT = "@ENVIRONMENT@";
 
     private static final PomData INSTANCE = new PomData();
 

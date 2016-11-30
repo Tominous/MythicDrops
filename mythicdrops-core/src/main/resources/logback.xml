@@ -24,7 +24,7 @@
 -->
 <configuration scan="true">
 
-    <appender name="FILE" class="ch.qos.logback.mythicdrops.core.FileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>tealcube/mythicdrops.log</file>
         <append>true</append>
         <encoder>
