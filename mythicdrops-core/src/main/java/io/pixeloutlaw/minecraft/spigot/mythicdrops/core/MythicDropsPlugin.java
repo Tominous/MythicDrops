@@ -84,6 +84,7 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
         LOGGER.debug("disable() - EXIT");
     }
 
+    @Override
     public LoggerManipulator getLoggerManipulator() {
         return loggerManipulator;
     }

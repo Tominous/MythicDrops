@@ -22,6 +22,9 @@
 package io.pixeloutlaw.minecraft.spigot.mythicdrops.api;
 
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.LoggerManipulator;
+
+import javax.inject.Inject;
 
 /**
  * An interface for interacting with the MythicDrops system.
@@ -33,6 +36,12 @@ public interface MythicDrops {
      * @return current LoaderManager instance
      */
     LoaderManager getLoaderManager();
+
+    /**
+     * Gets the LoggerManipulator instance.
+     * @return current LoggerManipulator instance
+     */
+    LoggerManipulator getLoggerManipulator();
 
     /**
      * Runs through the enable process.
