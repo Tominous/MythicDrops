@@ -21,26 +21,23 @@
  */
 package io.pixeloutlaw.minecraft.spigot.mythicdrops.core;
 
-import ch.qos.logback.classic.Level;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.MythicDrops;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.LoggerManipulator;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.inject.MythicDropsModule;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MythicDropsPlugin.class);
-    private static final List<String> ROOT_LOGGER_LIST = Collections.singletonList(Logger.ROOT_LOGGER_NAME);
 
+    private LoggerManipulator loggerManipulator;
     private LoaderManager loaderManager;
     private TemporaryListener temporaryListener;
 
@@ -52,11 +49,6 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
     @Override
     public void onDisable() {
         disable();
-    }
-
-    @Override
-    public LoaderManager getLoaderManager() {
-        return loaderManager;
     }
 
     @Override
@@ -90,6 +82,21 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
     public void disable() {
         LOGGER.debug("disable() - ENTER");
         LOGGER.debug("disable() - EXIT");
+    }
+
+    public LoggerManipulator getLoggerManipulator() {
+        return loggerManipulator;
+    }
+
+    @Inject
+    public void setLoggerManipulator(LoggerManipulator loggerManipulator) {
+        this.loggerManipulator = loggerManipulator;
+    }
+
+
+    @Override
+    public LoaderManager getLoaderManager() {
+        return loaderManager;
     }
 
     @Inject
