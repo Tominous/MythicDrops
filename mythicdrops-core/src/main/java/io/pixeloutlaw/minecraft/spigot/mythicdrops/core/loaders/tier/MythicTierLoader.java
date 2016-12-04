@@ -1,5 +1,5 @@
 /**
- * This file is part of mythicdrops-api, licensed under the MIT License.
+ * This file is part of mythicdrops-core, licensed under the MIT License.
  *
  * Copyright (C) 2016 Pixel Outlaw <topplethenun@pixeloutlaw.io>
  *
@@ -19,36 +19,40 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.pixeloutlaw.minecraft.spigot.mythicdrops.api;
+package io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier;
 
+import com.google.inject.assistedinject.Assisted;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
-import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.LoggerManipulator;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers.MythicTier;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.loaders.AbstractConfigurateMythicLoader;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.MythicDropsPlugin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.inject.Inject;
 
 /**
- * An interface for interacting with the MythicDrops system.
+ * Implementation of MythicLoader for loading MythicTiers.
  */
-public interface MythicDrops {
+public final class MythicTierLoader extends AbstractConfigurateMythicLoader<MythicTier> {
 
-    /**
-     * Gets the current LoaderManager instance.
-     * @return current LoaderManager instance
-     */
-    LoaderManager getLoaderManager();
+    private static final Logger LOGGER = LoggerFactory.getLogger(MythicTierLoader.class);
+    private LoaderManager loaderManager;
 
-    /**
-     * Gets the LoggerManipulator instance.
-     * @return current LoggerManipulator instance
-     */
-    LoggerManipulator getLoggerManipulator();
+    @Inject
+    public MythicTierLoader(MythicDropsPlugin plugin, LoaderManager loaderManager, @Assisted String fileName) {
+        super(plugin, fileName);
+        this.loaderManager = loaderManager;
+    }
 
-    /**
-     * Runs through the enable process.
-     */
-    void enable();
+    @Override
+    public MythicTier load() {
+        return null;
+    }
 
-    /**
-     * Runs through the disable process.
-     */
-    void disable();
+    @Override
+    public void save(MythicTier mythicTier) {
+
+    }
 
 }

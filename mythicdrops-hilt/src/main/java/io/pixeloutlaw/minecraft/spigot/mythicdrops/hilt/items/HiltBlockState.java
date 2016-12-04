@@ -76,6 +76,14 @@ public class HiltBlockState extends HiltItemStack {
             "BLACK_SHULKER_BOX"
     );
 
+    public HiltBlockState(Material material, BlockState blockState) {
+        super(material);
+        Preconditions.checkNotNull(material);
+        Preconditions.checkNotNull(blockState);
+        Preconditions.checkArgument(canMaterialHaveBlockState(material));
+        setBlockState(blockState);
+    }
+
     private static Set<Material> parseAndConvertToSetOfMaterials(String... keys) {
         return Sets.immutableEnumSet(
                 Arrays.stream(keys)
@@ -93,14 +101,6 @@ public class HiltBlockState extends HiltItemStack {
             // do nothing here, we want to use the empty Optional<Material> if it can't be parsed
             return Optional.empty();
         }
-    }
-
-    public HiltBlockState(Material material, BlockState blockState) {
-        super(material);
-        Preconditions.checkNotNull(material);
-        Preconditions.checkNotNull(blockState);
-        Preconditions.checkArgument(canMaterialHaveBlockState(material));
-        setBlockState(blockState);
     }
 
     public BlockState getBlockState() {

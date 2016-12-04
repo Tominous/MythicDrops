@@ -1,5 +1,5 @@
 /**
- * This file is part of mythicdrops-hilt, licensed under the MIT License.
+ * This file is part of mythicdrops-core, licensed under the MIT License.
  *
  * Copyright (C) 2016 Pixel Outlaw <topplethenun@pixeloutlaw.io>
  *
@@ -19,34 +19,20 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.pixeloutlaw.minecraft.spigot.mythicdrops.hilt;
+package io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier;
 
 /**
- * Class that contains data from the POM.
+ * Factory to load MythicTierLoaders.
+ *
  * @author Richard Harrah
  */
-public final class PomData {
-
-    public static final String NAME = "@NAME@";
-    public static final String ARTIFACT = "@ARTIFACT@";
-    public static final String VERSION = "@VERSION@";
-
-    private static final PomData INSTANCE = new PomData();
-
-    private PomData() {
-        // do nothing, make it a singleton
-        // but really, who would want to instantiate this
-    }
+public interface MythicTierLoaderFactory {
 
     /**
-     * Fetches and returns the instance of this class.
-     *
-     * This is really only useful for templating via Mustache/Handlebars/etc.
-     *
-     * @return instance of this class
+     * Create a MythicTierLoader using a File.
+     * @param fileName File from which to load a MythicTier
+     * @return a new MythicTierLoader
      */
-    public static PomData getInstance() {
-        return INSTANCE;
-    }
+    MythicTierLoader create(String fileName);
 
 }

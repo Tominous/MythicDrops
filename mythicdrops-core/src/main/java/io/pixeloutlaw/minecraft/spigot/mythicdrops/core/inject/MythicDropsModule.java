@@ -25,21 +25,21 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.TypeLiteral;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
-import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.MythicDrops;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.config.StartupConfig;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers.MythicTier;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.loaders.MythicLoader;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.LoggerManipulator;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.MessageUtils;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.TextManipulator;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.MythicDropsPlugin;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.MythicLoaderManager;
-import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.MythicTierLoader;
-import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.MythicTierLoaderFactory;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier.MythicTierLoader;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier.MythicTierLoaderFactory;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.utils.LoggerManipulatorImpl;
 import org.reflections.Reflections;
 
 import javax.inject.Singleton;
-import java.util.logging.Logger;
 
 /**
  * The Google Guice module for use with IoC.
@@ -48,11 +48,11 @@ import java.util.logging.Logger;
  */
 public final class MythicDropsModule extends AbstractModule {
 
-    private MythicDrops mythicDrops;
+    private MythicDropsPlugin mythicDropsPlugin;
     private Reflections reflections;
 
-    public MythicDropsModule(MythicDrops mythicDrops) {
-        this.mythicDrops = mythicDrops;
+    public MythicDropsModule(MythicDropsPlugin mythicDropsPlugin) {
+        this.mythicDropsPlugin = mythicDropsPlugin;
     }
 
     @Override
@@ -61,6 +61,9 @@ public final class MythicDropsModule extends AbstractModule {
         bind(LoggerManipulator.class).to(LoggerManipulatorImpl.class);
         bind(TextManipulator.class);
         bind(MessageUtils.class);
+
+        // Config Classes
+        bind(StartupConfig.class);
 
         // Managers
         bind(LoaderManager.class).to(MythicLoaderManager.class);
@@ -73,15 +76,15 @@ public final class MythicDropsModule extends AbstractModule {
     }
 
     @Provides
-    protected MythicDrops provideMythicDrops() {
-        return mythicDrops;
+    protected MythicDropsPlugin provideMythicDropsPlugin() {
+        return mythicDropsPlugin;
     }
 
     @Provides
     @Singleton
     protected Reflections provideReflections() {
         if (reflections == null) {
-            this.reflections = new Reflections("com.tealcubegames.minecraft.spigot.mythicdrops");
+            this.reflections = new Reflections("io.pixeloutlaw.minecraft.spigot.mythicdrops");
         }
         return reflections;
     }

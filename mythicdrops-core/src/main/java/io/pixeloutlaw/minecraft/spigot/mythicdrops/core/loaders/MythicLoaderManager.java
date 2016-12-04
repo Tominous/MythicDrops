@@ -26,12 +26,12 @@ import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers.MythicTier;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers.MythicTierComponent;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.loaders.MythicLoader;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier.MythicTierLoaderFactory;
 import org.apache.commons.lang.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import java.io.File;
 import java.util.Collection;
 
 /**
@@ -50,10 +50,10 @@ public final class MythicLoaderManager implements LoaderManager {
     }
 
     @Override
-    public MythicLoader<MythicTier> createNewMythicTierLoader(File file) {
-        Preconditions.checkNotNull(file, "file cannot be null");
-        LOGGER.debug("Creating a new MythicTier loader for file: {}", file.getAbsolutePath());
-        return mythicTierLoaderFactory.create(file);
+    public MythicLoader<MythicTier> createNewMythicTierLoader(String fileName) {
+        Preconditions.checkNotNull(fileName, "file cannot be null");
+        LOGGER.debug("Creating a new MythicTier loader for file: {}", fileName);
+        return mythicTierLoaderFactory.create(fileName);
     }
 
     @Override

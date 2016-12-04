@@ -25,7 +25,6 @@ import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers.MythicTier;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers.MythicTierComponent;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.loaders.MythicLoader;
 
-import java.io.File;
 import java.util.Collection;
 
 /**
@@ -38,10 +37,10 @@ public interface LoaderManager {
     /**
      * Creates a new {@link MythicLoader} for {@link MythicTier}s.
      *
-     * @param file File from which to load
+     * @param fileName File from which to load
      * @return new MythicLoader for a MythicTier
      */
-    MythicLoader<MythicTier> createNewMythicTierLoader(File file);
+    MythicLoader<MythicTier> createNewMythicTierLoader(String fileName);
 
     /**
      * Gets all of the registered {@link MythicLoader}s for {@link MythicTierComponent}s.

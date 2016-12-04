@@ -1,5 +1,5 @@
 /**
- * This file is part of mythicdrops-core, licensed under the MIT License.
+ * This file is part of mythicdrops-api, licensed under the MIT License.
  *
  * Copyright (C) 2016 Pixel Outlaw <topplethenun@pixeloutlaw.io>
  *
@@ -19,22 +19,22 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders;
+package io.pixeloutlaw.minecraft.spigot.mythicdrops.api.config;
 
-import java.io.File;
+import ninja.leaping.configurate.objectmapping.Setting;
+import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
 /**
- * Factory to load MythicTierLoaders.
- *
- * @author Richard Harrah
+ * Represents the base class for MythicDrops configuration objects.
  */
-public interface MythicTierLoaderFactory {
+@ConfigSerializable
+public class Config {
 
-    /**
-     * Create a MythicTierLoader using a File.
-     * @param file File from which to load a MythicTier
-     * @return a new MythicTierLoader
-     */
-    MythicTierLoader create(File file);
+    @Setting("version")
+    private String version;
+
+    public String getVersion() {
+        return version;
+    }
 
 }

@@ -51,12 +51,6 @@ public class HiltItemStack extends ItemStack {
         createItemMeta();
     }
 
-    protected void createItemMeta() {
-        if (!hasItemMeta()) {
-            setItemMeta(Bukkit.getItemFactory().getItemMeta(getType()));
-        }
-    }
-
     /**
      * Constructs a new HiltItemStack from a given Material and amount.
      *
@@ -92,6 +86,12 @@ public class HiltItemStack extends ItemStack {
         super(stack);
         defaultName = WordUtils.capitalizeFully(Joiner.on(" ").skipNulls().join(getType().name().split("_")));
         createItemMeta();
+    }
+
+    protected void createItemMeta() {
+        if (!hasItemMeta()) {
+            setItemMeta(Bukkit.getItemFactory().getItemMeta(getType()));
+        }
     }
 
     /**

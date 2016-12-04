@@ -33,6 +33,11 @@ public final class PomData {
 
     private static final PomData INSTANCE = new PomData();
 
+    private PomData() {
+        // do nothing, make it a singleton
+        // but really, who would want to instantiate this
+    }
+
     /**
      * Fetches and returns the instance of this class.
      *
@@ -42,11 +47,6 @@ public final class PomData {
      */
     public static PomData getInstance() {
         return INSTANCE;
-    }
-
-    private PomData() {
-        // do nothing, make it a singleton
-        // but really, who would want to instantiate this
     }
 
 }

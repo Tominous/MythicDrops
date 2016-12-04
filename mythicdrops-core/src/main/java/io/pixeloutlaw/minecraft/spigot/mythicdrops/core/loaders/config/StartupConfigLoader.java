@@ -19,40 +19,21 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders;
+package io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.config;
 
-import com.google.inject.assistedinject.Assisted;
-import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
-import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers.MythicTier;
-import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.loaders.AbstractConfigurateMythicLoader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.config.StartupConfig;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.MythicDropsPlugin;
 
 import javax.inject.Inject;
-import java.io.File;
 
-/**
- * Implementation of MythicLoader for loading MythicTiers.
- */
-public final class MythicTierLoader extends AbstractConfigurateMythicLoader<MythicTier> {
+public final class StartupConfigLoader extends VersionedConfigConfigurateMythicLoader<StartupConfig> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MythicTierLoader.class);
-    private LoaderManager loaderManager;
-
+    /**
+     * {@inheritDoc}
+     */
     @Inject
-    public MythicTierLoader(LoaderManager loaderManager, @Assisted File file) {
-        super(file);
-        this.loaderManager = loaderManager;
-    }
-
-    @Override
-    public MythicTier load() {
-        return null;
-    }
-
-    @Override
-    public void save(MythicTier mythicTier) {
-
+    public StartupConfigLoader(MythicDropsPlugin mythicDropsPlugin) {
+        super(StartupConfig.class, mythicDropsPlugin, "startup.yml");
     }
 
 }

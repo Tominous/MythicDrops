@@ -24,12 +24,15 @@ package io.pixeloutlaw.minecraft.spigot.mythicdrops.core;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.MythicDrops;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.config.StartupConfig;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.LoggerManipulator;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.inject.MythicDropsModule;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.config.StartupConfigLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 
 import javax.inject.Inject;
 
@@ -37,12 +40,26 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MythicDropsPlugin.class);
 
+    private StartupConfigLoader startupConfigLoader;
+    private StartupConfig startupConfig;
+
     private LoggerManipulator loggerManipulator;
     private LoaderManager loaderManager;
     private TemporaryListener temporaryListener;
 
     @Override
     public void onEnable() {
+        Injector injector = Guice.createInjector(new MythicDropsModule(this));
+        injector.injectMembers(this);
+
+        getLogger().info("Loading startup properties...");
+        setStartupConfigLoader(new StartupConfigLoader(this));
+        setStartupConfig(getStartupConfigLoader().update());
+
+        if (getStartupConfig().isDebugEnabled()) {
+            getLoggerManipulator().setLoggerLevel(Level.DEBUG, "io.pixeloutlaw.minecraft.spigot.mythicdrops");
+        }
+
         enable();
     }
 
@@ -64,12 +81,6 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
                 io.pixeloutlaw.minecraft.spigot.mythicdrops.api.PomData.VERSION);
         LOGGER.debug("Starting MythicDrops Core version " +
                 io.pixeloutlaw.minecraft.spigot.mythicdrops.core.PomData.VERSION);
-
-        // Start Google Guice
-        LOGGER.debug("Starting Google Guice...");
-        Injector injector = Guice.createInjector(new MythicDropsModule(this));
-        injector.injectMembers(this);
-        LOGGER.debug("Google Guice started!");
 
         LOGGER.debug("Registering event listeners...");
         getServer().getPluginManager().registerEvents(temporaryListener, this);
@@ -94,7 +105,6 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
         this.loggerManipulator = loggerManipulator;
     }
 
-
     @Override
     public LoaderManager getLoaderManager() {
         return loaderManager;
@@ -112,6 +122,23 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
     @Inject
     public void setTemporaryListener(TemporaryListener temporaryListener) {
         this.temporaryListener = temporaryListener;
+    }
+
+    public StartupConfig getStartupConfig() {
+        return startupConfig;
+    }
+
+    @Inject
+    public void setStartupConfig(StartupConfig startupConfig) {
+        this.startupConfig = startupConfig;
+    }
+
+    public StartupConfigLoader getStartupConfigLoader() {
+        return startupConfigLoader;
+    }
+
+    public void setStartupConfigLoader(StartupConfigLoader startupConfigLoader) {
+        this.startupConfigLoader = startupConfigLoader;
     }
 
 }

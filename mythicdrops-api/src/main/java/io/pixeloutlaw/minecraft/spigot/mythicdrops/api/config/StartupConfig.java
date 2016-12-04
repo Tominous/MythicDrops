@@ -1,5 +1,5 @@
 /**
- * This file is part of mythicdrops-hilt, licensed under the MIT License.
+ * This file is part of mythicdrops-api, licensed under the MIT License.
  *
  * Copyright (C) 2016 Pixel Outlaw <topplethenun@pixeloutlaw.io>
  *
@@ -19,34 +19,29 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.pixeloutlaw.minecraft.spigot.mythicdrops.hilt;
+package io.pixeloutlaw.minecraft.spigot.mythicdrops.api.config;
+
+import ninja.leaping.configurate.objectmapping.Setting;
+import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
+
+import javax.inject.Inject;
 
 /**
- * Class that contains data from the POM.
- * @author Richard Harrah
+ * Represents the startup configuration file.
  */
-public final class PomData {
+@ConfigSerializable
+public class StartupConfig extends Config {
 
-    public static final String NAME = "@NAME@";
-    public static final String ARTIFACT = "@ARTIFACT@";
-    public static final String VERSION = "@VERSION@";
+    @Setting("debug")
+    private boolean debugEnabled;
 
-    private static final PomData INSTANCE = new PomData();
-
-    private PomData() {
-        // do nothing, make it a singleton
-        // but really, who would want to instantiate this
+    @Inject
+    public StartupConfig() {
+        // don't need to do anything here
     }
 
-    /**
-     * Fetches and returns the instance of this class.
-     *
-     * This is really only useful for templating via Mustache/Handlebars/etc.
-     *
-     * @return instance of this class
-     */
-    public static PomData getInstance() {
-        return INSTANCE;
+    public boolean isDebugEnabled() {
+        return debugEnabled;
     }
 
 }
