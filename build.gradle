@@ -55,7 +55,8 @@ subprojects {
         filter ReplaceTokens, tokens: [
                 VERSION : version + "-" + (System.getenv("BUILD_NUMBER") ?: "0"),
                 NAME    : System.getenv("JOB_NAME") ?: project.name,
-                ARTIFACT: project.name.toLowerCase()
+                ARTIFACT: project.name.toLowerCase(),
+                LEVEL   : System.getenv("BUILD_NUMBER") != null ? 'info' : 'debug'
         ]
     }
 
