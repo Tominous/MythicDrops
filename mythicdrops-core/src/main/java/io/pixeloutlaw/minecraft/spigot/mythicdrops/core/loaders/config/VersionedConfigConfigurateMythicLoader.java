@@ -29,11 +29,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Comparator;
-import java.util.Objects;
 
 public class VersionedConfigConfigurateMythicLoader<T extends Config> extends ConfigConfigurateMythicLoader<T> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VersionedConfigConfigurateMythicLoader.class);
+    private static final Comparator<Version> VERSION_COMPARATOR = new VersionComparator();
 
     /**
      * Creates a new instance of this class designed to load from the given {@code fileName}.
@@ -65,8 +65,10 @@ public class VersionedConfigConfigurateMythicLoader<T extends Config> extends Co
         }
 
         // Compare Version objects to determine if fileConfig is up-to-date
-        int compared = Objects.compare(fileVersion, resourceVersion, new VersionComparator());
-        if (compared <= 0) {
+        int compared = VERSION_COMPARATOR.compare(fileVersion, resourceVersion);
+        LOGGER.debug("Comparing file version ({}) to resource version ({}): {}",
+                fileVersion, resourceVersion, compared);
+        if (compared == 0) {
             return fileConfig;
         }
 
