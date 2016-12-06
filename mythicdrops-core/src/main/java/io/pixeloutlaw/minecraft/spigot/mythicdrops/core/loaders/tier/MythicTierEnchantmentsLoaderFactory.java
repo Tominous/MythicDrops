@@ -1,5 +1,5 @@
 /**
- * This file is part of mythicdrops-api, licensed under the MIT License.
+ * This file is part of mythicdrops-core, licensed under the MIT License.
  *
  * Copyright (C) 2016 Pixel Outlaw <topplethenun@pixeloutlaw.io>
  *
@@ -19,34 +19,20 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers;
-
-import com.google.auto.value.AutoValue;
-import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.loaders.MythicLoader;
+package io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier;
 
 /**
- * An interface that represents an additional component of a tier beyond the standard configuration.
+ * Factory to load MythicTierEnchantmentsLoaders.
  *
  * @author Richard Harrah
  */
-@AutoValue
-public abstract class MythicTierComponent {
+public interface MythicTierEnchantmentsLoaderFactory {
 
-    public static Builder builder() {
-        return new AutoValue_MythicTierComponent.Builder();
-    }
-
-    public abstract String id();
-
-    public abstract MythicLoader<MythicTierComponent> loader();
-
-    @AutoValue.Builder
-    public static abstract class Builder {
-        public abstract Builder id(String id);
-
-        public abstract Builder loader(MythicLoader<MythicTierComponent> loader);
-
-        public abstract MythicTierComponent build();
-    }
+    /**
+     * Create a MythicTierEnchantmentsLoader using a File.
+     * @param fileName File from which to load a MythicTierEnchantments
+     * @return a new MythicTierEnchantmentsLoader
+     */
+    MythicTierEnchantmentsLoader create(String fileName);
 
 }

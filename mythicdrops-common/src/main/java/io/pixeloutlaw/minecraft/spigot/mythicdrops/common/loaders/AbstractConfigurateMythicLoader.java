@@ -44,6 +44,7 @@ public abstract class AbstractConfigurateMythicLoader<T> implements MythicLoader
     protected ConfigurationLoader<? extends ConfigurationNode> fileConfigurationLoader;
     protected ConfigurationLoader<? extends ConfigurationNode> resourceConfigurationLoader;
     protected String fileName;
+    protected File file;
     private Plugin plugin;
 
     /**

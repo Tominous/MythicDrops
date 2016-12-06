@@ -40,6 +40,8 @@ public abstract class MythicTier {
         return new AutoValue_MythicTier.Builder();
     }
 
+    public abstract String key();
+
     public abstract String displayName();
 
     public abstract ChatColor displayColor();
@@ -68,6 +70,8 @@ public abstract class MythicTier {
 
     @AutoValue.Builder
     public static abstract class Builder {
+        public abstract Builder key(String key);
+
         public abstract Builder displayName(String displayName);
 
         public abstract Builder displayColor(ChatColor displayColor);
