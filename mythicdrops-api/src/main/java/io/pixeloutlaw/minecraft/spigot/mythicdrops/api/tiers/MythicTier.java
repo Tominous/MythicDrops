@@ -56,21 +56,9 @@ public abstract class MythicTier {
 
     public abstract double maximumDurabilityPercentage();
 
-    public abstract Collection<MythicEnchantment> baseEnchantments();
+    public abstract MythicTierEnchantments mythicTierEnchantments();
 
-    public abstract Collection<MythicEnchantment> bonusEnchantments();
-
-    public abstract int minimumBonusEnchantments();
-
-    public abstract int maximumBonusEnchantments();
-
-    public abstract Collection<String> baseLore();
-
-    public abstract Collection<String> bonusLore();
-
-    public abstract int minimumBonusLore();
-
-    public abstract int maximumBonusLore();
+    public abstract MythicTierLore mythicTierLore();
 
     public abstract double chanceToSpawnOnAMonster();
 
@@ -96,21 +84,9 @@ public abstract class MythicTier {
 
         public abstract Builder maximumDurabilityPercentage(double maximumDurabilityPercentage);
 
-        public abstract Builder baseEnchantments(Collection<MythicEnchantment> baseEnchantments);
+        public abstract Builder mythicTierEnchantments(MythicTierEnchantments mythicTierEnchantments);
 
-        public abstract Builder bonusEnchantments(Collection<MythicEnchantment> bonusEnchantments);
-
-        public abstract Builder minimumBonusEnchantments(int minimumBonusEnchantments);
-
-        public abstract Builder maximumBonusEnchantments(int maximumBonusEnchantments);
-
-        public abstract Builder baseLore(Collection<String> baseLore);
-
-        public abstract Builder bonusLore(Collection<String> bonusLore);
-
-        public abstract Builder minimumBonusLore(int minimumBonusLore);
-
-        public abstract Builder maximumBonusLore(int maximumBonusLore);
+        public abstract Builder mythicTierLore(MythicTierLore mythicTierLore);
 
         public abstract Builder chanceToSpawnOnAMonster(double chanceToSpawnOnAMonster);
 
