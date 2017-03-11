@@ -3,9 +3,8 @@ import org.apache.tools.ant.filters.ReplaceTokens
 allprojects {
     apply from: 'https://pixeloutlaw.github.io/gradle-scripts/license.gradle'
     apply from: 'https://pixeloutlaw.github.io/gradle-scripts/common-plugins.gradle'
-    apply from: 'https://pixeloutlaw.github.io/gradle-scripts/artifactory.gradle'
 
-    group = 'com.tealcubegames.minecraft.spigot'
+    group = 'io.pixeloutlaw.minecraft.spigot'
     version = '5.0.0-SNAPSHOT'
 
     sourceCompatibility = 1.8
@@ -19,11 +18,24 @@ allprojects {
         mavenLocal()
 
         maven { url 'https://hub.spigotmc.org/nexus/content/groups/public' }
-        maven { url 'https://maven.pixeloutlaw.io/artifactory/public' }
+        maven { url 'https://artifactory.pixeloutlaw.io/artifactory/public' }
         maven { url 'http://repo.mcstats.org/content/groups/public' }
         maven { url 'http://repo.maven.apache.org/maven2' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
         maven { url 'http://repo.stealthyone.com/content/groups/public' }
+    }
+
+    publishing {
+        repositories {
+            maven {
+                url "https://artifactory.pixeloutlaw.io/artifactory/maven-${project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
+                name "PixelOutlaw"
+                credentials {
+                    username System.getenv("ARTIFACTORY_USERNAME") ?: project.properties['artifactory_username']
+                    password System.getenv("ARTIFACTORY_PASSWORD") ?: project.properties['artifactory_password']
+                }
+            }
+        }
     }
 }
 
