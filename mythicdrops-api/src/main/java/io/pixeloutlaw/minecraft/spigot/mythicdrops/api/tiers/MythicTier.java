@@ -1,7 +1,7 @@
 /**
  * This file is part of mythicdrops-api, licensed under the MIT License.
  *
- * Copyright (C) 2016 Pixel Outlaw <topplethenun@pixeloutlaw.io>
+ * Copyright (C) 2016 - 2017 Pixel Outlaw <topplethenun@pixeloutlaw.io>
  *
  * Permission is hereby granted, free of charge,
  * to any person obtaining a copy of this software and associated documentation files (the "Software"),
