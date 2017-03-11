@@ -35,7 +35,6 @@ public final class LoggerManipulatorImpl implements LoggerManipulator {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggerManipulatorImpl.class);
     private static final List<String> ROOT_LOGGER_LIST = Collections.singletonList(Logger.ROOT_LOGGER_NAME);
 
-
     @Inject
     public LoggerManipulatorImpl() {
         // don't need to do anything here
