@@ -36,7 +36,12 @@ import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.MessageUtils;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.TextManipulator;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.MythicDropsPlugin;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.MythicLoaderManager;
-import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier.*;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier.MythicTierEnchantmentsLoader;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier.MythicTierEnchantmentsLoaderFactory;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier.MythicTierLoader;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier.MythicTierLoaderFactory;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier.MythicTierLoreLoader;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tier.MythicTierLoreLoaderFactory;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.utils.LoggerManipulatorImpl;
 import org.reflections.Reflections;
 
@@ -59,31 +64,16 @@ public final class MythicDropsModule extends AbstractModule {
     @Override
     protected void configure() {
         // Utility Classes
-        bind(LoggerManipulator.class).to(LoggerManipulatorImpl.class);
-        bind(TextManipulator.class);
-        bind(MessageUtils.class);
+        bindUtilityClasses();
 
         // Config Classes
-        bind(StartupConfig.class);
+        bindConfigClasses();
 
         // Managers
-        bind(LoaderManager.class).to(MythicLoaderManager.class);
+        bindManagers();
 
         // Factories
-        TypeLiteral<MythicLoader<MythicTier>> mythicTierLoaderLiteral = new TypeLiteral<MythicLoader<MythicTier>>() {
-        };
-        TypeLiteral<MythicLoader<MythicTierEnchantments>> mythicTierEnchantmentsLoaderLiteral =
-                new TypeLiteral<MythicLoader<MythicTierEnchantments>>() {
-                };
-        TypeLiteral<MythicLoader<MythicTierLore>> mythicTierLoreLoaderLiteral =
-                new TypeLiteral<MythicLoader<MythicTierLore>>() {
-                };
-        install(new FactoryModuleBuilder().implement(mythicTierLoaderLiteral, MythicTierLoader.class)
-                .build(MythicTierLoaderFactory.class));
-        install(new FactoryModuleBuilder().implement(mythicTierEnchantmentsLoaderLiteral,
-                MythicTierEnchantmentsLoader.class).build(MythicTierEnchantmentsLoaderFactory.class));
-        install(new FactoryModuleBuilder().implement(mythicTierLoreLoaderLiteral,
-                MythicTierLoreLoader.class).build(MythicTierLoreLoaderFactory.class));
+        installFactories();
     }
 
     @Provides
@@ -98,6 +88,38 @@ public final class MythicDropsModule extends AbstractModule {
             this.reflections = new Reflections("io.pixeloutlaw.minecraft.spigot.mythicdrops");
         }
         return reflections;
+    }
+
+    private void bindConfigClasses() {
+        bind(StartupConfig.class);
+    }
+
+    private void bindManagers() {
+        bind(LoaderManager.class).to(MythicLoaderManager.class);
+    }
+
+    private void bindUtilityClasses() {
+        bind(LoggerManipulator.class).to(LoggerManipulatorImpl.class);
+        bind(TextManipulator.class);
+        bind(MessageUtils.class);
+    }
+
+    private void installFactories() {
+        TypeLiteral<MythicLoader<MythicTier>> mythicTierLoaderLiteral =
+                new TypeLiteral<MythicLoader<MythicTier>>() {
+                };
+        TypeLiteral<MythicLoader<MythicTierEnchantments>> mythicTierEnchantmentsLoaderLiteral =
+                new TypeLiteral<MythicLoader<MythicTierEnchantments>>() {
+                };
+        TypeLiteral<MythicLoader<MythicTierLore>> mythicTierLoreLoaderLiteral =
+                new TypeLiteral<MythicLoader<MythicTierLore>>() {
+                };
+        install(new FactoryModuleBuilder().implement(mythicTierLoaderLiteral, MythicTierLoader.class)
+                .build(MythicTierLoaderFactory.class));
+        install(new FactoryModuleBuilder().implement(mythicTierEnchantmentsLoaderLiteral,
+                MythicTierEnchantmentsLoader.class).build(MythicTierEnchantmentsLoaderFactory.class));
+        install(new FactoryModuleBuilder().implement(mythicTierLoreLoaderLiteral,
+                MythicTierLoreLoader.class).build(MythicTierLoreLoaderFactory.class));
     }
 
 }
