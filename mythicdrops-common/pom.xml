@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.pixeloutlaw.minecraft.spigot</groupId>
+    <artifactId>mythicdrops-aggregator</artifactId>
+    <version>5.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>mythicdrops-common</artifactId>
+  <version>5.0.0-SNAPSHOT</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.pixeloutlaw</groupId>
+      <artifactId>fanciful</artifactId>
+      <version>1.11.2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>io.pixeloutlaw</groupId>
+      <artifactId>hilt</artifactId>
+      <version>1.11.2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>ninja.leaping.configurate</groupId>
+      <artifactId>configurate-yaml</artifactId>
+      <version>3.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>ST4</artifactId>
+      <version>4.0.8</version>
+    </dependency>
+  </dependencies>
+
+</project>
