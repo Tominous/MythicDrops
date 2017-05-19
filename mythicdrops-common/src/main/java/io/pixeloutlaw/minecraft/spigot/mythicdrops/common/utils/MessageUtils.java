@@ -40,7 +40,7 @@ public final class MessageUtils {
    * Sends a message to the given player after replacing any color codes and replacing any tokens in the message.
    * <p>
    * Example:
-   * {@code MessageUtils.sendMessage(player, "<red>Your name is %name%!", new String[][]{{"%name%", player.getName()})}
+   * {@code MessageUtils.sendMessage(player, "<red>Your name is %name%!", new String[][]{{"%name%", player.getName()}})}
    *
    * @param sender  Player or Console
    * @param message message to send
