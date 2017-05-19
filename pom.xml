@@ -183,6 +183,21 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.name>${project.name}</project.build.name>
+    <project.build.loglevel>DEBUG</project.build.loglevel>
   </properties>
+
+  <profiles>
+    <profile>
+      <id>CI</id>
+      <activation>
+        <property>
+          <name>env.BUILD_NUMBER</name>
+        </property>
+      </activation>
+      <properties>
+        <project.build.loglevel>INFO</project.build.loglevel>
+      </properties>
+    </profile>
+  </profiles>
 
 </project>

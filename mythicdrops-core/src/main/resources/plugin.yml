@@ -1,0 +1,5 @@
+main: io.pixeloutlaw.minecraft.spigot.mythicdrops.core.MythicDropsPlugin
+name: ${project.build.name}
+version: ${project.version}
+authors: [ToppleTheNun, Faceguy]
+load: STARTUP
