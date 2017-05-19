@@ -125,6 +125,19 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>templating-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <id>filter-src</id>
+            <goals>
+              <goal>filter-sources</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
@@ -164,7 +177,6 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.build.version>${project.version}-${git.commit.id.abbrev}</project.build.version>
     <project.build.name>${project.name}</project.build.name>
   </properties>
 
