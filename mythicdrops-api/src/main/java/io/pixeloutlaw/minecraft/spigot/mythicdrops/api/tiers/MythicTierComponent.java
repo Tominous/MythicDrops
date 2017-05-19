@@ -1,40 +1,42 @@
 package io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers;
 
+import com.google.auto.value.AutoValue;
 import com.google.common.base.Preconditions;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.loaders.MythicLoader;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.values.Validated;
 import org.apache.commons.lang3.StringUtils;
-import org.immutables.value.Value;
-import org.immutables.value.Value.Style.ImplementationVisibility;
 
-@Value.Immutable
-@Value.Style(visibility = ImplementationVisibility.PACKAGE)
-public abstract class MythicTierComponent {
-
-  public static MythicTierComponent of(String id, MythicLoader<MythicTierComponent> loader) {
-    return ImmutableMythicTierComponent.of(id, loader);
-  }
+@AutoValue
+public abstract class MythicTierComponent extends Validated {
 
   public static Builder builder() {
-    return ImmutableMythicTierComponent.builder();
+    return new AutoValue_MythicTierComponent.Builder();
   }
 
-  @Value.Parameter
   public abstract String id();
 
-  @Value.Parameter
   public abstract MythicLoader<MythicTierComponent> loader();
 
-  @Value.Check
-  void check() {
+  @Override
+  protected void check() {
     Preconditions.checkState(!StringUtils.isBlank(id()), "ID cannot be empty or null");
   }
 
-  public interface Builder {
-    Builder id(String id);
+  @AutoValue.Builder
+  public abstract static class Builder {
 
-    Builder loader(MythicLoader<MythicTierComponent> loader);
+    public abstract Builder id(String id);
 
-    MythicTierComponent build();
+    public abstract Builder loader(MythicLoader<MythicTierComponent> loader);
+
+    public MythicTierComponent build() {
+      MythicTierComponent mythicTierComponent = autoBuild();
+      mythicTierComponent.check();
+      return mythicTierComponent;
+    }
+
+    abstract MythicTierComponent autoBuild();
+
   }
 
 }

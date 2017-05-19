@@ -1,42 +1,42 @@
 package io.pixeloutlaw.minecraft.spigot.mythicdrops.api.items;
 
+import com.google.auto.value.AutoValue;
 import com.google.common.base.Preconditions;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.values.Validated;
 import java.util.Collection;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
-import org.immutables.value.Value;
-import org.immutables.value.Value.Style.ImplementationVisibility;
 
-@Value.Immutable
-@Value.Style(visibility = ImplementationVisibility.PACKAGE)
-public abstract class MythicItemType {
-
-  public static MythicItemType of(String name, Collection<Material> materials) {
-    return ImmutableMythicItemType.of(name, materials);
-  }
+@AutoValue
+public abstract class MythicItemType extends Validated {
 
   public static Builder builder() {
-    return ImmutableMythicItemType.builder();
+    return new AutoValue_MythicItemType.Builder();
   }
 
-  @Value.Parameter
   public abstract String name();
 
-  @Value.Parameter
   public abstract Collection<Material> materials();
 
-  @Value.Check
-  void check() {
+  @Override
+  protected void check() {
     Preconditions.checkState(!StringUtils.isBlank(name()), "Name cannot be empty or null");
     Preconditions.checkState(!materials().isEmpty(), "Materials cannot be empty");
   }
 
-  public interface Builder {
-    Builder name(String name);
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder name(String name);
 
-    Builder materials(Collection<Material> materials);
+    public abstract Builder materials(Collection<Material> materials);
 
-    MythicItemType build();
+    public MythicItemType build() {
+      MythicItemType mythicItemType = autoBuild();
+      mythicItemType.check();
+      return mythicItemType;
+    }
+
+    abstract MythicItemType autoBuild();
   }
 
 }
