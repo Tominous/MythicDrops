@@ -28,6 +28,7 @@ import com.google.inject.TypeLiteral;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.config.StartupConfig;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.managers.TierManager;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers.MythicTier;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers.MythicTierEnchantments;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.tiers.MythicTierLore;
@@ -38,6 +39,7 @@ import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.TextManipulator;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.MythicDropsPlugin;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.MythicLoaderManager;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tiers.*;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.managers.MythicTierManager;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.utils.LoggerManipulatorImpl;
 import org.reflections.Reflections;
 
@@ -87,6 +89,7 @@ public final class MythicDropsCoreModule extends AbstractModule {
 
     private void bindManagers() {
         bind(LoaderManager.class).to(MythicLoaderManager.class);
+        bind(TierManager.class).to(MythicTierManager.class);
     }
 
     private void bindUtilityClasses() {

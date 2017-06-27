@@ -27,6 +27,7 @@ import com.google.inject.Injector;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.MythicDrops;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.config.StartupConfig;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.loaders.LoaderManager;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.managers.TierManager;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.LoggerManipulator;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.inject.MythicDropsCoreModule;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.config.StartupConfigLoader;
@@ -46,6 +47,7 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
 
     private LoggerManipulator loggerManipulator;
     private LoaderManager loaderManager;
+    private TierManager tierManager;
 
     @Override
     public void onEnable() {
@@ -70,7 +72,6 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
 
     @Override
     public void enable() {
-        LOGGER.debug("enable() - ENTER");
         LOGGER.debug("enable() - ENTER");
 
         // Print the various versions and environments in use
@@ -125,6 +126,15 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
 
     public void setStartupConfigLoader(StartupConfigLoader startupConfigLoader) {
         this.startupConfigLoader = startupConfigLoader;
+    }
+
+    public TierManager getTierManager() {
+        return tierManager;
+    }
+
+    @Inject
+    public void setTierManager(TierManager tierManager) {
+        this.tierManager = tierManager;
     }
 
 }
