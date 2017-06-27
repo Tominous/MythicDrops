@@ -78,8 +78,9 @@ lore:
   minimumBonusLore: 1
   maximumBonusLore: 4
 
-## Chance that an item of this tier will spawn on a monster
-chanceToSpawnOnAMonster: 100
+## Weight of this particular tier. The higher the weight, the more likely that this
+## tier will be chosen.
+spawnOnAMonsterWeight: 100
 
 ## Chance that an item of this tier will actually drop if a monster holding it dies
 chanceToDropOnMonsterDeath: 100

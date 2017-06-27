@@ -77,7 +77,7 @@ public final class MythicTierLoader extends AbstractConfigurateMythicLoader<Myth
                 .infiniteDurability(configurationNode.getNode("infiniteDurability").getBoolean(false))
                 .minimumDurabilityPercentage(configurationNode.getNode("minimumDurabilityPercentage").getDouble(100))
                 .maximumDurabilityPercentage(configurationNode.getNode("maximumDurabilityPercentage").getDouble(100))
-                .chanceToSpawnOnAMonster(configurationNode.getNode("chanceToSpawnOnAMonster").getDouble(0))
+                .spawnOnAMonsterWeight(configurationNode.getNode("spawnOnAMonsterWeight").getDouble(0))
                 .chanceToDropOnMonsterDeath(configurationNode.getNode("chanceToDropOnMonsterDeath").getDouble(100))
                 .mythicTierEnchantments(mythicTierEnchantmentsLoader.load())
                 .mythicTierLore(mythicTierLoreLoader.load());
@@ -104,7 +104,7 @@ public final class MythicTierLoader extends AbstractConfigurateMythicLoader<Myth
         configurationNode.getNode("infiniteDurability").setValue(mythicTier.infiniteDurability());
         configurationNode.getNode("minimumDurabilityPercentage").setValue(mythicTier.minimumDurabilityPercentage());
         configurationNode.getNode("maximumDurabilityPercentage").setValue(mythicTier.maximumDurabilityPercentage());
-        configurationNode.getNode("chanceToSpawnOnAMonster").setValue(mythicTier.chanceToSpawnOnAMonster());
+        configurationNode.getNode("spawnOnAMonsterWeight").setValue(mythicTier.spawnOnAMonsterWeight());
         configurationNode.getNode("chanceToDropOnMonsterDeath").setValue(mythicTier.chanceToDropOnMonsterDeath());
         mythicTierEnchantmentsLoader.save(mythicTier.mythicTierEnchantments());
         mythicTierLoreLoader.save(mythicTier.mythicTierLore());

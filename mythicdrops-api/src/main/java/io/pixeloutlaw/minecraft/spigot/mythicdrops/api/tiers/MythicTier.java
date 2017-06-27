@@ -57,7 +57,7 @@ public abstract class MythicTier extends Validated {
 
   public abstract MythicTierLore mythicTierLore();
 
-  public abstract double chanceToSpawnOnAMonster();
+  public abstract double spawnOnAMonsterWeight();
 
   public abstract double chanceToDropOnMonsterDeath();
 
@@ -87,7 +87,7 @@ public abstract class MythicTier extends Validated {
 
     public abstract Builder mythicTierLore(MythicTierLore mythicTierLore);
 
-    public abstract Builder chanceToSpawnOnAMonster(double chanceToSpawnOnAMonster);
+    public abstract Builder spawnOnAMonsterWeight(double spawnOnAMonsterWeight);
 
     public abstract Builder chanceToDropOnMonsterDeath(double chanceToDropOnMonsterDeath);
 
