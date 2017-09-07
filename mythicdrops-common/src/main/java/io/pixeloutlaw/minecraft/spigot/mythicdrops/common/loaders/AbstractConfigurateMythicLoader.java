@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2013 Pixel Outlaw
+ * Copyright © 2013 Pixel Outlaw
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,62 +42,62 @@ import java.net.URL;
  */
 public abstract class AbstractConfigurateMythicLoader<T> implements MythicLoader<T> {
 
-  protected ConfigurationLoader<? extends ConfigurationNode> fileConfigurationLoader;
-  protected ConfigurationLoader<? extends ConfigurationNode> resourceConfigurationLoader;
-  protected String fileName;
-  private Plugin plugin;
+    protected ConfigurationLoader<? extends ConfigurationNode> fileConfigurationLoader;
+    protected ConfigurationLoader<? extends ConfigurationNode> resourceConfigurationLoader;
+    protected String fileName;
+    private Plugin plugin;
 
-  /**
-   * Creates a new instance of this class designed to load from the given {@code fileName}.
-   *
-   * @param plugin Plugin for which to load
-   * @param fileName File from which to load
-   * @throws NullPointerException          if {@code fileName} is null
-   * @throws IllegalArgumentException      if {@code fileName} does not have an extension
-   * @throws UnsupportedOperationException if {@code fileName} is not YAML, JSON, or HOCON
-   */
-  protected AbstractConfigurateMythicLoader(Plugin plugin, String fileName) {
-    Preconditions.checkNotNull(plugin);
-    Preconditions.checkNotNull(fileName);
-    this.plugin = plugin;
-    this.fileName = fileName;
-    Preconditions.checkArgument(fileName.contains("."));
-    Preconditions.checkArgument(!fileName.endsWith("."));
-    String extension = Files.getFileExtension(fileName);
-    File file = new File(plugin.getDataFolder(), fileName);
-    Preconditions.checkArgument(file.exists() || createFile(fileName), "file must exist or be created");
-    URL url = plugin.getClass().getClassLoader().getResource(fileName);
-    switch (extension.toLowerCase()) {
-      case "yml":
-        this.fileConfigurationLoader = YAMLConfigurationLoader.builder().setPath(file.toPath()).build();
-        this.resourceConfigurationLoader = YAMLConfigurationLoader.builder().setURL(url).build();
-        break;
-      case "json":
-        this.fileConfigurationLoader = GsonConfigurationLoader.builder().setPath(file.toPath()).build();
-        this.resourceConfigurationLoader = GsonConfigurationLoader.builder().setURL(url).build();
-        break;
-      case "conf":
-        this.fileConfigurationLoader = HoconConfigurationLoader.builder().setPath(file.toPath()).build();
-        this.resourceConfigurationLoader = HoconConfigurationLoader.builder().setURL(url).build();
-        break;
-      default:
-        throw new UnsupportedOperationException(fileName + " is not YAML, JSON, or HOCON");
+    /**
+     * Creates a new instance of this class designed to load from the given {@code fileName}.
+     *
+     * @param plugin   Plugin for which to load
+     * @param fileName File from which to load
+     * @throws NullPointerException          if {@code fileName} is null
+     * @throws IllegalArgumentException      if {@code fileName} does not have an extension
+     * @throws UnsupportedOperationException if {@code fileName} is not YAML, JSON, or HOCON
+     */
+    protected AbstractConfigurateMythicLoader(Plugin plugin, String fileName) {
+        Preconditions.checkNotNull(plugin);
+        Preconditions.checkNotNull(fileName);
+        this.plugin = plugin;
+        this.fileName = fileName;
+        Preconditions.checkArgument(fileName.contains("."));
+        Preconditions.checkArgument(!fileName.endsWith("."));
+        String extension = Files.getFileExtension(fileName);
+        File file = new File(plugin.getDataFolder(), fileName);
+        Preconditions.checkArgument(file.exists() || createFile(fileName), "file must exist or be created");
+        URL url = plugin.getClass().getClassLoader().getResource(fileName);
+        switch (extension.toLowerCase()) {
+            case "yml":
+                this.fileConfigurationLoader = YAMLConfigurationLoader.builder().setPath(file.toPath()).build();
+                this.resourceConfigurationLoader = YAMLConfigurationLoader.builder().setURL(url).build();
+                break;
+            case "json":
+                this.fileConfigurationLoader = GsonConfigurationLoader.builder().setPath(file.toPath()).build();
+                this.resourceConfigurationLoader = GsonConfigurationLoader.builder().setURL(url).build();
+                break;
+            case "conf":
+                this.fileConfigurationLoader = HoconConfigurationLoader.builder().setPath(file.toPath()).build();
+                this.resourceConfigurationLoader = HoconConfigurationLoader.builder().setURL(url).build();
+                break;
+            default:
+                throw new UnsupportedOperationException(fileName + " is not YAML, JSON, or HOCON");
+        }
     }
-  }
 
-  private boolean createFile(String fileName) {
-    File file = new File(plugin.getDataFolder(), fileName);
-    if (file.exists()) {
-      return true;
+    private boolean createFile(String fileName) {
+        File file = new File(plugin.getDataFolder(), fileName);
+        if (file.exists()) {
+            return true;
+        }
+        if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
+            return false;
+        }
+        try {
+            return file.createNewFile();
+        } catch (Exception e) {
+            return false;
+        }
     }
-    if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
-      return false;
-    }
-    try {
-      return file.createNewFile();
-    } catch (Exception e) {
-      return false;
-    }
-  }
 
 }

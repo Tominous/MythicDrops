@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2013 Pixel Outlaw
+ * Copyright © 2013 Pixel Outlaw
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,7 @@ public interface MythicTierEnchantmentsLoaderFactory {
 
     /**
      * Create a MythicTierEnchantmentsLoader using a File.
+     *
      * @param fileName File from which to load a MythicTierEnchantments
      * @return a new MythicTierEnchantmentsLoader
      */

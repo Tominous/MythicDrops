@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2013 Pixel Outlaw
+ * Copyright © 2013 Pixel Outlaw
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,7 +38,12 @@ import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.MessageUtils;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.TextManipulator;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.MythicDropsPlugin;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.MythicLoaderManager;
-import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tiers.*;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tiers.MythicTierEnchantmentsLoader;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tiers.MythicTierEnchantmentsLoaderFactory;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tiers.MythicTierLoader;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tiers.MythicTierLoaderFactory;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tiers.MythicTierLoreLoader;
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.tiers.MythicTierLoreLoaderFactory;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.managers.MythicTierManager;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.core.utils.LoggerManipulatorImpl;
 import org.reflections.Reflections;

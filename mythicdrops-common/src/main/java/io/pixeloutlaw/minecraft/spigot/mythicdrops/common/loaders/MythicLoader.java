@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2013 Pixel Outlaw
+ * Copyright © 2013 Pixel Outlaw
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,18 +30,18 @@ package io.pixeloutlaw.minecraft.spigot.mythicdrops.common.loaders;
  */
 public interface MythicLoader<T> {
 
-  /**
-   * Loads the object(s) that it is configured to load.
-   *
-   * @return loaded object(s)
-   */
-  T load();
+    /**
+     * Loads the object(s) that it is configured to load.
+     *
+     * @return loaded object(s)
+     */
+    T load();
 
-  /**
-   * Saves the object(s) that is is configured to save.
-   *
-   * @param t object(s) to save
-   */
-  void save(T t);
+    /**
+     * Saves the object(s) that is is configured to save.
+     *
+     * @param t object(s) to save
+     */
+    void save(T t);
 
 }

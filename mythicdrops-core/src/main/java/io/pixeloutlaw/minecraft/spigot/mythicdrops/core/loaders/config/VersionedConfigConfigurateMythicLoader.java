@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2013 Pixel Outlaw
+ * Copyright © 2013 Pixel Outlaw
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,26 +22,22 @@
  */
 package io.pixeloutlaw.minecraft.spigot.mythicdrops.core.loaders.config;
 
-import com.github.zafarkhaja.semver.Version;
+import com.github.jknack.semver.Semver;
 import io.pixeloutlaw.minecraft.spigot.mythicdrops.api.config.Config;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.plugin.Plugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Comparator;
-
 public class VersionedConfigConfigurateMythicLoader<T extends Config> extends ConfigConfigurateMythicLoader<T> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VersionedConfigConfigurateMythicLoader.class);
-    private static final Comparator<Version> VERSION_COMPARATOR = new VersionComparator();
 
     /**
      * Creates a new instance of this class designed to load from the given {@code fileName}.
      *
-     * @param configClazz
-     * @param plugin      Plugin for which to load
-     * @param fileName    File from which to load
+     * @param plugin   Plugin for which to load
+     * @param fileName File from which to load
      * @throws NullPointerException          if {@code fileName} is null
      * @throws IllegalArgumentException      if {@code fileName} does not have an extension
      * @throws UnsupportedOperationException if {@code fileName} is not YAML, JSON, or HOCON
@@ -57,19 +53,19 @@ public class VersionedConfigConfigurateMythicLoader<T extends Config> extends Co
         // Create Version objects from config objects' version fields
         T fileConfig = pair.getLeft();
         T resourceConfig = pair.getRight();
-        Version fileVersion = fileConfig.getVersion() != null ? Version.valueOf(fileConfig.getVersion()) : null;
-        Version resourceVersion;
+        Semver fileVersion = fileConfig.getVersion() != null ? Semver.create(fileConfig.getVersion()) : null;
+        Semver resourceVersion;
         if (resourceConfig.getVersion() != null) {
-            resourceVersion = Version.valueOf(resourceConfig.getVersion());
+            resourceVersion = Semver.create(resourceConfig.getVersion());
         } else {
             resourceVersion = null;
         }
 
         // Compare Version objects to determine if fileConfig is up-to-date
-        int compared = VERSION_COMPARATOR.compare(fileVersion, resourceVersion);
+        boolean matches = semverMatches(fileVersion, resourceVersion);
         LOGGER.debug("Comparing file version ({}) to resource version ({}): {}",
-                fileVersion, resourceVersion, compared);
-        if (compared == 0) {
+                fileVersion, resourceVersion, matches);
+        if (matches) {
             return fileConfig;
         }
 
@@ -81,20 +77,8 @@ public class VersionedConfigConfigurateMythicLoader<T extends Config> extends Co
         return update();
     }
 
-    private static class VersionComparator implements Comparator<Version> {
-        @Override
-        public int compare(Version o1, Version o2) {
-            if (o1 == null && o2 == null) {
-                return 0;
-            }
-            if (o1 == null) {
-                return 1;
-            }
-            if (o2 == null) {
-                return -1;
-            }
-            return o1.compareTo(o2);
-        }
+    private boolean semverMatches(Semver fileVersion, Semver resourceVersion) {
+        return fileVersion != null && (resourceVersion == null || fileVersion.matches(resourceVersion));
     }
 
 }

@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2013 Pixel Outlaw
+ * Copyright © 2013 Pixel Outlaw
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,16 +33,16 @@ import javax.inject.Inject;
 @ConfigSerializable
 public class StartupConfig extends Config {
 
-  @Setting("debug")
-  private boolean debugEnabled;
+    @Setting("debug")
+    private boolean debugEnabled;
 
-  @Inject
-  public StartupConfig() {
-    // don't need to do anything here
-  }
+    @Inject
+    public StartupConfig() {
+        // don't need to do anything here
+    }
 
-  public boolean isDebugEnabled() {
-    return debugEnabled;
-  }
+    public boolean isDebugEnabled() {
+        return debugEnabled;
+    }
 
 }

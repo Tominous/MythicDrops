@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2013 Pixel Outlaw
+ * Copyright © 2013 Pixel Outlaw
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,53 +35,52 @@ import java.util.stream.Collectors;
  */
 public final class MessageUtils {
 
-  private final TextManipulator textManipulator;
+    private final TextManipulator textManipulator;
 
-  @Inject
-  public MessageUtils(TextManipulator textManipulator) {
-    this.textManipulator = textManipulator;
-  }
+    @Inject
+    public MessageUtils(TextManipulator textManipulator) {
+        this.textManipulator = textManipulator;
+    }
 
-  public TextManipulator getTextManipulator() {
-    return textManipulator;
-  }
+    public TextManipulator getTextManipulator() {
+        return textManipulator;
+    }
 
-  /**
-   * Sends a message to the given player after replacing any color codes.
-   *
-   * @param sender  Player or Console
-   * @param message message to send
-   */
-  public void sendMessage(CommandSender sender, String message) {
-    Preconditions.checkNotNull(sender, "sender cannot be null");
-    Preconditions.checkNotNull(message, "message cannot be null");
-    sender.sendMessage(textManipulator.color(message));
-  }
+    /**
+     * Sends a message to the given player after replacing any color codes.
+     *
+     * @param sender  Player or Console
+     * @param message message to send
+     */
+    public void sendMessage(CommandSender sender, String message) {
+        Preconditions.checkNotNull(sender, "sender cannot be null");
+        Preconditions.checkNotNull(message, "message cannot be null");
+        sender.sendMessage(textManipulator.color(message));
+    }
 
-  /**
-   * Sends a message to the given player after replacing any color codes and replacing any tokens in the message.
-   * <p>
-   * Example:
-   * {@code MessageUtils.sendMessage(player, "<red>Your name is %name%!", new String[][]{{"%name%", player.getName()}})}
-   *
-   * @param sender  Player or Console
-   * @param message message to send
-   * @param args    tokens to replace and their values
-   */
-  public void sendMessage(CommandSender sender, String message, String[][] args) {
-    Preconditions.checkNotNull(sender, "sender cannot be null");
-    Preconditions.checkNotNull(message, "message cannot be null");
-    Preconditions.checkNotNull(args, "args cannot be null");
-    sendMessage(sender, message, Arrays.stream(args)
-        .filter(strings -> strings.length >= 2)
-        .collect(Collectors.toMap(e -> e[0], e -> e[1])));
-  }
+    /**
+     * Sends a message to the given player after replacing any color codes and replacing any tokens in the message. <p>
+     * Example: {@code MessageUtils.sendMessage(player, "<red>Your name is %name%!", new String[][]{{"%name%",
+     * player.getName()}})}
+     *
+     * @param sender  Player or Console
+     * @param message message to send
+     * @param args    tokens to replace and their values
+     */
+    public void sendMessage(CommandSender sender, String message, String[][] args) {
+        Preconditions.checkNotNull(sender, "sender cannot be null");
+        Preconditions.checkNotNull(message, "message cannot be null");
+        Preconditions.checkNotNull(args, "args cannot be null");
+        sendMessage(sender, message, Arrays.stream(args)
+                .filter(strings -> strings.length >= 2)
+                .collect(Collectors.toMap(e -> e[0], e -> e[1])));
+    }
 
-  public void sendMessage(CommandSender sender, String message, Map<String, Object> args) {
-    Preconditions.checkNotNull(sender, "sender cannot be null");
-    Preconditions.checkNotNull(message, "message cannot be null");
-    Preconditions.checkNotNull(args, "args cannot be null");
-    sender.sendMessage(textManipulator.template(message, args));
-  }
+    public void sendMessage(CommandSender sender, String message, Map<String, Object> args) {
+        Preconditions.checkNotNull(sender, "sender cannot be null");
+        Preconditions.checkNotNull(message, "message cannot be null");
+        Preconditions.checkNotNull(args, "args cannot be null");
+        sender.sendMessage(textManipulator.template(message, args));
+    }
 
 }

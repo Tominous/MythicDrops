@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2013 Pixel Outlaw
+ * Copyright © 2013 Pixel Outlaw
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,34 +31,34 @@ import org.apache.commons.lang3.StringUtils;
 @AutoValue
 public abstract class MythicTierComponent extends Validated {
 
-  public static Builder builder() {
-    return new AutoValue_MythicTierComponent.Builder();
-  }
-
-  public abstract String id();
-
-  public abstract MythicLoader<MythicTierComponent> loader();
-
-  @Override
-  protected void check() {
-    Preconditions.checkState(!StringUtils.isBlank(id()), "ID cannot be empty or null");
-  }
-
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder id(String id);
-
-    public abstract Builder loader(MythicLoader<MythicTierComponent> loader);
-
-    public MythicTierComponent build() {
-      MythicTierComponent mythicTierComponent = autoBuild();
-      mythicTierComponent.check();
-      return mythicTierComponent;
+    public static Builder builder() {
+        return new AutoValue_MythicTierComponent.Builder();
     }
 
-    abstract MythicTierComponent autoBuild();
+    public abstract String id();
 
-  }
+    public abstract MythicLoader<MythicTierComponent> loader();
+
+    @Override
+    protected void check() {
+        Preconditions.checkState(!StringUtils.isBlank(id()), "ID cannot be empty or null");
+    }
+
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+        public abstract Builder id(String id);
+
+        public abstract Builder loader(MythicLoader<MythicTierComponent> loader);
+
+        public MythicTierComponent build() {
+            MythicTierComponent mythicTierComponent = autoBuild();
+            mythicTierComponent.check();
+            return mythicTierComponent;
+        }
+
+        abstract MythicTierComponent autoBuild();
+
+    }
 
 }

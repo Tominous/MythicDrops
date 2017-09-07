@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2013 Pixel Outlaw
+ * Copyright © 2013 Pixel Outlaw
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,37 +37,37 @@ import java.util.Collection;
  */
 public interface LoaderManager {
 
-  /**
-   * Creates a new {@link MythicLoader} for {@link MythicTier}s.
-   *
-   * @param fileName File from which to load
-   * @return new MythicLoader for a MythicTier
-   */
-  MythicLoader<MythicTier> createNewMythicTierLoader(String fileName);
+    /**
+     * Creates a new {@link MythicLoader} for {@link MythicTier}s.
+     *
+     * @param fileName File from which to load
+     * @return new MythicLoader for a MythicTier
+     */
+    MythicLoader<MythicTier> createNewMythicTierLoader(String fileName);
 
-  /**
-   * Creates a new {@link MythicLoader} for {@link MythicTierEnchantments}es.
-   *
-   * @param fileName File from which to load
-   * @return a new MythicLoader for a MythicTierEnchantments
-   */
-  MythicLoader<MythicTierEnchantments> createMythicTierEnchantmentsLoader(String fileName);
+    /**
+     * Creates a new {@link MythicLoader} for {@link MythicTierEnchantments}es.
+     *
+     * @param fileName File from which to load
+     * @return a new MythicLoader for a MythicTierEnchantments
+     */
+    MythicLoader<MythicTierEnchantments> createMythicTierEnchantmentsLoader(String fileName);
 
-  MythicLoader<MythicTierLore> createMythicTierLoreLoader(String fileName);
+    MythicLoader<MythicTierLore> createMythicTierLoreLoader(String fileName);
 
-  /**
-   * Gets all of the registered {@link MythicLoader}s for {@link MythicTierComponent}s.
-   *
-   * @return registered MythicLoaders for MythicTierComponents
-   */
-  Collection<MythicLoader<MythicTierComponent>> getMythicTierComponentLoaders();
+    /**
+     * Gets all of the registered {@link MythicLoader}s for {@link MythicTierComponent}s.
+     *
+     * @return registered MythicLoaders for MythicTierComponents
+     */
+    Collection<MythicLoader<MythicTierComponent>> getMythicTierComponentLoaders();
 
-  /**
-   * Register a {@link MythicLoader} for a {@link MythicTierComponent}.
-   *
-   * @param loader MythicLoader for a MythicTierComponent
-   * @return if registration was successful
-   */
-  boolean registerMythicTierComponentLoader(MythicLoader<MythicTierComponent> loader);
+    /**
+     * Register a {@link MythicLoader} for a {@link MythicTierComponent}.
+     *
+     * @param loader MythicLoader for a MythicTierComponent
+     * @return if registration was successful
+     */
+    boolean registerMythicTierComponentLoader(MythicLoader<MythicTierComponent> loader);
 
 }

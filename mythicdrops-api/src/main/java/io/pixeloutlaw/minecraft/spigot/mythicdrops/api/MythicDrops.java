@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2013 Pixel Outlaw
+ * Copyright © 2013 Pixel Outlaw
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,26 +30,28 @@ import io.pixeloutlaw.minecraft.spigot.mythicdrops.common.utils.LoggerManipulato
  */
 public interface MythicDrops {
 
-  /**
-   * Gets the current LoaderManager instance.
-   * @return current LoaderManager instance
-   */
-  LoaderManager getLoaderManager();
+    /**
+     * Gets the current LoaderManager instance.
+     *
+     * @return current LoaderManager instance
+     */
+    LoaderManager getLoaderManager();
 
-  /**
-   * Gets the LoggerManipulator instance.
-   * @return current LoggerManipulator instance
-   */
-  LoggerManipulator getLoggerManipulator();
+    /**
+     * Gets the LoggerManipulator instance.
+     *
+     * @return current LoggerManipulator instance
+     */
+    LoggerManipulator getLoggerManipulator();
 
-  /**
-   * Runs through the enable process.
-   */
-  void enable();
+    /**
+     * Runs through the enable process.
+     */
+    void enable();
 
-  /**
-   * Runs through the disable process.
-   */
-  void disable();
+    /**
+     * Runs through the disable process.
+     */
+    void disable();
 
 }

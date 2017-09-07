@@ -23,180 +23,180 @@
 
 -->
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>io.pixeloutlaw</groupId>
-    <artifactId>spigot-plugin-parent</artifactId>
-    <version>1.11.2.4</version>
-  </parent>
+    <parent>
+        <groupId>io.pixeloutlaw</groupId>
+        <artifactId>spigot-plugin-parent</artifactId>
+        <version>1.12.0.1</version>
+    </parent>
 
-  <groupId>io.pixeloutlaw.minecraft.spigot</groupId>
-  <artifactId>mythicdrops-aggregator</artifactId>
-  <version>5.0.0-SNAPSHOT</version>
+    <groupId>io.pixeloutlaw.minecraft.spigot</groupId>
+    <artifactId>mythicdrops-aggregator</artifactId>
+    <version>5.0.0-SNAPSHOT</version>
 
-  <name>MythicDrops</name>
+    <name>MythicDrops</name>
 
-  <description>Allows the creation, equipping, and dropping of magic items in Bukkit</description>
-  <url>https://www.spigotmc.org/resources/mythicdrops.6114/</url>
-  <packaging>pom</packaging>
+    <description>Allows the creation, equipping, and dropping of magic items in Bukkit</description>
+    <url>https://www.spigotmc.org/resources/mythicdrops.6114/</url>
+    <packaging>pom</packaging>
 
-  <inceptionYear>2013</inceptionYear>
+    <inceptionYear>2013</inceptionYear>
 
-  <organization>
-    <name>Richard Harrah</name>
-  </organization>
+    <organization>
+        <name>Richard Harrah</name>
+    </organization>
 
-  <prerequisites>
-    <maven>3.0</maven>
-  </prerequisites>
+    <prerequisites>
+        <maven>3.0</maven>
+    </prerequisites>
 
-  <modules>
-    <module>mythicdrops-common</module>
-    <module>mythicdrops-api</module>
-    <module>mythicdrops-core</module>
-  </modules>
+    <modules>
+        <module>mythicdrops-common</module>
+        <module>mythicdrops-api</module>
+        <module>mythicdrops-core</module>
+    </modules>
 
-  <scm>
-    <connection>scm:git:https://github.com/Nunnery/MythicDrops.git</connection>
-    <developerConnection>scm:git:https://github.com/Nunnery/MythicDrops.git</developerConnection>
-    <tag>HEAD</tag>
-    <url>https://github.com/Nunnery/MythicDrops</url>
-  </scm>
+    <scm>
+        <connection>scm:git:https://github.com/Nunnery/MythicDrops.git</connection>
+        <developerConnection>scm:git:https://github.com/Nunnery/MythicDrops.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/Nunnery/MythicDrops</url>
+    </scm>
 
-  <developers>
-    <developer>
-      <id>ToppleTheNun</id>
-      <name>Richard Harrah</name>
-      <roles>
-        <role>author</role>
-      </roles>
-    </developer>
-    <developer>
-      <id>UltraFaceguy</id>
-      <name>Space McGilligan</name>
-      <roles>
-        <role>tester</role>
-      </roles>
-    </developer>
-  </developers>
+    <developers>
+        <developer>
+            <id>ToppleTheNun</id>
+            <name>Richard Harrah</name>
+            <roles>
+                <role>author</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>UltraFaceguy</id>
+            <name>Space McGilligan</name>
+            <roles>
+                <role>tester</role>
+            </roles>
+        </developer>
+    </developers>
 
-  <build>
-    <defaultGoal>install</defaultGoal>
-    <resources>
-      <resource>
-        <targetPath>.</targetPath>
-        <filtering>true</filtering>
-        <directory>${basedir}/src/main/resources/</directory>
-        <includes>
-          <include>**/*</include>
-        </includes>
-      </resource>
-    </resources>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>2.6</version>
-        <executions>
-          <execution>
-            <id>resources</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>resources</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>templating-maven-plugin</artifactId>
-        <version>1.0.0</version>
-        <executions>
-          <execution>
-            <id>filter-src</id>
-            <goals>
-              <goal>filter-sources</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources/</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>resources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>templating-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <id>filter-src</id>
+                        <goals>
+                            <goal>filter-sources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.24</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.inject</groupId>
-      <artifactId>guice</artifactId>
-      <version>4.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.inject.extensions</groupId>
-      <artifactId>guice-assistedinject</artifactId>
-      <version>4.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.auto.value</groupId>
-      <artifactId>auto-value</artifactId>
-      <version>1.2</version>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.24</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-assistedinject</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value</artifactId>
+            <version>1.2</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
-  <repositories>
-    <repository>
-      <id>pixeloutlaw-repo</id>
-      <name>PixelOutlaw Repository</name>
-      <url>https://artifactory.pixeloutlaw.io/artifactory/public</url>
-    </repository>
-  </repositories>
+    <repositories>
+        <repository>
+            <id>pixeloutlaw-repo</id>
+            <name>PixelOutlaw Repository</name>
+            <url>https://artifactory.pixeloutlaw.io/artifactory/public</url>
+        </repository>
+    </repositories>
 
-  <distributionManagement>
-    <repository>
-      <id>pixeloutlaw-releases</id>
-      <name>PixelOutlaw Repository</name>
-      <url>https://artifactory.pixeloutlaw.io/artifactory/maven-releases</url>
-    </repository>
-    <snapshotRepository>
-      <id>pixeloutlaw-snapshots</id>
-      <name>PixelOutlaw Snapshot Repository</name>
-      <url>https://artifactory.pixeloutlaw.io/artifactory/maven-snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>pixeloutlaw-releases</id>
+            <name>PixelOutlaw Repository</name>
+            <url>https://artifactory.pixeloutlaw.io/artifactory/maven-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>pixeloutlaw-snapshots</id>
+            <name>PixelOutlaw Snapshot Repository</name>
+            <url>https://artifactory.pixeloutlaw.io/artifactory/maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.build.name>${project.name}</project.build.name>
-    <project.build.loglevel>DEBUG</project.build.loglevel>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.name>${project.name}</project.build.name>
+        <project.build.loglevel>DEBUG</project.build.loglevel>
+    </properties>
 
-  <profiles>
-    <profile>
-      <id>CI</id>
-      <activation>
-        <property>
-          <name>env.BUILD_NUMBER</name>
-        </property>
-      </activation>
-      <properties>
-        <project.build.loglevel>INFO</project.build.loglevel>
-      </properties>
-    </profile>
-  </profiles>
+    <profiles>
+        <profile>
+            <id>CI</id>
+            <activation>
+                <property>
+                    <name>env.BUILD_NUMBER</name>
+                </property>
+            </activation>
+            <properties>
+                <project.build.loglevel>INFO</project.build.loglevel>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
