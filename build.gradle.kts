@@ -17,6 +17,9 @@ allprojects {
         maven {
             url = uri("https://hub.spigotmc.org/nexus/content/groups/public")
         }
+        maven {
+            url = uri("https://artifactory.pixeloutlaw.io/artifactory/public")
+        }
     }
 }
 
