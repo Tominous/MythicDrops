@@ -1,2 +1,2 @@
 include("hilt")
-include("mythicdrops-plugin")
+include("plugin")
