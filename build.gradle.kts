@@ -31,5 +31,7 @@ subprojects {
                 ktlint()
             }
         }
+
+        this.tasks.findByPath("compileKotlin")?.dependsOn("spotlessKotlinApply")
     }
 }
