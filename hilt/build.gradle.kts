@@ -1,3 +1,4 @@
+import io.pixeloutlaw.minecraft.spigot.Versions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -5,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    implementation("org.spigotmc:spigot-api:1.13.1-R0.1-SNAPSHOT")
+    implementation("org.spigotmc:spigot-api:${Versions.SPIGOT}")
     implementation(kotlin("stdlib-jdk8"))
 }
 

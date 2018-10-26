@@ -1,4 +1,0 @@
-main: io.pixeloutlaw.minecraft.spigot.mythicdrops.plugin.MythicDropsPlugin
-name: MythicDrops
-version: 420.0.0-SNAPSHOT
-api-version: 1.13
