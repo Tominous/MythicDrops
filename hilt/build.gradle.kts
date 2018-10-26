@@ -8,9 +8,7 @@ dependencies {
     implementation("org.spigotmc:spigot-api:1.13.1-R0.1-SNAPSHOT")
     implementation(kotlin("stdlib-jdk8"))
 }
-repositories {
-    mavenCentral()
-}
+
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
     jvmTarget = "1.8"
