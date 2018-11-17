@@ -10,8 +10,6 @@ plugins {
     id("com.github.johnrengelman.shadow") version "4.0.1"
 }
 
-//java.sourceSets
-
 kotlin {
     sourceSets {
         create("templates") {
