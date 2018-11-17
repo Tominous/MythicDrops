@@ -13,13 +13,13 @@ object Versions {
 
     const val nebula_project_gradle_plugin: String = "5.1.2"
 
-    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.2.61" //available: "1.3.10" 
+    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.10" //available: "1.3.10"
 
-    const val kotlin_annotation_processing_gradle: String = "1.2.61" //available: "1.3.10" 
+    const val kotlin_annotation_processing_gradle: String = "1.3.10" //available: "1.3.10"
 
-    const val kotlin_scripting_compiler_embeddable: String = "1.2.61" //available: "1.3.10" 
+    const val kotlin_scripting_compiler_embeddable: String = "1.3.10" //available: "1.3.10"
 
-    const val org_jetbrains_kotlin_kotlin_stdlib_jdk8: String = "1.2.61" //available: "1.3.10" 
+    const val org_jetbrains_kotlin_kotlin_stdlib_jdk8: String = "1.3.10" //available: "1.3.10"
 
     const val plugin_annotations: String = "1.2.2-SNAPSHOT"
     /* Could not find any version that matches org.spigotmc:plugin-annotations:+.

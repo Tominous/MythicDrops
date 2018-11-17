@@ -2,10 +2,10 @@ import com.diffplug.gradle.spotless.SpotlessExtension
 
 plugins {
     base
-    kotlin("jvm") version "1.2.61" apply false
-    id("nebula.project") version "5.1.2"
-    id("com.diffplug.gradle.spotless") version "3.15.0" apply false
-    id("jmfayard.github.io.gradle-kotlin-dsl-libs") version "0.2.6"
+    kotlin("jvm") version Versions.org_jetbrains_kotlin_jvm_gradle_plugin apply false
+    id("nebula.project") version Versions.nebula_project_gradle_plugin
+    id("com.diffplug.gradle.spotless") version Versions.com_diffplug_gradle_spotless_gradle_plugin apply false
+    id("jmfayard.github.io.gradle-kotlin-dsl-libs") version Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin
 }
 
 allprojects {

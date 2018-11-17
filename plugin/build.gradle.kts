@@ -10,17 +10,6 @@ plugins {
     id("com.github.johnrengelman.shadow") version "4.0.1"
 }
 
-kotlin {
-    sourceSets {
-        create("templates") {
-            output.dir("$buildDir/templates")
-        }
-        this["main"].withConvention(KotlinSourceSet::class) {
-            kotlin.srcDir("$buildDir/templates")
-        }
-    }
-}
-
 dependencies {
     implementation(Libs.spigot_api)
     implementation(Libs.plugin_annotations)
@@ -39,14 +28,6 @@ compileTestKotlin.kotlinOptions {
     jvmTarget = "1.8"
 }
 
-tasks.register("processTemplates", Copy::class) {
-    val tokens = mapOf("VERSION" to project.version, "NAME" to "MythicDrops")
-
-    from(sourceSets.getByName("templates").allSource)
-    into(sourceSets.getByName("templates").output.dirs.asPath)
-    filter<ReplaceTokens>("tokens" to tokens)
-}
-
 tasks.withType(ShadowJar::class) {
     classifier = ""
     dependencyFilter.apply {
@@ -59,5 +40,4 @@ tasks.withType(ShadowJar::class) {
     }
 }
 
-tasks.findByName("compileKotlin")?.dependsOn("processTemplates")
 tasks.findByName("build")?.dependsOn("shadowJar")
