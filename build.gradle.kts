@@ -5,6 +5,7 @@ plugins {
     kotlin("jvm") version "1.2.61" apply false
     id("nebula.project") version "5.1.2"
     id("com.diffplug.gradle.spotless") version "3.15.0" apply false
+    id("jmfayard.github.io.gradle-kotlin-dsl-libs") version "0.2.6"
 }
 
 allprojects {
@@ -17,9 +18,7 @@ allprojects {
         maven {
             url = uri("https://hub.spigotmc.org/nexus/content/groups/public")
         }
-        maven {
-            url = uri("https://artifactory.pixeloutlaw.io/artifactory/public")
-        }
+        maven { url = uri("https://jitpack.io") }
     }
 }
 

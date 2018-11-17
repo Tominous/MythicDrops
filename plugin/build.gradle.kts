@@ -1,5 +1,4 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import io.pixeloutlaw.minecraft.spigot.Versions
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
@@ -25,12 +24,12 @@ kotlin {
 }
 
 dependencies {
-    implementation("org.spigotmc:spigot-api:${Versions.SPIGOT}")
-    implementation("org.spigotmc:plugin-annotations:1.2.2-SNAPSHOT")
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(Libs.spigot_api)
+    implementation(Libs.plugin_annotations)
+    implementation(Libs.org_jetbrains_kotlin_kotlin_stdlib_jdk8)
     implementation(project(":hilt"))
 
-    kapt("org.spigotmc:plugin-annotations:1.2.2-SNAPSHOT")
+    kapt(Libs.plugin_annotations)
 }
 
 val compileKotlin: KotlinCompile by tasks

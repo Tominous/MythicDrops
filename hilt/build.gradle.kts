@@ -1,4 +1,3 @@
-import io.pixeloutlaw.minecraft.spigot.Versions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -6,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation("org.spigotmc:spigot-api:${Versions.SPIGOT}")
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(Libs.spigot_api)
+    implementation(Libs.org_jetbrains_kotlin_kotlin_stdlib_jdk8)
 }
 
 val compileKotlin: KotlinCompile by tasks
