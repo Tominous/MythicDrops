@@ -7,9 +7,9 @@ import kotlin.String
  *
  * YOU are responsible for updating manually the dependency version. */
 object Versions {
-    const val com_diffplug_gradle_spotless_gradle_plugin: String = "3.15.0" //available: "3.16.0" 
+    const val com_diffplug_gradle_spotless_gradle_plugin: String = "3.16.0" //available: "3.16.0"
 
-    const val com_github_johnrengelman_shadow_gradle_plugin: String = "4.0.1" //available: "4.0.2" 
+    const val com_github_johnrengelman_shadow_gradle_plugin: String = "4.0.2" //available: "4.0.2"
 
     const val io_pixeloutlaw_gradle_buildconfigkt_gradle_plugin: String = "0.1.1" 
 
