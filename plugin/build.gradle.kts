@@ -7,13 +7,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm")
     kotlin("kapt")
-    id("com.github.johnrengelman.shadow") version "4.0.1"
+    id("com.github.johnrengelman.shadow") version Versions.com_github_johnrengelman_shadow_gradle_plugin
+    id("io.pixeloutlaw.gradle.buildconfigkt") version Versions.io_pixeloutlaw_gradle_buildconfigkt_gradle_plugin
 }
 
 dependencies {
     implementation(Libs.spigot_api)
     implementation(Libs.plugin_annotations)
-    implementation(Libs.org_jetbrains_kotlin_kotlin_stdlib_jdk8)
+    implementation(Libs.kotlin_stdlib_jdk8)
     implementation(project(":hilt"))
 
     kapt(Libs.plugin_annotations)

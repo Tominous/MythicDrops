@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
     implementation(Libs.spigot_api)
-    implementation(Libs.org_jetbrains_kotlin_kotlin_stdlib_jdk8)
+    implementation(Libs.kotlin_stdlib_jdk8)
 }
 
 val compileKotlin: KotlinCompile by tasks
