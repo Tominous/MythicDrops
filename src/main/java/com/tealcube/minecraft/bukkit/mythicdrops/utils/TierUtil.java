@@ -204,17 +204,15 @@ public final class TierUtil {
     }
 
     double chosenWeight = MythicDropsPlugin.getInstance().getRandom().nextDouble() * totalWeight;
-
     double currentWeight = 0;
 
     for (Tier t : keys) {
       double chanceWeight = chanceMap.get(t);
       if (chanceWeight > 0) {
         currentWeight += chanceWeight;
-      }
-
-      if (currentWeight >= chosenWeight) {
-        return t;
+        if (currentWeight >= chosenWeight) {
+          return t;
+        }
       }
     }
     return null;
