@@ -62,8 +62,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class ItemSpawningListener implements Listener {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(ItemSpawningListener.class);
 
   private MythicDrops mythicDrops;
 
@@ -220,22 +224,28 @@ public final class ItemSpawningListener implements Listener {
         .getEntityTypeTiers(entity.getType());
     Map<Tier, Double> chanceMap = new HashMap<>();
     int distFromSpawn = (int) entity.getLocation().distanceSquared(entity.getWorld().getSpawnLocation());
+    LOGGER.debug("distFromSpawn={}", distFromSpawn);
     for (Tier t : allowableTiers) {
       if (t.getMaximumDistance() == -1 || t.getOptimalDistance() == -1) {
+        LOGGER.debug("tier does not have both maximumDistance and optimalDistance: tier={}", t.getName());
         chanceMap.put(t, t.getSpawnChance());
         continue;
       }
-      double weightMultiplier;
+      LOGGER.debug("tier has both maximumDistance and optimalDistance: tier={} maximumDistance={} optimalDistance={}",
+          t.getName(), t.getMaximumDistance(), t.getOptimalDistance());
       int squareMaxDist = (int) Math.pow(t.getMaximumDistance(), 2);
       int squareOptDist = (int) Math.pow(t.getOptimalDistance(), 2);
-      int difference = distFromSpawn - squareOptDist;
-      if (difference < squareMaxDist) {
-        weightMultiplier = 1D - ((difference * 1D) / squareMaxDist);
-      } else {
-        weightMultiplier = 0D;
+      int minDistFromSpawn = squareOptDist - squareMaxDist;
+      int maxDistFromSpawn = squareOptDist + squareMaxDist;
+      LOGGER.debug("tier can spawn if distFromSpawn is between: tier={} minDistFromSpawn={} maxDistFromSpawn={}",
+          distFromSpawn, minDistFromSpawn, maxDistFromSpawn);
+      if (distFromSpawn > maxDistFromSpawn || distFromSpawn < minDistFromSpawn) {
+        LOGGER.debug("distFromSpawn > maxDistFromSpawn || distFromSpawn < minDistFromSpawn: tier={}", t.getName());
+        chanceMap.put(t, 0D);
+        continue;
       }
-      double weight = t.getSpawnChance() * weightMultiplier;
-      chanceMap.put(t, weight);
+      LOGGER.debug("tier can spawn: tier={}", t.getName());
+      chanceMap.put(t, t.getSpawnChance());
     }
     return TierUtil.randomTierWithChance(chanceMap);
   }
