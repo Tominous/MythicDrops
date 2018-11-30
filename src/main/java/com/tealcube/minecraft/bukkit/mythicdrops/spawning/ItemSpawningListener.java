@@ -240,11 +240,11 @@ public final class ItemSpawningListener implements Listener {
       LOGGER.debug("tier can spawn if distFromSpawn is between: tier={} minDistFromSpawn={} maxDistFromSpawn={}",
           distFromSpawn, minDistFromSpawn, maxDistFromSpawn);
       if (distFromSpawn > maxDistFromSpawn || distFromSpawn < minDistFromSpawn) {
-        LOGGER.debug("distFromSpawn > maxDistFromSpawn || distFromSpawn < minDistFromSpawn: tier={}", t.getName());
-        chanceMap.put(t, 0D);
+        LOGGER.debug("tier can't spawn due to distance zones: tier={}", t.getName());
+        chanceMap.put(t, -1D);
         continue;
       }
-      LOGGER.debug("tier can spawn: tier={}", t.getName());
+      LOGGER.debug("tier can spawn due to distance zones: tier={}", t.getName());
       chanceMap.put(t, t.getSpawnChance());
     }
     return TierUtil.randomTierWithChance(chanceMap);
