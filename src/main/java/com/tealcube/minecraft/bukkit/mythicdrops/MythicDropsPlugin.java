@@ -21,6 +21,7 @@
  */
 package com.tealcube.minecraft.bukkit.mythicdrops;
 
+import ch.qos.logback.classic.Level;
 import com.modcrafting.diablodrops.name.NamesLoader;
 import com.tealcube.minecraft.bukkit.mythicdrops.anvil.AnvilListener;
 import com.tealcube.minecraft.bukkit.mythicdrops.api.MythicDrops;
@@ -215,6 +216,12 @@ public final class MythicDropsPlugin extends JavaPlugin implements MythicDrops {
     loadSocketGems();
     loadIdentifyingSettings();
     loadRelationSettings();
+
+    if (configSettings.isDebugMode()) {
+      ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME)).setLevel(Level.DEBUG);
+    } else {
+      ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME)).setLevel(Level.INFO);
+    }
   }
 
   @Override
