@@ -23,6 +23,10 @@ fun ItemStack.getOrCreateItemMeta(): ItemMeta {
     return this.itemMeta
 }
 
+inline fun <reified T : ItemMeta> ItemStack.hasItemMetaType(): Boolean {
+    return this.getOrCreateItemMeta() is T
+}
+
 /**
  * Acquires the ItemMeta for the ItemStack that matches ```T```.
  *
@@ -104,13 +108,13 @@ fun ItemStack.hasLore(): Boolean = this.getOrCreateItemMeta().hasLore()
 
 fun ItemStack.isUnbreakable(): Boolean = this.getOrCreateItemMeta().isUnbreakable
 
-fun ItemStack.removeAttributeModifier(attribute: Attribute): Boolean =
+fun ItemStack.removeAttributeModifier(attribute: Attribute) =
     acquireThenSetItemMeta<ItemMeta, Boolean> { this.removeAttributeModifier(attribute) }
 
-fun ItemStack.removeAttributeModifier(attribute: Attribute, modifier: AttributeModifier): Boolean =
+fun ItemStack.removeAttributeModifier(attribute: Attribute, modifier: AttributeModifier) =
     acquireThenSetItemMeta<ItemMeta, Boolean> { this.removeAttributeModifier(attribute, modifier) }
 
-fun ItemStack.removeAttributeModifier(slot: EquipmentSlot): Boolean =
+fun ItemStack.removeAttributeModifier(slot: EquipmentSlot) =
     acquireThenSetItemMeta<ItemMeta, Boolean> { this.removeAttributeModifier(slot) }
 
 fun ItemStack.removeItemFlags(vararg itemFlags: ItemFlag) =
