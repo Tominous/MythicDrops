@@ -9,7 +9,7 @@ object Versions {
 
     const val com_github_johnrengelman_shadow_gradle_plugin: String = "4.0.3" //available: "4.0.3"
 
-    const val io_pixeloutlaw_gradle_buildconfigkt_gradle_plugin: String = "0.1.1" 
+    const val io_pixeloutlaw_gradle_buildconfigkt_gradle_plugin: String = "0.1.2"
 
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String = "0.2.6" 
 

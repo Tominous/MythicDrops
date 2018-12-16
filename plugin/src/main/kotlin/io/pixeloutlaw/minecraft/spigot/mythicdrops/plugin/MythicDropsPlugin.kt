@@ -1,5 +1,6 @@
 package io.pixeloutlaw.minecraft.spigot.mythicdrops.plugin
 
+import io.pixeloutlaw.minecraft.spigot.plugin.BuildConfig
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
