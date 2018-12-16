@@ -1,5 +1,3 @@
-import kotlin.String
-
 /**
  * Find which updates are available by running
  *     `$ ./gradlew syncLibs`
@@ -7,19 +5,19 @@ import kotlin.String
  *
  * YOU are responsible for updating manually the dependency version. */
 object Versions {
-    const val com_diffplug_gradle_spotless_gradle_plugin: String = "3.16.0" //available: "3.16.0"
+    const val com_diffplug_gradle_spotless_gradle_plugin: String = "3.16.0" 
 
-    const val com_github_johnrengelman_shadow_gradle_plugin: String = "4.0.2" //available: "4.0.2"
+    const val com_github_johnrengelman_shadow_gradle_plugin: String = "4.0.3" //available: "4.0.3"
 
     const val io_pixeloutlaw_gradle_buildconfigkt_gradle_plugin: String = "0.1.1" 
 
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String = "0.2.6" 
 
-    const val nebula_project_gradle_plugin: String = "5.1.2" 
+    const val nebula_project_gradle_plugin: String = "5.2.1" //available: "5.2.1"
 
-    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.10" 
+    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.11" //available: "1.3.11"
 
-    const val org_jetbrains_kotlin: String = "1.3.10" 
+    const val org_jetbrains_kotlin: String = "1.3.11" //available: "1.3.11"
 
     const val plugin_annotations: String = "1.2.2-SNAPSHOT" 
             /* Could not find any version that matches org.spigotmc:plugin-annotations:+.
@@ -43,10 +41,10 @@ object Versions {
     object Gradle {
         const val runningVersion: String = "4.10.2"
 
-        const val currentVersion: String = "4.10.2"
+        const val currentVersion: String = "5.0"
 
-        const val nightlyVersion: String = "5.1-20181118000038+0000"
+        const val nightlyVersion: String = "5.2-20181216000032+0000"
 
-        const val releaseCandidate: String = "5.0-rc-3"
+        const val releaseCandidate: String = "5.1-rc-1"
     }
 }
