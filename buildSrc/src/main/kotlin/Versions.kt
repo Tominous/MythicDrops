@@ -1,3 +1,5 @@
+import kotlin.String
+
 /**
  * Find which updates are available by running
  *     `$ ./gradlew syncLibs`
@@ -7,17 +9,18 @@
 object Versions {
     const val com_diffplug_gradle_spotless_gradle_plugin: String = "3.16.0" 
 
-    const val com_github_johnrengelman_shadow_gradle_plugin: String = "4.0.3" //available: "4.0.3"
+    const val com_github_johnrengelman_shadow_gradle_plugin: String = "4.0.3" 
 
-    const val io_pixeloutlaw_gradle_buildconfigkt_gradle_plugin: String = "0.1.2"
+    const val io_pixeloutlaw_gradle_buildconfigkt_gradle_plugin: String =
+            "0.1.2" // exceed the version found: 0.1.1
 
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String = "0.2.6" 
 
-    const val nebula_project_gradle_plugin: String = "5.2.1" //available: "5.2.1"
+    const val nebula_project_gradle_plugin: String = "5.2.1" 
 
-    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.11" //available: "1.3.11"
+    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.11" 
 
-    const val org_jetbrains_kotlin: String = "1.3.11" //available: "1.3.11"
+    const val org_jetbrains_kotlin: String = "1.3.11" 
 
     const val plugin_annotations: String = "1.2.2-SNAPSHOT" 
             /* Could not find any version that matches org.spigotmc:plugin-annotations:+.
