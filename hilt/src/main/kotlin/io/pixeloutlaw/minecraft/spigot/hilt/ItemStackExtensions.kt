@@ -10,6 +10,12 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 
+/**
+ * Attempts to get any existing ItemMeta off of the ItemStack. Will create and apply
+ * an ItemMeta if one doesn't exist.
+ *
+ * @return existing or new ItemMeta
+ */
 fun ItemStack.getOrCreateItemMeta(): ItemMeta {
     if (!this.hasItemMeta()) {
         this.itemMeta = Bukkit.getItemFactory().getItemMeta(this.type)
@@ -17,10 +23,31 @@ fun ItemStack.getOrCreateItemMeta(): ItemMeta {
     return this.itemMeta
 }
 
-fun ItemStack.addAttributeModifier(attribute: Attribute, attributeModifier: AttributeModifier): Boolean =
-    this.getOrCreateItemMeta().addAttributeModifier(attribute, attributeModifier)
+/**
+ * Acquires the ItemMeta for the ItemStack that matches ```T```.
+ *
+ * Effectively the same as calling ```getOrCreateItemMeta() as? T```.
+ *
+ * @param T subclass of ItemMeta
+ * @return ItemMeta cast to T
+ */
+inline fun <reified T : ItemMeta> ItemStack.acquireItemMeta(): T {
+    return this.getOrCreateItemMeta() as T
+}
 
-fun ItemStack.addItemFlags(vararg itemFlags: ItemFlag) = this.getOrCreateItemMeta().addItemFlags(*itemFlags)
+inline fun <reified IM : ItemMeta, R> ItemStack.acquireThenSetItemMeta(action: IM.() -> R): R {
+    return action(this.acquireItemMeta())
+}
+
+inline fun <reified IM : ItemMeta> ItemStack.acquireThenSetItemMeta(action: IM.() -> Unit) {
+    return action(this.acquireItemMeta())
+}
+
+fun ItemStack.addAttributeModifier(attribute: Attribute, attributeModifier: AttributeModifier) =
+    acquireThenSetItemMeta<ItemMeta, Boolean> { this.addAttributeModifier(attribute, attributeModifier) }
+
+fun ItemStack.addItemFlags(vararg itemFlags: ItemFlag) =
+    acquireThenSetItemMeta<ItemMeta> { this.addItemFlags(*itemFlags) }
 
 fun ItemStack.getAttributeModifiers(): Multimap<Attribute, AttributeModifier> =
     this.getOrCreateItemMeta().attributeModifiers
@@ -73,32 +100,28 @@ fun ItemStack.hasLore(): Boolean = this.getOrCreateItemMeta().hasLore()
 fun ItemStack.isUnbreakable(): Boolean = this.getOrCreateItemMeta().isUnbreakable
 
 fun ItemStack.removeAttributeModifier(attribute: Attribute): Boolean =
-    this.getOrCreateItemMeta().removeAttributeModifier(attribute)
+    acquireThenSetItemMeta<ItemMeta, Boolean> { this.removeAttributeModifier(attribute) }
 
 fun ItemStack.removeAttributeModifier(attribute: Attribute, modifier: AttributeModifier): Boolean =
-    this.getOrCreateItemMeta().removeAttributeModifier(attribute, modifier)
+    acquireThenSetItemMeta<ItemMeta, Boolean> { this.removeAttributeModifier(attribute, modifier) }
 
 fun ItemStack.removeAttributeModifier(slot: EquipmentSlot): Boolean =
-    this.getOrCreateItemMeta().removeAttributeModifier(slot)
+    acquireThenSetItemMeta<ItemMeta, Boolean> { this.removeAttributeModifier(slot) }
 
-fun ItemStack.removeItemFlags(vararg itemFlags: ItemFlag) = this.getOrCreateItemMeta().removeItemFlags(*itemFlags)
+fun ItemStack.removeItemFlags(vararg itemFlags: ItemFlag) =
+    acquireThenSetItemMeta<ItemMeta> { this.removeItemFlags(*itemFlags) }
 
-fun ItemStack.setAttributeModifiers(attributeModifiers: Multimap<Attribute, AttributeModifier>) {
-    this.getOrCreateItemMeta().attributeModifiers = attributeModifiers
-}
+fun ItemStack.setAttributeModifiers(attributeModifiers: Multimap<Attribute, AttributeModifier>) =
+    acquireThenSetItemMeta<ItemMeta> { this.attributeModifiers = attributeModifiers }
 
-fun ItemStack.setDisplayName(string: String?) {
-    this.getOrCreateItemMeta().displayName = string
-}
+fun ItemStack.setDisplayName(string: String?) =
+    acquireThenSetItemMeta<ItemMeta> { this.displayName = string }
 
-fun ItemStack.setLocalizedName(string: String?) {
-    this.getOrCreateItemMeta().localizedName = string
-}
+fun ItemStack.setLocalizedName(string: String?) =
+    acquireThenSetItemMeta<ItemMeta> { this.localizedName = string }
 
-fun ItemStack.setLore(list: List<String>) {
-    this.getOrCreateItemMeta().lore = list
-}
+fun ItemStack.setLore(list: List<String>) =
+    acquireThenSetItemMeta<ItemMeta> { this.lore = list }
 
-fun ItemStack.setUnbreakable(unbreakable: Boolean) {
-    this.getOrCreateItemMeta().isUnbreakable = unbreakable
-}
+fun ItemStack.setUnbreakable(unbreakable: Boolean) =
+    acquireThenSetItemMeta<ItemMeta> { this.isUnbreakable = unbreakable }
