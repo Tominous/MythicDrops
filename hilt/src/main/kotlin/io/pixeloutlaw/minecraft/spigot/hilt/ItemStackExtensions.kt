@@ -36,11 +36,16 @@ inline fun <reified T : ItemMeta> ItemStack.acquireItemMeta(): T {
 }
 
 inline fun <reified IM : ItemMeta, R> ItemStack.acquireThenSetItemMeta(action: IM.() -> R): R {
-    return action(this.acquireItemMeta())
+    val itemMeta = this.acquireItemMeta<IM>()
+    val retValue = action(itemMeta)
+    this.itemMeta = itemMeta
+    return retValue
 }
 
 inline fun <reified IM : ItemMeta> ItemStack.acquireThenSetItemMeta(action: IM.() -> Unit) {
-    return action(this.acquireItemMeta())
+    val itemMeta = this.acquireItemMeta<IM>()
+    action(itemMeta)
+    this.itemMeta = itemMeta
 }
 
 fun ItemStack.addAttributeModifier(attribute: Attribute, attributeModifier: AttributeModifier) =
