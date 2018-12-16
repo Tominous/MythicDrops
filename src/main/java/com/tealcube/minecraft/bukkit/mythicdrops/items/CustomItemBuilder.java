@@ -82,6 +82,16 @@ public final class CustomItemBuilder {
     return this;
   }
 
+  public CustomItemBuilder withUnbreakable(boolean b) {
+    customItem.setUnbreakable(b);
+    return this;
+  }
+
+  public CustomItemBuilder hasDurability(boolean b) {
+    customItem.setHasDurability(b);
+    return this;
+  }
+
   public CustomItem build() {
     return customItem;
   }
