@@ -20,26 +20,34 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package com.tealcube.minecraft.bukkit.mythicdrops.events;
+
 import com.tealcube.minecraft.bukkit.mythicdrops.api.events.MythicDropsCancellableEvent;
 import com.tealcube.minecraft.bukkit.mythicdrops.api.items.CustomItem;
+
 public class CustomItemGenerationEvent extends MythicDropsCancellableEvent {
+
   private CustomItem customItem;
   private boolean modified = false;
+
   public CustomItemGenerationEvent(CustomItem customItem) {
     this.customItem = customItem;
   }
+
   public CustomItem getCustomItem() {
     return customItem;
   }
+
   public void setCustomItem(CustomItem customItem) {
     this.setCustomItem(customItem, true);
   }
+
   public void setCustomItem(CustomItem customItem, boolean modified) {
     this.customItem = customItem;
     if (modified) {
       this.modified = true;
     }
   }
+
   public boolean isModified() {
     return modified;
   }
