@@ -30,6 +30,7 @@ import java.util.Objects;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 
 public final class MythicCustomItem implements CustomItem {
@@ -131,7 +132,9 @@ public final class MythicCustomItem implements CustomItem {
     Preconditions.checkNotNull(material, "material cannot be null");
     MythicItemStack itemStack = new MythicItemStack(material, 1, durability, displayName, lore,
         enchantments);
-    itemStack.getItemMeta().setUnbreakable(unbreakable);
+    ItemMeta itemMeta = itemStack.getItemMeta();
+    itemMeta.setUnbreakable(unbreakable);
+    itemStack.setItemMeta(itemMeta);
     return itemStack;
   }
 
