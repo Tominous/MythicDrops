@@ -3,7 +3,7 @@ package io.pixeloutlaw.minecraft.spigot.mythicdrops.plugin
 import com.google.common.base.Strings
 import io.pixeloutlaw.minecraft.spigot.hilt.getDisplayName
 import io.pixeloutlaw.minecraft.spigot.hilt.setDisplayName
-import io.pixeloutlaw.minecraft.spigot.plugin.BuildConfig
+import io.pixeloutlaw.minecraft.spigot.mythicdrops.BuildConfig
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -13,7 +13,6 @@ import org.bukkit.plugin.java.annotation.plugin.Plugin
 
 @Plugin(name = BuildConfig.NAME, version = BuildConfig.VERSION)
 class MythicDropsPlugin : JavaPlugin(), Listener {
-
     override fun onEnable() {
         logger.info("onEnable")
         server.pluginManager.registerEvents(this, this)
