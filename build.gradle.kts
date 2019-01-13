@@ -5,7 +5,7 @@ plugins {
     kotlin("jvm") version Versions.org_jetbrains_kotlin_jvm_gradle_plugin apply false
     id("nebula.project") version Versions.nebula_project_gradle_plugin
     id("com.diffplug.gradle.spotless") version Versions.com_diffplug_gradle_spotless_gradle_plugin apply false
-    id("jmfayard.github.io.gradle-kotlin-dsl-libs") version Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin
+    id("de.fayard.buildSrcVersions") version Versions.de_fayard_buildsrcversions_gradle_plugin
 }
 
 allprojects {
