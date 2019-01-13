@@ -1,7 +1,6 @@
 package io.pixeloutlaw.minecraft.spigot.hilt
 
 import com.google.common.collect.Multimap
-import org.bukkit.Bukkit
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.enchantments.Enchantment
@@ -11,63 +10,84 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 
 /**
- * Attempts to get any existing ItemMeta off of the ItemStack. Will create and apply
- * an ItemMeta if one doesn't exist.
+ * Acquires the ItemMeta, runs an action on it, then sets the ItemMeta.
  *
- * @return existing or new ItemMeta
+ * @param action Action to perform on the ItemMeta
  */
-fun ItemStack.getOrCreateItemMeta(): ItemMeta {
-    if (!this.hasItemMeta()) {
-        this.itemMeta = Bukkit.getItemFactory().getItemMeta(this.type)
-    }
-    return this.itemMeta
-}
-
-inline fun <reified T : ItemMeta> ItemStack.hasItemMetaType(): Boolean {
-    return this.getOrCreateItemMeta() is T
+inline fun ItemStack.getThenSetItemMeta(action: ItemMeta.() -> Unit) {
+    val itemMeta = this.itemMeta
+    action(itemMeta)
+    this.itemMeta = itemMeta
 }
 
 /**
- * Acquires the ItemMeta for the ItemStack that matches ```T```.
+ * Acquires the ItemMeta, runs an action on it, sets the ItemMeta, and returns the result of the action.
  *
- * Effectively the same as calling ```getOrCreateItemMeta() as? T```.
- *
- * @param T subclass of ItemMeta
- * @return ItemMeta cast to T
+ * @param R Return type of the Action
+ * @param action Action to perform on the ItemMeta
+ * @return result of the action
  */
-inline fun <reified T : ItemMeta> ItemStack.acquireItemMeta(): T {
-    return this.getOrCreateItemMeta() as T
-}
-
-inline fun <reified IM : ItemMeta, R> ItemStack.acquireThenSetItemMeta(action: IM.() -> R): R {
-    val itemMeta = this.acquireItemMeta<IM>()
+inline fun <R> ItemStack.getThenSetItemMeta(action: ItemMeta.() -> R): R {
+    val itemMeta = this.itemMeta
     val retValue = action(itemMeta)
     this.itemMeta = itemMeta
     return retValue
 }
 
-inline fun <reified IM : ItemMeta> ItemStack.acquireThenSetItemMeta(action: IM.() -> Unit) {
-    val itemMeta = this.acquireItemMeta<IM>()
+/**
+ * Checks if the ItemMeta of the current ItemStack is of type `IM`.
+ *
+ * @param IM Subclass of ItemMeta
+ * @return if ItemMeta is of expected type
+ */
+inline fun <reified IM : ItemMeta> ItemStack.hasItemMetaOf(): Boolean {
+    return this.itemMeta is IM
+}
+
+/**
+ * Acquires the ItemMeta of type `IM`, runs an action on it, then sets the ItemMeta.
+ *
+ * @param IM Subclass of ItemMeta
+ * @param action Action to perform on the ItemMeta
+ */
+inline fun <reified IM : ItemMeta> ItemStack.getThenSetItemMetaAs(action: IM.() -> Unit) {
+    val itemMeta = this.itemMeta as IM
     action(itemMeta)
     this.itemMeta = itemMeta
 }
 
+/**
+ * Acquires the ItemMeta of type `IM`, runs an action on it, sets the ItemMeta,
+ * and returns the result of the action.
+ *
+ * @param IM Subclass of ItemMeta
+ * @param R Return type of action
+ * @param action Action to perform on the ItemMeta
+ * @return result of the action
+ */
+inline fun <reified IM : ItemMeta, R> ItemStack.getThenSetItemMetaAs(action: IM.() -> R): R {
+    val itemMeta = this.itemMeta as IM
+    val retValue = action(itemMeta)
+    this.itemMeta = itemMeta
+    return retValue
+}
+
 fun ItemStack.addAttributeModifier(attribute: Attribute, attributeModifier: AttributeModifier) =
-    acquireThenSetItemMeta<ItemMeta, Boolean> { this.addAttributeModifier(attribute, attributeModifier) }
+    getThenSetItemMeta<Boolean> { this.addAttributeModifier(attribute, attributeModifier) }
 
 fun ItemStack.addItemFlags(vararg itemFlags: ItemFlag) =
-    acquireThenSetItemMeta<ItemMeta> { this.addItemFlags(*itemFlags) }
+    getThenSetItemMeta { this.addItemFlags(*itemFlags) }
 
 fun ItemStack.getAttributeModifiers(): Multimap<Attribute, AttributeModifier> =
-    this.getOrCreateItemMeta().attributeModifiers
+    this.itemMeta.attributeModifiers
 
 fun ItemStack.getAttributeModifiers(attribute: Attribute): Collection<AttributeModifier> =
-    this.getOrCreateItemMeta().getAttributeModifiers(attribute)
+    this.itemMeta.getAttributeModifiers(attribute)
 
 fun ItemStack.getAttributeModifiers(slot: EquipmentSlot): Multimap<Attribute, AttributeModifier> =
-    this.getOrCreateItemMeta().getAttributeModifiers(slot)
+    this.itemMeta.getAttributeModifiers(slot)
 
-fun ItemStack.getDisplayName(): String? = this.getOrCreateItemMeta().let {
+fun ItemStack.getDisplayName(): String? = this.itemMeta.let {
     return if (it.hasDisplayName()) {
         it.displayName
     } else {
@@ -75,9 +95,9 @@ fun ItemStack.getDisplayName(): String? = this.getOrCreateItemMeta().let {
     }
 }
 
-fun ItemStack.getItemFlags(): Set<ItemFlag> = this.getOrCreateItemMeta().itemFlags
+fun ItemStack.getItemFlags(): Set<ItemFlag> = this.itemMeta.itemFlags
 
-fun ItemStack.getLocalizedName(): String? = this.getOrCreateItemMeta().let {
+fun ItemStack.getLocalizedName(): String? = this.itemMeta.let {
     return if (it.hasLocalizedName()) {
         it.localizedName
     } else {
@@ -85,7 +105,7 @@ fun ItemStack.getLocalizedName(): String? = this.getOrCreateItemMeta().let {
     }
 }
 
-fun ItemStack.getLore(): List<String> = this.getOrCreateItemMeta().let {
+fun ItemStack.getLore(): List<String> = this.itemMeta.let {
     return if (it.hasLore()) {
         it.lore
     } else {
@@ -93,44 +113,44 @@ fun ItemStack.getLore(): List<String> = this.getOrCreateItemMeta().let {
     }
 }
 
-fun ItemStack.hasAttributeModifiers(): Boolean = this.getOrCreateItemMeta().hasAttributeModifiers()
+fun ItemStack.hasAttributeModifiers(): Boolean = this.itemMeta.hasAttributeModifiers()
 
 fun ItemStack.hasConflictingEnchantment(ench: Enchantment): Boolean =
-    this.getOrCreateItemMeta().hasConflictingEnchant(ench)
+    this.itemMeta.hasConflictingEnchant(ench)
 
-fun ItemStack.hasDisplayName(): Boolean = this.getOrCreateItemMeta().hasDisplayName()
+fun ItemStack.hasDisplayName(): Boolean = this.itemMeta.hasDisplayName()
 
-fun ItemStack.hasItemFlag(flag: ItemFlag): Boolean = this.getOrCreateItemMeta().hasItemFlag(flag)
+fun ItemStack.hasItemFlag(flag: ItemFlag): Boolean = this.itemMeta.hasItemFlag(flag)
 
-fun ItemStack.hasLocalizedName(): Boolean = this.getOrCreateItemMeta().hasLocalizedName()
+fun ItemStack.hasLocalizedName(): Boolean = this.itemMeta.hasLocalizedName()
 
-fun ItemStack.hasLore(): Boolean = this.getOrCreateItemMeta().hasLore()
+fun ItemStack.hasLore(): Boolean = this.itemMeta.hasLore()
 
-fun ItemStack.isUnbreakable(): Boolean = this.getOrCreateItemMeta().isUnbreakable
+fun ItemStack.isUnbreakable(): Boolean = this.itemMeta.isUnbreakable
 
 fun ItemStack.removeAttributeModifier(attribute: Attribute) =
-    acquireThenSetItemMeta<ItemMeta, Boolean> { this.removeAttributeModifier(attribute) }
+    getThenSetItemMeta<Boolean> { this.removeAttributeModifier(attribute) }
 
 fun ItemStack.removeAttributeModifier(attribute: Attribute, modifier: AttributeModifier) =
-    acquireThenSetItemMeta<ItemMeta, Boolean> { this.removeAttributeModifier(attribute, modifier) }
+    getThenSetItemMeta<Boolean> { this.removeAttributeModifier(attribute, modifier) }
 
 fun ItemStack.removeAttributeModifier(slot: EquipmentSlot) =
-    acquireThenSetItemMeta<ItemMeta, Boolean> { this.removeAttributeModifier(slot) }
+    getThenSetItemMeta<Boolean> { this.removeAttributeModifier(slot) }
 
 fun ItemStack.removeItemFlags(vararg itemFlags: ItemFlag) =
-    acquireThenSetItemMeta<ItemMeta> { this.removeItemFlags(*itemFlags) }
+    getThenSetItemMeta { this.removeItemFlags(*itemFlags) }
 
 fun ItemStack.setAttributeModifiers(attributeModifiers: Multimap<Attribute, AttributeModifier>) =
-    acquireThenSetItemMeta<ItemMeta> { this.attributeModifiers = attributeModifiers }
+    getThenSetItemMeta { this.attributeModifiers = attributeModifiers }
 
 fun ItemStack.setDisplayName(string: String?) =
-    acquireThenSetItemMeta<ItemMeta> { this.displayName = string }
+    getThenSetItemMeta { this.displayName = string }
 
 fun ItemStack.setLocalizedName(string: String?) =
-    acquireThenSetItemMeta<ItemMeta> { this.localizedName = string }
+    getThenSetItemMeta { this.localizedName = string }
 
 fun ItemStack.setLore(list: List<String>) =
-    acquireThenSetItemMeta<ItemMeta> { this.lore = list }
+    getThenSetItemMeta { this.lore = list }
 
 fun ItemStack.setUnbreakable(unbreakable: Boolean) =
-    acquireThenSetItemMeta<ItemMeta> { this.isUnbreakable = unbreakable }
+    getThenSetItemMeta { this.isUnbreakable = unbreakable }
