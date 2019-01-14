@@ -30,7 +30,7 @@ compileTestKotlin.kotlinOptions {
 }
 
 tasks.withType(ShadowJar::class) {
-    classifier = ""
+    archiveClassifier.set("")
     dependencyFilter.apply {
         include(project(":hilt"))
         include(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8"))

@@ -13,7 +13,7 @@ object Versions {
 
     const val de_fayard_buildsrcversions_gradle_plugin: String = "0.3.2" 
 
-    const val io_pixeloutlaw_gradle_buildconfigkt_gradle_plugin: String = "0.1.2" 
+    const val io_pixeloutlaw_gradle_buildconfigkt_gradle_plugin: String = "0.1.4"
 
     const val nebula_project_gradle_plugin: String = "5.2.1" 
 
