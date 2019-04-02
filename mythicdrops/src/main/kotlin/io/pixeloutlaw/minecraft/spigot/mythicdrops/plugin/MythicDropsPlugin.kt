@@ -24,9 +24,6 @@ class MythicDropsPlugin : JavaPlugin(), Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onBlockDamageEvent(event: BlockDamageEvent) {
-        if (event.player == null) {
-            return
-        }
         val itemInHand = event.itemInHand
         itemInHand.setDisplayName("${Strings.nullToEmpty(itemInHand.getDisplayName())}d")
         event.player.updateInventory()

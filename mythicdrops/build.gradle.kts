@@ -20,16 +20,7 @@ dependencies {
     kapt(Libs.plugin_annotations)
 }
 
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-
-tasks.withType(ShadowJar::class) {
+tasks.withType<ShadowJar> {
     archiveClassifier.set("")
     dependencyFilter.apply {
         include(project(":hilt"))

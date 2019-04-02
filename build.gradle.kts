@@ -1,4 +1,6 @@
 import com.diffplug.gradle.spotless.SpotlessExtension
+import com.diffplug.gradle.spotless.SpotlessPlugin
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     base
@@ -8,29 +10,20 @@ plugins {
     id("de.fayard.buildSrcVersions") version Versions.de_fayard_buildsrcversions_gradle_plugin
 }
 
-allprojects {
-    group = "io.pixeloutlaw.minecraft.spigot"
-    version = "420.0.0-SNAPSHOT"
-
-    repositories {
-        mavenCentral()
-        jcenter()
-        maven {
-            url = uri("https://hub.spigotmc.org/nexus/content/groups/public")
-        }
-        maven { url = uri("https://jitpack.io") }
-    }
-}
-
 subprojects {
-    afterEvaluate {
-        this.plugins.apply("com.diffplug.gradle.spotless")
-        configure<SpotlessExtension> {
+    pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
+        this@subprojects.pluginManager.apply(SpotlessPlugin::class.java)
+        this@subprojects.configure<SpotlessExtension> {
             kotlin {
+                target("src/**/*.kt")
                 ktlint()
             }
         }
-
-        this.tasks.findByPath("compileKotlin")?.dependsOn("spotlessKotlinApply")
+        this@subprojects.tasks.withType<KotlinCompile> {
+            dependsOn("spotlessKotlinApply")
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
     }
 }
